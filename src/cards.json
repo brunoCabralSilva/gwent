@@ -1,0 +1,146 @@
+[
+  {
+    "faction": "",
+    "name": "Isca",
+    "power": 0,
+    "image": "001",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Troque uma carta no campo de batalha para colocá-la em sua mão novamente."
+  },
+  {
+    "faction": "",
+    "name": "Corneta do Comandante",
+    "power": 0,
+    "image": "002",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira."
+  },
+  {
+    "faction": "",
+    "name": "Queimar",
+    "power": 0,
+    "image": "003",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor."
+  },
+  {
+    "faction": "",
+    "name": "Frio Congelante",
+    "power": 0,
+    "image": "004",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores."
+  },
+  {
+    "faction": "",
+    "name": "Névoa Impenetrável",
+    "power": 0,
+    "image": "005",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores."
+  },
+  {
+    "faction": "",
+    "name": "Chuva Torrencial",
+    "power": 0,
+    "image": "006",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Define para 1 a força de todas as cartas de Cerco para ambos os jogadores."
+  },
+  {
+    "faction": "",
+    "name": "Tempo Claro",
+    "power": 0,
+    "image": "007",
+    "typeCard": "effect",
+    "hero": false,
+    "effect": "Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial)."
+  },
+  {
+    "faction": "",
+    "name": "Villentretenmerth",
+    "power": 7,
+    "image": "008",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor."
+  },
+  {
+    "faction": "",
+    "name": "Vesemir",
+    "power": 6,
+    "image": "009",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "",
+    "name": "Zoltan Chivay",
+    "power": 5,
+    "image": "010",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "",
+    "name": "Dandelion",
+    "power": 2,
+    "image": "011",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira."
+  },
+  {
+    "faction": "",
+    "name": "Geralt de Rivia",
+    "power": 15,
+    "image": "138",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "",
+    "name": "Cirilla Fiona Elen Riannon",
+    "power": 15,
+    "image": "139",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "",
+    "name": "Yennefer de Vengerberg",
+    "power": 7,
+    "image": "140",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "",
+    "name": "Avallac'h",
+    "power": 0,
+    "image": "142",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "",
+    "name": "Emiel Regis Rohellec Terzieff",
+    "power": 5,
+    "image": "151",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  }
+]
