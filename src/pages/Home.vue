@@ -5,7 +5,7 @@
       <div
         class="item-grid"
       >
-        <img src="../assets/logo.png" alt="Descrição da imagem">
+        <img src="../assets/logo.png" id="logo" alt="Descrição da imagem">
       </div>
       <router-link to="/cards" class="item-grid">
         <div class="background"></div>
@@ -139,6 +139,10 @@
     .img {
       width: 100%;
       height: 100%;
+    }
+
+    #logo {
+      width: 60%;
     }
 
     .grid {
