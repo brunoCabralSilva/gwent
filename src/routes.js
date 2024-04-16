@@ -6,6 +6,7 @@ import Players from './pages/Players.vue';
 import Matchs from './pages/Matchs.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
+import ChatPage from './pages/Chat.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,6 +18,8 @@ const router = createRouter({
     { path: '/matchs', component: Matchs },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
+    { path: '/chats/:id', name: 'chat', component: ChatPage, props: true,
+    },
   ]
 });
 

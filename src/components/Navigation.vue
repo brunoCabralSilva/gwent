@@ -15,6 +15,7 @@
   </nav>
   <img id="wallpaper" src="../assets/05.png" alt="Descrição da imagem">
   <div v-if="isOpen" class="div-options">
+    <img v-if="image !== ''" :src="image" alt="imagem de perfil do usuário">
     <router-link to="/" class="link" @click="toggleMenu">Home</router-link>
     <router-link to="/cards" class="link" @click="toggleMenu">Cartas</router-link>
     <router-link to="/players" class="link" @click="toggleMenu">Jogadores</router-link>
@@ -29,10 +30,10 @@
       Login
     </router-link>
     <router-link
-      v-else
-      to="/logout"
+      v-if="login"
+      @click="signOutFirebase"
+      to="/"
       class="link-login"
-      @click="toggleMenu"
     >
       Logout
     </router-link>
@@ -40,19 +41,35 @@
 </template>
 
 <script>
+  import router from "@/routes";
+  import { authenticate, signOutFirebase } from "../firebase/authenticate";
+  import { getUserByEmail } from "../firebase/user";
   export default {
     name: "NavigationBar",
     data() {
       return {
         isOpen: false,
         login: false,
+        image: '',
       };
     },
-    components: {
+    async created() {
+      const auth = await authenticate();
+      if (auth) {
+        const userByEmail = await getUserByEmail(auth.email);
+        this.image = userByEmail.image;
+        this.login = true;
+      }
+      else this.login = false;
     },
     methods: {
       toggleMenu() {
         this.isOpen = !this.isOpen;
+      },
+      async signOutFirebase() {
+        await signOutFirebase();
+        this.login = false;
+        router.push('/');
       }
     }
   }
@@ -95,6 +112,14 @@
     z-index: 40;
     border-left: 2px solid #007C44;
     transition: transform 0.3s ease-in-out;
+  }
+
+  .div-options img {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    border: 2px solid #007C44;
+    margin-bottom: 30px;
   }
 
   .link {

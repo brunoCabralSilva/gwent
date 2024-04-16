@@ -1,4 +1,5 @@
 <template>
+  <Navigation />
   <div class="hello">
     <div class="grid">
       <div
@@ -24,12 +25,21 @@
       </router-link>
     </div>
   </div>
+  <FooterElement/>
 </template>
 
 <script>
+  import FooterElement from '../components/Footer.vue';
+  import Navigation from '../components/Navigation.vue';
   export default {
     name: 'HomePage',
-    beforeCreate() { window.scrollTo({ top: 0, behavior: 'smooth' }) },
+    async beforeCreate() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    components: {
+      Navigation,
+      FooterElement,
+    },
   }
 </script>
 

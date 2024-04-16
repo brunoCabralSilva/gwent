@@ -1,13 +1,31 @@
 <template>
+  <Navigation />
   <div class="main">
     Partidas
   </div>
+  <FooterElement/>
 </template>
 
 <script>
+  import { useRouter } from "vue-router";
+  import { authenticate } from "../firebase/authenticate";
+  import FooterElement from '../components/Footer.vue';
+  import Navigation from '../components/Navigation.vue';
+
   export default {
     name: 'MatchsPage',
     beforeCreate() { window.scrollTo({ top: 0, behavior: 'smooth' }) },
+    async created() {
+      const router = useRouter();
+      const auth = await authenticate();
+      console.log(auth);
+      if (auth) this.showData = true;
+      else router.push("/login");
+    },
+    components: {
+      Navigation,
+      FooterElement,
+    },
   }
 </script>
 

@@ -127,6 +127,15 @@
   },
   {
     "faction": "",
+    "name": "Triss Merigold",
+    "power": 7,
+    "image": "141",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "",
     "name": "Avallac'h",
     "power": 0,
     "image": "142",
@@ -140,6 +149,1392 @@
     "power": 5,
     "image": "151",
     "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Vernon Roche",
+    "power": 10,
+    "image": "09",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "John Natalis",
+    "power": 10,
+    "image": "10",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Esterad Thyssen",
+    "power": 10,
+    "image": "11",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Philippa Eilhart",
+    "power": 10,
+    "image": "12",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Eithné",
+    "power": 10,
+    "image": "17",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Saesenthessis",
+    "power": 10,
+    "image": "18",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Iorveth",
+    "power": 10,
+    "image": "20",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Draug",
+    "power": 10,
+    "image": "143",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Imlerith",
+    "power": 10,
+    "image": "144",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Leshen",
+    "power": 10,
+    "image": "145",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Leto de Gulet",
+    "power": 10,
+    "image": "147",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Morvran Voorhis",
+    "power": 10,
+    "image": "149",
+    "typeCard": "siege",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Tibor Eggebracht",
+    "power": 10,
+    "image": "150",
+    "typeCard": "ranged",
+    "hero": true,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Elemental da Terra",
+    "power": 6,
+    "image": "012",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Demônio",
+    "power": 6,
+    "image": "013",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Elemental do Fogo",
+    "power": 6,
+    "image": "014",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Forktail",
+    "power": 5,
+    "image": "019",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Dama da Praga",
+    "power": 5,
+    "image": "020",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Grifo",
+    "power": 5,
+    "image": "021",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Lobisomem",
+    "power": 5,
+    "image": "022",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Frightener",
+    "power": 5,
+    "image": "023",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Gigante de Gelo",
+    "power": 5,
+    "image": "024",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Grave Hag",
+    "power": 5,
+    "image": "025",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Fetulho",
+    "power": 4,
+    "image": "026",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Endrega",
+    "power": 2,
+    "image": "034",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Cocatriz",
+    "power": 2,
+    "image": "036",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Gárgula",
+    "power": 2,
+    "image": "037",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Nevoloso",
+    "power": 2,
+    "image": "039",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Wyvern",
+    "power": 2,
+    "image": "040",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Arqueiro da Infantaria Negra",
+    "power": 10,
+    "image": "047",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Arqueiro da Infantaria Negra",
+    "power": 10,
+    "image": "048",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Heavy Zerrikanian Fire Scorpion",
+    "power": 10,
+    "image": "049",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Assire Var Anahid",
+    "power": 6,
+    "image": "052",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Fringilla Vigo",
+    "power": 6,
+    "image": "053",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Cahyr Mawr Dyffrin aep Ceallach",
+    "power": 6,
+    "image": "054",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Engenheiro de Cerco",
+    "power": 6,
+    "image": "055",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Renuald aep Matsen",
+    "power": 6,
+    "image": "056",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Zerrikanian Fire Scorpion",
+    "power": 5,
+    "image": "057",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Cynthia",
+    "power": 4,
+    "image": "060",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Rainfarn",
+    "power": 4,
+    "image": "061",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Vanhemar",
+    "power": 4,
+    "image": "062",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Morteisen",
+    "power": 3,
+    "image": "064",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Rotten Mangonel",
+    "power": 3,
+    "image": "065",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Puttkammer",
+    "power": 3,
+    "image": "066",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Albrich",
+    "power": 2,
+    "image": "068",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Sweers",
+    "power": 2,
+    "image": "069",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Vreemde",
+    "power": 2,
+    "image": "070",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Dethmold",
+    "power": 6,
+    "image": "076",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Trebuchet",
+    "power": 6,
+    "image": "077",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Trebuchet",
+    "power": 6,
+    "image": "078",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Balista",
+    "power": 6,
+    "image": "079",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Balista",
+    "power": 6,
+    "image": "080",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Torre de Cerco",
+    "power": 6,
+    "image": "081",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Ves",
+    "power": 5,
+    "image": "082",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Siegfried de Denesle",
+    "power": 5,
+    "image": "083",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Keira Metz",
+    "power": 5,
+    "image": "084",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Síle de Tansarville",
+    "power": 5,
+    "image": "085",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Sabrina Glevissig",
+    "power": 4,
+    "image": "090",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Sheldon Skaggs",
+    "power": 4,
+    "image": "091",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Yarpen Zigrin",
+    "power": 2,
+    "image": "093",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Soldado Raso Redaniano",
+    "power": 1,
+    "image": "096",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Soldado Raso Redaniano",
+    "power": 1,
+    "image": "097",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Dennis Cranmer",
+    "power": 6,
+    "image": "102",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Ida Emean aep Sivney",
+    "power": 6,
+    "image": "103",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Mahakaman Defender",
+    "power": 5,
+    "image": "115",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Mahakaman Defender",
+    "power": 5,
+    "image": "116",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Mahakaman Defender",
+    "power": 5,
+    "image": "117",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Mahakaman Defender",
+    "power": 5,
+    "image": "118",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Mahakaman Defender",
+    "power": 5,
+    "image": "119",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Recruta da Brigada Vrihedd",
+    "power": 4,
+    "image": "120",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Arqueiro Dol Blathanna",
+    "power": 4,
+    "image": "121",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Thoruviel",
+    "power": 2,
+    "image": "126",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Riordain",
+    "power": 1,
+    "image": "130",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Etolian Auxiliary Archers",
+    "power": 1,
+    "image": "072",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Etolian Auxiliary Archers",
+    "power": 1,
+    "image": "073",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Técnico de Cerco",
+    "power": 0,
+    "image": "074",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Menno Coehoorn",
+    "power": 10,
+    "image": "148",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Havekar Healer",
+    "power": 0,
+    "image": "131",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Havekar Healer",
+    "power": 0,
+    "image": "133",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Havekar Healer",
+    "power": 0,
+    "image": "132",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Dun Banner Medic",
+    "power": 5,
+    "image": "088",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Stefan Skellen",
+    "power": 9,
+    "image": "050",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Shilard Fitz-Oesterlen",
+    "power": 7,
+    "image": "051",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Vattier de Rideaux",
+    "power": 4,
+    "image": "063",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Príncipe Stennis",
+    "power": 5,
+    "image": "086",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Sigismund Djikstra",
+    "power": 4,
+    "image": "089",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Thaler",
+    "power": 1,
+    "image": "094",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Isengrim Faolitarna",
+    "power": 10,
+    "image": "19",
+    "typeCard": "melee",
+    "hero": true,
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+  },
+  {
+    "faction": "monsters",
+    "name": "Kayran",
+    "power": 10,
+    "image": "146",
+    "typeCard": "melee and ranged",
+    "hero": true,
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Milva",
+    "power": 10,
+    "image": "101",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Kaedweni Siege Expert",
+    "power": 1,
+    "image": "100",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Kaedweni Siege Expert",
+    "power": 1,
+    "image": "099",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Kaedweni Siege Expert",
+    "power": 1,
+    "image": "098",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Elven Skirmisher",
+    "power": 2,
+    "image": "129",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Elven Skirmisher",
+    "power": 2,
+    "image": "128",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Elven Skirmisher",
+    "power": 2,
+    "image": "127",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Darven Skirmisher",
+    "power": 3,
+    "image": "123",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Darven Skirmisher",
+    "power": 3,
+    "image": "124",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Darven Skirmisher",
+    "power": 3,
+    "image": "125",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Havekar Smuggler",
+    "power": 5,
+    "image": "112",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Havekar Smuggler",
+    "power": 5,
+    "image": "111",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Havekar Smuggler",
+    "power": 5,
+    "image": "110",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Crone: Whispess",
+    "power": 6,
+    "image": "018",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Crone: Weavess",
+    "power": 6,
+    "image": "017",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Crone: Brewess",
+    "power": 6,
+    "image": "017",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Arachas Behemoth",
+    "power": 6,
+    "image": "015",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Arachas",
+    "power": 4,
+    "image": "027",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Arachas",
+    "power": 4,
+    "image": "028",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Arachas",
+    "power": 4,
+    "image": "029",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Vampiro: Ekimmara",
+    "power": 4,
+    "image": "030",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Vampiro: Fleder",
+    "power": 4,
+    "image": "031",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Vampiro: Garkain",
+    "power": 4,
+    "image": "032",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Vampiro: Bruxa",
+    "power": 4,
+    "image": "033",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Nekker",
+    "power": 2,
+    "image": "041",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Nekker",
+    "power": 2,
+    "image": "042",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Nekker",
+    "power": 2,
+    "image": "043",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Ghoul",
+    "power": 1,
+    "image": "044",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Ghoul",
+    "power": 1,
+    "image": "045",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "monsters",
+    "name": "Ghoul",
+    "power": 1,
+    "image": "046",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Jovem Emissário",
+    "power": 5,
+    "image": "058",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Jovem Emissário",
+    "power": 5,
+    "image": "059",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Impera Brigade Guard",
+    "power": 3,
+    "image": "067",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Nausicaa Cavarly Rider",
+    "power": 2,
+    "image": "071",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Catapult",
+    "power": 8,
+    "image": "075",
+    "typeCard": "siege",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Crinfid Reavers Dragon Hunter",
+    "power": 5,
+    "image": "087",
+    "typeCard": "ranged",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Blue Stripes Commando",
+    "power": 5,
+    "image": "092",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "northern realms",
+    "name": "Poo Fucking Infantry",
+    "power": 1,
+    "image": "095",
+    "typeCard": "melee",
+    "hero": false,
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+  },
+  {
+    "faction": "monsters",
+    "name": "Harpia",
+    "power": 2,
+    "image": "035",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "monsters",
+    "name": "Harpia Celaeno",
+    "power": 2,
+    "image": "038",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Ciaran aep Easnillien",
+    "power": 3,
+    "image": "122",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Vrihedd Brigade Veteran",
+    "power": 5,
+    "image": "114",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Vrihedd Brigade Veteran",
+    "power": 5,
+    "image": "113",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Dol Blathanna Scout",
+    "power": 6,
+    "image": "107",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Dol Blathanna Scout",
+    "power": 6,
+    "image": "108",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Dol Blathanna Scout",
+    "power": 6,
+    "image": "109",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Barclay Els",
+    "power": 6,
+    "image": "106",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Yaevinn",
+    "power": 6,
+    "image": "105",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Filavandrel aén Fidháil",
+    "power": 6,
+    "image": "104",
+    "typeCard": "melee and ranged",
+    "hero": false,
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Emhyr var Emreis, a Chama Branca",
+    "power": 0,
+    "image": "01",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Emhyr var Emreis, sua Majestade Imperial",
+    "power": 0,
+    "image": "02",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Emhyr var Emreis, Imperador de Nilgaard",
+    "power": 0,
+    "image": "03",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "nilfgaard",
+    "name": "Emhyr var Emreis, o Implacável",
+    "power": 0,
+    "image": "04",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Foltest, o mestre do cerco",
+    "power": 0,
+    "image": "05",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Foltest, Rei de Teméria",
+    "power": 0,
+    "image": "06",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Foltest, Lorde Comandante do Norte",
+    "power": 0,
+    "image": "07",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "northern realms",
+    "name": "Foltest, o Forjado em Aço",
+    "power": 0,
+    "image": "08",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Fancesca Findabair, a Bela",
+    "power": 0,
+    "image": "13",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Fancesca Findabair, a Elfa Puro Sangue",
+    "power": 0,
+    "image": "14",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Fancesca Findabair, Margarida do Vale",
+    "power": 0,
+    "image": "15",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "scoiatael",
+    "name": "Fancesca Findabair, Rainha de Dol Blathanna",
+    "power": 0,
+    "image": "16",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Eredin, o que traz a Morte",
+    "power": 0,
+    "image": "134",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Eredin, Comandante da Tropa Escarlate",
+    "power": 0,
+    "image": "135",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Eredin, Rei da Caçada Selvagem",
+    "power": 0,
+    "image": "136",
+    "typeCard": "leader",
+    "hero": false,
+    "effect": ""
+  },
+  {
+    "faction": "monsters",
+    "name": "Eredin, Destruidor de Mundos",
+    "power": 0,
+    "image": "137",
+    "typeCard": "leader",
     "hero": false,
     "effect": ""
   }
