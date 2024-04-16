@@ -9,19 +9,19 @@
       </div>
       <router-link to="/cards" class="item-grid">
         <div class="background"></div>
-        <p>Cartas 2</p>
+        <p>Cartas</p>
       </router-link>
       <router-link to="/players" class="item-grid">
         <div class="background"></div>
-        <p>Jogadores 3</p>
+        <p>Jogadores</p>
       </router-link>
       <router-link to="/matchs" class="item-grid">
         <div class="background"></div>
-        <p>Partidas 4</p>
+        <p>Partidas</p>
       </router-link>
       <router-link to="/deck" class="item-grid">
         <div class="background"></div>
-        <p>Meu Baralho 5</p>
+        <p>Meu Baralho</p>
       </router-link>
     </div>
   </div>
