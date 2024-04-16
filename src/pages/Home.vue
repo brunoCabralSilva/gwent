@@ -9,19 +9,19 @@
       </div>
       <router-link to="/cards" class="item-grid">
         <div class="background"></div>
-        <p>Cartas</p>
+        <p>Cartas 2</p>
       </router-link>
       <router-link to="/players" class="item-grid">
         <div class="background"></div>
-        <p>Jogadores</p>
-      </router-link>
-      <router-link to="/deck" class="item-grid">
-        <div class="background"></div>
-        <p>Meu Baralho</p>
+        <p>Jogadores 3</p>
       </router-link>
       <router-link to="/matchs" class="item-grid">
         <div class="background"></div>
-        <p>Partidas</p>
+        <p>Partidas 4</p>
+      </router-link>
+      <router-link to="/deck" class="item-grid">
+        <div class="background"></div>
+        <p>Meu Baralho 5</p>
       </router-link>
     </div>
   </div>
@@ -54,10 +54,10 @@
 
   .grid {
     display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     gap: 20px;
     padding: 20px;
+    width: 100%;
   }
 
   .item-grid {
@@ -73,30 +73,33 @@
     background-image: url('../assets/005.jpg');
     background-size: cover;
     background-position: center;
-    grid-column: span 2;
+    grid-column: span 3;
     cursor: auto;
   }
 
   .item-grid:nth-child(2) {
-    background-image: url('../assets/010.png');
+    background-image: url('../assets/009.png');
     background-size: cover;
     background-position: center;
-    grid-row: span 2;
+    grid-row: span 3;
+    grid-column: span 2;
     height: 100%;
   }
 
   .item-grid:nth-child(3) {
-    background-image: url('../assets/013.jpg');
+    background-image: url('../assets/010.png');
     background-size: cover;
     background-position: center;
-    height: 40vh
+    height: 100%;
+    grid-row: span 2;
   }
 
   .item-grid:nth-child(4) {
-    background-image: url('../assets/009.png');
+    background-image: url('../assets/013.jpg');
     background-size: cover;
     background-position: top;
-    height: 40vh
+    height: 30vh;
+    grid-column: span 2;
   }
 
   .item-grid:nth-child(5) {
@@ -104,7 +107,7 @@
     background-size: cover;
     background-position: center;
     grid-column: span 2;
-    height: 40vh
+    height: 30vh
   }
 
   .background {
@@ -125,10 +128,53 @@
     padding: 15px;
   }
 
-  @media screen and (max-width: 540px) {
+  @media screen and (max-width: 850px) {
     .grid {
         gap: 10px;
+        display: grid;
         padding: 0 20px;
+        grid-template-columns: auto auto;
+      }
+
+      .item-grid:nth-child(1) {
+        background-image: url('../assets/005.jpg');
+        background-size: cover;
+        background-position: center;
+        grid-column: span 2;
+        cursor: auto;
+      }
+
+      .item-grid:nth-child(2) {
+        background-image: url('../assets/010.png');
+        background-size: cover;
+        background-position: center;
+        grid-row: span 2;
+        grid-column: span 1;
+        height: 30vh;
+      }
+
+      .item-grid:nth-child(3) {
+        background-image: url('../assets/013.jpg');
+        background-size: cover;
+        background-position: center;
+        grid-row: span 3;
+        height: 100%;
+      }
+
+      .item-grid:nth-child(4) {
+        background-image: url('../assets/009.png');
+        background-size: cover;
+        background-position: top;
+        grid-column: span 1;
+        height: 30vh;
+      }
+
+      .item-grid:nth-child(5) {
+        background-image: url('../assets/012.png');
+        background-size: cover;
+        background-position: center;
+        grid-column: span 2;
+        height: 30vh;
       }
   }
 </style>

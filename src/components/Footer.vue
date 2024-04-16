@@ -66,10 +66,11 @@
 
   @media screen and (max-width: 540px) {
     footer {
+      margin-top: 20px;
       flex-direction: column;
     }
 
-    .data-footer {
+    .data-footer {      
       display: flex;
       flex-direction: column;
       justify-content: "";

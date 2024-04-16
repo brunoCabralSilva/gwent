@@ -218,6 +218,7 @@
   @media screen and (max-width: 649px) {
     .div-options {
       width: 100%;
+      border: none;
     }
   }
 </style>
