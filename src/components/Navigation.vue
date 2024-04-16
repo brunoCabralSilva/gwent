@@ -208,4 +208,16 @@
     background-color: #007C44;
     opacity: 0;
   }
+
+  @media screen and (max-width: 900px) {
+    .div-options {
+      width: 50%;
+    }
+  }
+  
+  @media screen and (max-width: 649px) {
+    .div-options {
+      width: 100%;
+    }
+  }
 </style>
