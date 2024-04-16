@@ -157,7 +157,7 @@
       }
 
       .item-grid:nth-child(2) {
-        background-image: url('../assets/010.png');
+        background-image: url('../assets/013.jpg');
         background-size: cover;
         background-position: center;
         grid-row: span 2;
@@ -166,7 +166,7 @@
       }
 
       .item-grid:nth-child(3) {
-        background-image: url('../assets/013.jpg');
+        background-image: url('../assets/010.png');
         background-size: cover;
         background-position: center;
         grid-row: span 3;
