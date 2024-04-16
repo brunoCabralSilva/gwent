@@ -46,6 +46,8 @@
 <style scoped>
   img {
     height: 30vh;
+    width: 100%;
+    object-fit: contain;
   }
 
   .hello {
@@ -75,6 +77,7 @@
     background-position: center;
     grid-column: span 3;
     cursor: auto;
+    width: "100%";
   }
 
   .item-grid:nth-child(2) {
@@ -84,6 +87,7 @@
     grid-row: span 3;
     grid-column: span 2;
     height: 100%;
+    width: "100%";
   }
 
   .item-grid:nth-child(3) {
@@ -92,6 +96,7 @@
     background-position: center;
     height: 100%;
     grid-row: span 2;
+    width: "100%";
   }
 
   .item-grid:nth-child(4) {
@@ -100,6 +105,7 @@
     background-position: top;
     height: 30vh;
     grid-column: span 2;
+    width: "100%";
   }
 
   .item-grid:nth-child(5) {
@@ -107,7 +113,8 @@
     background-size: cover;
     background-position: center;
     grid-column: span 2;
-    height: 30vh
+    height: 30vh;
+    width: "100%";
   }
 
   .background {
@@ -129,6 +136,11 @@
   }
 
   @media screen and (max-width: 850px) {
+    .img {
+      width: 100%;
+      height: 100%;
+    }
+
     .grid {
         gap: 10px;
         display: grid;
