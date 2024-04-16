@@ -26,7 +26,6 @@
 <style scoped>
   img {
     width: 40px;
-    height: 40px;
   }
 
   footer {
@@ -77,6 +76,11 @@
       align-items: center;
       gap: 15px;
       padding: 20px 0 10px 0;
+    }
+
+    img {
+      width: 30%;
+      object-fit: contain;
     }
 
   }
