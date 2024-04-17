@@ -138,6 +138,32 @@ export async function updateUserById(userData) {
   }
 }
 
+export async function updateDeckUser(email, faction, deckCards, leader) {
+  try {
+    const user = await getUserByEmail(email);
+    if (!user) {
+      window.alert('Usuário com o email fornecido não encontrado.');
+      return false;
+    }
+    const deckIndex = user.decks.findIndex(deck => deck.type === faction.faction);
+    if (deckIndex === -1) {
+      window.alert('Deck para a facção especificada não encontrado.');
+      return false;
+    }
+    user.decks[deckIndex].cards = deckCards;
+    user.decks[deckIndex].leader = leader;
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const userDocRef = doc(db, 'users', user.id);
+    await updateDoc(userDocRef, user);
+    window.alert(`Baralho de ${faction.name} salvo com sucesso!`);
+    return true;
+  } catch (error) {
+    window.alert('Erro ao salvar o baralho do usuário para a Facção ' + faction.name + ': ' + error);
+    return false;
+  }
+}
+
 export async function createProfileImage (id, img){
   try {
     const app = initializeApp(firebaseConfig);

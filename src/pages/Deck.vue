@@ -6,19 +6,28 @@
       <button
         type="button"
         @click="previousFaction"
+        class="next-previous-button"
       >
-        Anterior
+        <FontAwesomeIcon
+          :icon="['fas', 'angle-left']"
+          class="next-previous"
+        />
       </button>
       <p>{{ faction.name }}</p>
       <button
         type="button"
         @click="nextFaction"
+        class="next-previous-button"
       >
-        Próximo
+        <FontAwesomeIcon
+          :icon="['fas', 'angle-right']"
+          class="next-previous"
+        />
       </button>
     </div>
     <p>Cartas no Baralho</p>
   </div>
+  <p class="faction-effect">{{faction.effect}}</p>
   <div class="menu">
     <div class="list-cards">
       <div v-for="(card, index) in sortItems(allCards)" :key="index" class="card">
@@ -32,9 +41,25 @@
     </div>
     <div class="details">
       <p class="title-leader">Líder</p>
-      <img v-if="leaders.length > 0" :src="require(`../assets/cards/${leaders[0].image}.png`)" alt="Carta líder" id="leader" />
+      <div class="leader-div">
+        <button
+          type="button"
+          @click="previousLeader"
+          class="next-previous-button"
+        >
+          <FontAwesomeIcon :icon="['fas', 'angle-left']" class="next-previous" />
+        </button>
+        <img v-if="leaders.length > 0" :src="require(`../assets/cards/${selectedLeader.image}.png`)" alt="Carta líder" id="leader" />
+        <button
+          type="button"
+          @click="nextLeader"
+          class="next-previous-button"
+        >
+          <FontAwesomeIcon :icon="['fas', 'angle-right']" class="next-previous" />
+        </button>
+      </div>
       <p class="title">Todas as cartas do baralho</p>
-      <p :class="'title' + (this.deckCards.length < 22 ? ' text-red' : '')">
+      <p :class="'title' + (numberOfCards < 22 ? ' text-red' : '')">
         {{ numberOfCards }}<span>{{ numberOfCards < 22 ? '/22' : '' }}</span>
       </p>
       <p class="title">Quant. de cartas de Unidades</p>
@@ -45,7 +70,7 @@
       <p>{{ sumPower }}</p>
       <p class="title">Cartas de Herói</p>
       <p>{{ heroCards }}</p>
-      <button type="button" class="save">Salvar</button>
+      <button type="button" class="save" @click="saveDeck">Salvar</button>
     </div>
     <div class="list-cards-02">
       <div v-if="deckCards.length > 0" class="div-list-cards">
@@ -66,10 +91,17 @@
 <script>
   import { useRouter } from "vue-router";
   import { authenticate } from "../firebase/authenticate";
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+  import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+  import { library } from '@fortawesome/fontawesome-svg-core'
   import FooterElement from '../components/Footer.vue';
   import Navigation from '../components/Navigation.vue';
   import listCards from '../cards';
-  import { getUserByEmail } from "@/firebase/user";
+  import { getUserByEmail, updateDeckUser } from "@/firebase/user";
+  library.add(faAngleLeft);
+  library.add(faAngleRight);
+
   export default {
     name: 'DeckByType',
     beforeCreate() {
@@ -78,15 +110,16 @@
     data() {
       return {
         factions: [
-          { faction: 'northern realms', name: 'Reinos do Norte' },
-          { faction: 'nilfgaard', name: 'Nilfgaard' },
-          { faction: 'monsters', name: 'Monstros' },
-          { faction: 'scoiatael', name: "Scoia'tael" },
-          { faction: 'skellige', name: 'Skellige' },
+          { faction: 'northern realms', name: 'Reinos do Norte', effect: 'Uma Carta de Unidade de Monstro escolhida aleatoriamente fica no campo de batalha depois de cada rodada.' },
+          { faction: 'nilfgaard', name: 'Nilfgaard', effect: 'Vença sempre que houver um empate.' },
+          { faction: 'monsters', name: 'Monstros', effect: 'Compre uma carta do seu baralho sempre que vencer uma rodada.' },
+          { faction: 'scoiatael', name: "Scoia'tael", effect: 'Você decide quem começa no início de uma batalha.' },
+          { faction: 'skellige', name: 'Skellige', effect: '' },
         ],
         allCards: [],
         deckCards: [],
         leaders: [],
+        selectedLeader: {},
         unitCards: 0,
         effectCards: 0,
         numberOfCards: 0,
@@ -107,6 +140,24 @@
       else router.push("/login");
     },
     methods: {
+      previousLeader() {
+        if (this.selectedLeader.name === this.leaders[0].name) {
+          this.selectedLeader = this.leaders[this.leaders.length - 1];
+        } else {
+          const currentIndex = this.leaders.findIndex(f => f.name === this.selectedLeader.name);
+          const previousIndex = (currentIndex - 1) % this.leaders.length;
+          this.selectedLeader = this.leaders[previousIndex];
+        }
+      },
+      nextLeader() {
+        if (this.selectedLeader.name === this.leaders[this.leaders.length - 1].name) {
+          this.selectedLeader = this.leaders[0];
+        } else {
+          const currentIndex = this.leaders.findIndex(f => f.name === this.selectedLeader.name);
+          const nextIndex = (currentIndex + 1) % this.leaders.length;
+          this.selectedLeader = this.leaders[nextIndex];
+        }
+      },
       previousFaction() {
         if (this.faction.name === this.factions[0].name) {
           this.faction = this.factions[this.factions.length - 1];
@@ -224,21 +275,71 @@
           const user = await getUserByEmail(auth.email);
           const myCards = user.decks.find((card) => card.type === this.faction.faction);
           this.deckCards = this.sortItems(myCards.cards);
-          const findList = listCards.filter((card) => (card.faction === this.faction.faction || card.faction === '') && card.typeCard !== 'leader');
+          const findList = listCards
+            .filter((card) => (card.faction === this.faction.faction || card.faction === '') && card.typeCard !== 'leader')
+            .filter((item) => {
+              const findItem = myCards.cards.find((card) => item.image === card.image);
+              if (findItem) {
+                if (findItem.quant === item.quant) return false;
+                return true;
+              } return true;
+            }).map((item) => {
+              const findItem = myCards.cards.find((card) => item.image === card.image);
+              if (findItem) {
+                let quantItem = findItem.quant - item.quant;
+                if (quantItem < 0) quantItem += -(quantItem * 2);
+                return { ...item, quant: quantItem };
+              } return item;
+            });
+
           this.allCards = this.sortItems(findList);
           this.leaders = listCards.filter((card) => card.faction === this.faction.faction && card.typeCard === 'leader');
+          if (myCards.leader) {
+            this.selectedLeader = myCards.leader;
+          } else this.selectedLeader = this.leaders[0];
           this.getDataDeck();
         } else router.push("/login");
       },
+      async saveDeck() {
+        const router = useRouter();
+        if (this.numberOfCards < 22) {
+          window.alert('Necessário inserir pelo menos 22 cartas para Registrar um baralho completo');
+        } else {
+          const auth = await authenticate();
+          if (auth) {
+            await updateDeckUser(auth.email, this.faction, this.deckCards, this.selectedLeader);
+          }
+          else router.push("/login");
+        }
+      }
     },
     components: {
       Navigation,
       FooterElement,
+      FontAwesomeIcon,
     },
   }
 </script>
 
 <style scoped>
+  .leader-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .next-previous-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 20px;
+  }
+  .next-previous {
+    font-size: 25px;
+    color: white;
+    font-weight: 800;
+  }
+
   .save {
     padding: 5px 10px;
     margin-top: 10px;
@@ -283,8 +384,13 @@
   .title-menu {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     width: 100%;
+  }
+
+  .faction-effect {
+    padding: 20px;
+    color: white;
   }
 
   .title-menu p {
