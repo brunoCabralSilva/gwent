@@ -2,12 +2,26 @@
   <Navigation />
   <div class="title-menu">
     <p>Todas as Cartas</p>
-    <p>Reinos do Norte</p>
+    <div class="factions">
+      <button
+        type="button"
+        @click="previousFaction"
+      >
+        Anterior
+      </button>
+      <p>{{ faction.name }}</p>
+      <button
+        type="button"
+        @click="nextFaction"
+      >
+        Próximo
+      </button>
+    </div>
     <p>Cartas no Baralho</p>
   </div>
   <div class="menu">
     <div class="list-cards">
-      <div v-for="(card, index) in allCards" :key="index" class="card">
+      <div v-for="(card, index) in sortItems(allCards)" :key="index" class="card">
         <img
           :src="require(`../assets/cards/${card.image}.png`)"
           :alt="`Carta ${card.name}`"
@@ -18,7 +32,7 @@
     </div>
     <div class="details">
       <p class="title-leader">Líder</p>
-      <img :src="require(`../assets/cards/08.png`)" alt="Carta líder" id="leader" />
+      <img v-if="leaders.length > 0" :src="require(`../assets/cards/${leaders[0].image}.png`)" alt="Carta líder" id="leader" />
       <p class="title">Todas as cartas do baralho</p>
       <p :class="'title' + (this.deckCards.length < 22 ? ' text-red' : '')">
         {{ numberOfCards }}<span>{{ numberOfCards < 22 ? '/22' : '' }}</span>
@@ -62,6 +76,13 @@
     },
     data() {
       return {
+        factions: [
+          { faction: 'northern realms', name: 'Reinos do Norte' },
+          { faction: 'nilfgaard', name: 'Nilfgaard' },
+          { faction: 'monsters', name: 'Monstros' },
+          { faction: 'scoiatael', name: "Scoia'tael" },
+          { faction: 'skellige', name: 'Skellige' },
+        ],
         allCards: [],
         deckCards: [],
         leaders: [],
@@ -71,10 +92,11 @@
         sumPower: 0,
         heroCards: 0,
         user: {},
-        faction: 'northern realms',
+        faction: '',
       }
     },
     async created() {
+      this.faction = this.factions[0];
       const router = useRouter();
       const auth = await authenticate();
       if (auth) {
@@ -84,9 +106,29 @@
       else router.push("/login");
     },
     methods: {
+      previousFaction() {
+        if (this.faction.name === this.factions[0].name) {
+          this.faction = this.factions[this.factions.length - 1];
+        } else {
+          const currentIndex = this.factions.findIndex(f => f.name === this.faction.name);
+          const previousIndex = (currentIndex - 1) % this.factions.length;
+          this.faction = this.factions[previousIndex];
+        }
+        this.getUserAndSetCards();
+      },
+      nextFaction() {
+        if (this.faction.name === this.factions[this.factions.length - 1].name) {
+          this.faction = this.factions[0];
+        } else {
+          const currentIndex = this.factions.findIndex(f => f.name === this.faction.name);
+          const nextIndex = (currentIndex + 1) % this.factions.length;
+          this.faction = this.factions[nextIndex];
+        }
+        this.getUserAndSetCards();
+      },
       sortItems(list) {
         return list.sort((a, b) => {
-          const tiposEspeciais = ['siege', 'ranged', 'melee'];
+          const tiposEspeciais = ['siege', 'ranged', 'melee', 'melee and ranged'];
           const tipoA = tiposEspeciais.includes(a.typeCard);
           const tipoB = tiposEspeciais.includes(b.typeCard);
           if (tipoA && !tipoB) return 1;
@@ -135,7 +177,7 @@
       },
       addCard(card) {
         if (card.typeCard !== 'siege' && card.typeCard !== 'ranged' && card.typeCard !== 'melee' && card.typeCard !== 'leader') {
-          if(this.deckCards.filter((cardItem) => cardItem.typeCard !== 'siege' && cardItem.typeCard !== 'ranged' && cardItem.typeCard !== 'melee' && cardItem.typeCard !== 'leader').length <= 9) {
+          if(this.effectCards <= 9) {
             if (card.quant === 1) {
               this.allCards = this.allCards.filter((card1) => card1.image !== card.image);
               this.addToDeck(card);
@@ -179,10 +221,11 @@
         const auth = await authenticate();
         if (auth) {
           const user = await getUserByEmail(auth.email);
-          const myCards = user.decks.find((card) => card.type === this.faction);
+          const myCards = user.decks.find((card) => card.type === this.faction.faction);
           this.deckCards = this.sortItems(myCards.cards);
-          this.allCards = this.sortItems(listCards.filter((card) => (card.faction === this.faction || card.faction === '') && card.typeCard !== 'leader'));
-          this.leaders = listCards.filter((card) => card.faction === this.faction && card.typeCard === 'leader');
+          const findList = listCards.filter((card) => (card.faction === this.faction.faction || card.faction === '') && card.typeCard !== 'leader');
+          this.allCards = this.sortItems(findList);
+          this.leaders = listCards.filter((card) => card.faction === this.faction.faction && card.typeCard === 'leader');
           this.getDataDeck();
         } else router.push("/login");
       },
@@ -201,6 +244,11 @@
 
   .card img {
     position: relative;
+  }
+
+  .factions {
+    display: flex;
+    gap: 20px;
   }
 
   .quant {
