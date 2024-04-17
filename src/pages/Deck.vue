@@ -454,7 +454,7 @@
   p {
     padding-top: 5px;
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     color: #a7a08f;
   }
   
