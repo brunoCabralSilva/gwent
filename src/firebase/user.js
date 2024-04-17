@@ -19,7 +19,7 @@ export async function getPlayers() {
     const firebaseApp = initializeApp(firebaseConfig);
     const db = getFirestore(firebaseApp);
     const usersCollection = collection(db, "users");
-    const querySnapshot = await getDocs(query(usersCollection, where("typeUser", "==", "developer")));
+    const querySnapshot = await getDocs(query(usersCollection));
     const developers = [];
     querySnapshot.forEach(doc => {
       developers.push({ id: doc.id, ...doc.data() });
@@ -49,6 +49,13 @@ export async function registerUser(
       firstName: firstName.toLowerCase(),
       lastName: lastName.toLowerCase(),
       image: imageURL,
+      decks: [
+        { type: 'monsters', cards: [] },
+        { type: 'nilfgaard', cards: [] },
+        { type: 'northern realms', cards: [] },
+        { type: 'scoiatael', cards: [] },
+        { type: 'skellige', cards: [] }
+      ],
     });
     window.alert('Usuário registrado com sucesso!');
     return true;

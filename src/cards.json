@@ -6,7 +6,8 @@
     "image": "001",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Troque uma carta no campo de batalha para colocá-la em sua mão novamente."
+    "effect": "Troque uma carta no campo de batalha para colocá-la em sua mão novamente.",
+    "quant": 3
   },
   {
     "faction": "",
@@ -15,7 +16,8 @@
     "image": "002",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira."
+    "effect": "Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.",
+    "quant": 3
   },
   {
     "faction": "",
@@ -24,7 +26,8 @@
     "image": "003",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor."
+    "effect": "Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.",
+    "quant": 3
   },
   {
     "faction": "",
@@ -33,7 +36,8 @@
     "image": "004",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores."
+    "effect": "Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores.",
+    "quant": 3
   },
   {
     "faction": "",
@@ -42,7 +46,8 @@
     "image": "005",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores."
+    "effect": "Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores.",
+    "quant": 3
   },
   {
     "faction": "",
@@ -51,7 +56,8 @@
     "image": "006",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Define para 1 a força de todas as cartas de Cerco para ambos os jogadores."
+    "effect": "Define para 1 a força de todas as cartas de Cerco para ambos os jogadores.",
+    "quant": 2
   },
   {
     "faction": "",
@@ -60,7 +66,8 @@
     "image": "007",
     "typeCard": "effect",
     "hero": false,
-    "effect": "Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial)."
+    "effect": "Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial).",
+    "quant": 2
   },
   {
     "faction": "",
@@ -70,6 +77,8 @@
     "typeCard": "melee",
     "hero": false,
     "effect": "Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor."
+    ,
+    "quant": 1
   },
   {
     "faction": "",
@@ -78,7 +87,8 @@
     "image": "009",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "",
@@ -87,7 +97,8 @@
     "image": "010",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "",
@@ -96,7 +107,8 @@
     "image": "011",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira."
+    "effect": "Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.",
+    "quant": 1
   },
   {
     "faction": "",
@@ -105,7 +117,8 @@
     "image": "138",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "",
@@ -114,7 +127,8 @@
     "image": "139",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "",
@@ -123,7 +137,8 @@
     "image": "140",
     "typeCard": "ranged",
     "hero": true,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "",
@@ -132,7 +147,8 @@
     "image": "141",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "",
@@ -141,7 +157,8 @@
     "image": "142",
     "typeCard": "melee",
     "hero": true,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "",
@@ -150,7 +167,8 @@
     "image": "151",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -159,7 +177,8 @@
     "image": "09",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -168,7 +187,8 @@
     "image": "10",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -177,7 +197,8 @@
     "image": "11",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -186,7 +207,8 @@
     "image": "12",
     "typeCard": "ranged",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -195,7 +217,8 @@
     "image": "17",
     "typeCard": "ranged",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -204,7 +227,8 @@
     "image": "18",
     "typeCard": "ranged",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -213,7 +237,8 @@
     "image": "20",
     "typeCard": "ranged",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -222,7 +247,8 @@
     "image": "143",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -231,7 +257,8 @@
     "image": "144",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -240,7 +267,8 @@
     "image": "145",
     "typeCard": "ranged",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -249,7 +277,8 @@
     "image": "147",
     "typeCard": "melee",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -258,7 +287,8 @@
     "image": "149",
     "typeCard": "siege",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -267,7 +297,8 @@
     "image": "150",
     "typeCard": "ranged",
     "hero": true,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -276,7 +307,8 @@
     "image": "012",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -285,7 +317,8 @@
     "image": "013",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -294,7 +327,8 @@
     "image": "014",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -303,16 +337,18 @@
     "image": "019",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Dama da Praga",
+    "name": "Dama da Peste",
     "power": 5,
     "image": "020",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -321,7 +357,8 @@
     "image": "021",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -330,7 +367,8 @@
     "image": "022",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -339,7 +377,8 @@
     "image": "023",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -348,16 +387,18 @@
     "image": "024",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Grave Hag",
+    "name": "Bruxa Sepulcral",
     "power": 5,
     "image": "025",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -366,16 +407,18 @@
     "image": "026",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Endrega",
+    "name": "Endriúga",
     "power": 2,
     "image": "034",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -384,7 +427,8 @@
     "image": "036",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -393,7 +437,8 @@
     "image": "037",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -402,7 +447,8 @@
     "image": "039",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -411,7 +457,8 @@
     "image": "040",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -420,7 +467,8 @@
     "image": "047",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -429,16 +477,18 @@
     "image": "048",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
-    "name": "Heavy Zerrikanian Fire Scorpion",
+    "name": "Escorpião de Fogo Pesado da Zerrikânia",
     "power": 10,
     "image": "049",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -447,7 +497,8 @@
     "image": "052",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -456,7 +507,8 @@
     "image": "053",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -465,7 +517,8 @@
     "image": "054",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -474,7 +527,8 @@
     "image": "055",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -483,16 +537,18 @@
     "image": "056",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
-    "name": "Zerrikanian Fire Scorpion",
+    "name": "Escorpião de Fogo da Zerrikânia",
     "power": 5,
     "image": "057",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -501,7 +557,8 @@
     "image": "060",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -510,7 +567,8 @@
     "image": "061",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -519,7 +577,8 @@
     "image": "062",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -528,16 +587,18 @@
     "image": "064",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
-    "name": "Rotten Mangonel",
+    "name": "Manganela Podre",
     "power": 3,
     "image": "065",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -546,7 +607,8 @@
     "image": "066",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -555,7 +617,8 @@
     "image": "068",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -564,7 +627,8 @@
     "image": "069",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -573,7 +637,8 @@
     "image": "070",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -582,43 +647,48 @@
     "image": "076",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Trebuchet",
+    "name": "Catapulta",
     "power": 6,
     "image": "077",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Trebuchet",
+    "name": "Catapulta",
     "power": 6,
     "image": "078",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Balista",
+    "name": "Trabuco",
     "power": 6,
     "image": "079",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Balista",
+    "name": "Trabuco",
     "power": 6,
     "image": "080",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -627,7 +697,8 @@
     "image": "081",
     "typeCard": "siege",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -636,7 +707,8 @@
     "image": "082",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -645,7 +717,8 @@
     "image": "083",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -654,7 +727,8 @@
     "image": "084",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -663,7 +737,8 @@
     "image": "085",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -672,7 +747,8 @@
     "image": "090",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -681,7 +757,8 @@
     "image": "091",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -690,7 +767,8 @@
     "image": "093",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -699,7 +777,8 @@
     "image": "096",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -708,7 +787,8 @@
     "image": "097",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -717,7 +797,8 @@
     "image": "102",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -726,7 +807,8 @@
     "image": "103",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -735,7 +817,8 @@
     "image": "115",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -744,7 +827,8 @@
     "image": "116",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -753,7 +837,8 @@
     "image": "117",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -762,7 +847,8 @@
     "image": "118",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -771,7 +857,8 @@
     "image": "119",
     "typeCard": "melee",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -780,7 +867,8 @@
     "image": "120",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -789,7 +877,8 @@
     "image": "121",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -798,7 +887,8 @@
     "image": "126",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -807,7 +897,8 @@
     "image": "130",
     "typeCard": "ranged",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -816,7 +907,8 @@
     "image": "072",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -825,7 +917,8 @@
     "image": "073",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -834,7 +927,8 @@
     "image": "074",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -843,43 +937,48 @@
     "image": "148",
     "typeCard": "melee",
     "hero": true,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Havekar Healer",
+    "name": "Médico Havekar",
     "power": 0,
     "image": "131",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Havekar Healer",
+    "name": "Médico Havekar",
     "power": 0,
     "image": "133",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Havekar Healer",
+    "name": "Médico Havekar",
     "power": 0,
     "image": "132",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Dun Banner Medic",
+    "name": "Médica da Bandeira de Dun",
     "power": 5,
     "image": "088",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais)."
+    "effect": "Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -888,7 +987,8 @@
     "image": "050",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -897,7 +997,8 @@
     "image": "051",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -906,7 +1007,8 @@
     "image": "063",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -915,7 +1017,8 @@
     "image": "086",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -924,7 +1027,8 @@
     "image": "089",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -933,7 +1037,8 @@
     "image": "094",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho."
+    "effect": "Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -942,7 +1047,8 @@
     "image": "19",
     "typeCard": "melee",
     "hero": true,
-    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -951,7 +1057,8 @@
     "image": "146",
     "typeCard": "melee and ranged",
     "hero": true,
-    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -960,65 +1067,72 @@
     "image": "101",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
+    "quant": 1    
   },
   {
     "faction": "northern realms",
-    "name": "Kaedweni Siege Expert",
+    "name": "Especialista em Cerco Kaedweni",
     "power": 1,
     "image": "100",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Kaedweni Siege Expert",
+    "name": "Especialista em Cerco Kaedweni",
     "power": 1,
     "image": "099",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
+    "quant": 1
   },
   {
     "faction": "northern realms",
-    "name": "Kaedweni Siege Expert",
+    "name": "Especialista em Cerco Kaedweni",
     "power": 1,
     "image": "098",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)."
+    "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Elven Skirmisher",
+    "name": " Elfo Escaramuçador",
     "power": 2,
     "image": "129",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Elven Skirmisher",
+    "name": " Elfo Escaramuçador",
     "power": 2,
     "image": "128",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Elven Skirmisher",
+    "name": " Elfo Escaramuçador",
     "power": 2,
     "image": "127",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Darven Skirmisher",
+    "name": "Anão Escaramuçador",
     "power": 3,
     "image": "123",
     "typeCard": "melee",
@@ -1027,147 +1141,171 @@
   },
   {
     "faction": "scoiatael",
-    "name": "Darven Skirmisher",
+    "name": "Anão Escaramuçador",
     "power": 3,
     "image": "124",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Darven Skirmisher",
+    "name": "Anão Escaramuçador",
     "power": 3,
     "image": "125",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Havekar Smuggler",
+    "name": "Reforço Havekar",
     "power": 5,
     "image": "112",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Havekar Smuggler",
+    "name": "Reforço Havekar",
     "power": 5,
     "image": "111",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Havekar Smuggler",
+    "name": "Reforço Havekar",
     "power": 5,
     "image": "110",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Crone: Whispess",
+    "name": "Moira",
+    "subName": "Moira Sibilante",
     "power": 6,
     "image": "018",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Crone: Weavess",
+    "name": "Moira",
+    "subName": "Moira Tecelã",
     "power": 6,
     "image": "017",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Crone: Brewess",
+    "name": "Moira",
+    "subName": "Moira Alquimista",
     "power": 6,
     "image": "017",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Arachas Behemoth",
+    "name": "Aracna",
+    "subName": "Aracna Gigante",
     "power": 6,
     "image": "015",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Arachas",
+    "name": "Aracna",
     "power": 4,
     "image": "027",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Arachas",
+    "name": "Aracna",
     "power": 4,
     "image": "028",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Arachas",
+    "name": "Aracna",
     "power": 4,
     "image": "029",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Vampiro: Ekimmara",
+    "name": "Vampiro",
+    "subName": "Vampiro Ekimmu",
     "power": 4,
     "image": "030",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Vampiro: Fleder",
+    "name": "Vampiro",
+    "subName": "Vampiro Fleder",
     "power": 4,
     "image": "031",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Vampiro: Garkain",
+    "name": "Vampiro",
+    "subName": "Vampiro Garkain",
     "power": 4,
     "image": "032",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Vampiro: Bruxa",
+    "name": "Vampiro",
+    "subName": "Vampiro Lâmia",
     "power": 4,
     "image": "033",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1176,7 +1314,8 @@
     "image": "041",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1185,7 +1324,8 @@
     "image": "042",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1194,34 +1334,38 @@
     "image": "043",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Ghoul",
+    "name": "Carniçal",
     "power": 1,
     "image": "044",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Ghoul",
+    "name": "Carniçal",
     "power": 1,
     "image": "045",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "monsters",
-    "name": "Ghoul",
+    "name": "Carniçal",
     "power": 1,
     "image": "046",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente"
+    "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -1230,7 +1374,8 @@
     "image": "058",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -1239,25 +1384,28 @@
     "image": "059",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
-    "name": "Impera Brigade Guard",
+    "name": "Guarda da Brigada Imperial",
     "power": 3,
     "image": "067",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 3
   },
   {
     "faction": "nilfgaard",
-    "name": "Nausicaa Cavarly Rider",
+    "name": "Brigada de Cavalaria Nausicaa",
     "power": 2,
     "image": "071",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 3
   },
   {
     "faction": "northern realms",
@@ -1266,34 +1414,38 @@
     "image": "075",
     "typeCard": "siege",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 2
   },
   {
     "faction": "northern realms",
-    "name": "Crinfid Reavers Dragon Hunter",
+    "name": "Crinfind Reavers, Caçador de Dragões",
     "power": 5,
     "image": "087",
     "typeCard": "ranged",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 3
   },
   {
     "faction": "northern realms",
-    "name": "Blue Stripes Commando",
-    "power": 5,
+    "name": "Comando dos Listras Azuis",
+    "power": 4,
     "image": "092",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 3
   },
   {
     "faction": "northern realms",
-    "name": "Poo Fucking Infantry",
+    "name": "Pobre da Infantaria do Caralho",
     "power": 1,
     "image": "095",
     "typeCard": "melee",
     "hero": false,
-    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo)."
+    "effect": "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).",
+    "quant": 3
   },
   {
     "faction": "monsters",
@@ -1302,7 +1454,8 @@
     "image": "035",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1311,7 +1464,8 @@
     "image": "038",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1320,7 +1474,8 @@
     "image": "122",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1329,7 +1484,8 @@
     "image": "114",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1338,34 +1494,38 @@
     "image": "113",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Dol Blathanna Scout",
+    "name": "Batedor de Dol Blathanna",
     "power": 6,
     "image": "107",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Dol Blathanna Scout",
+    "name": "Batedor de Dol Blathanna",
     "power": 6,
     "image": "108",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
-    "name": "Dol Blathanna Scout",
+    "name": "Batedor de Dol Blathanna",
     "power": 6,
     "image": "109",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1374,7 +1534,8 @@
     "image": "106",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1383,7 +1544,8 @@
     "image": "105",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1392,7 +1554,8 @@
     "image": "104",
     "typeCard": "melee and ranged",
     "hero": false,
-    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado."
+    "effect": "Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -1401,7 +1564,8 @@
     "image": "01",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -1410,7 +1574,8 @@
     "image": "02",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -1419,7 +1584,8 @@
     "image": "03",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "nilfgaard",
@@ -1428,7 +1594,8 @@
     "image": "04",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -1437,7 +1604,8 @@
     "image": "05",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -1446,7 +1614,8 @@
     "image": "06",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -1455,7 +1624,8 @@
     "image": "07",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "northern realms",
@@ -1464,7 +1634,8 @@
     "image": "08",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1473,7 +1644,8 @@
     "image": "13",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1482,7 +1654,8 @@
     "image": "14",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1491,7 +1664,8 @@
     "image": "15",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "scoiatael",
@@ -1500,7 +1674,8 @@
     "image": "16",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1509,7 +1684,8 @@
     "image": "134",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1518,7 +1694,8 @@
     "image": "135",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1527,7 +1704,8 @@
     "image": "136",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   },
   {
     "faction": "monsters",
@@ -1536,6 +1714,7 @@
     "image": "137",
     "typeCard": "leader",
     "hero": false,
-    "effect": ""
+    "effect": "",
+    "quant": 1
   }
 ]

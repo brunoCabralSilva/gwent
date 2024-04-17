@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/" >
+    <router-link @click="toggleMenu" to="/" >
       <img
         id="icon"
         src="../assets/logo-2.png"
