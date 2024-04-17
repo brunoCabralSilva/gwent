@@ -59,13 +59,13 @@
         </button>
       </div>
       <p class="title">Todas as cartas do baralho</p>
-      <p :class="'title' + (numberOfCards < 22 ? ' text-red' : '')">
+      <p :class="(numberOfCards < 22 ? ' text-red' : '')">
         {{ numberOfCards }}<span>{{ numberOfCards < 22 ? '/22' : '' }}</span>
       </p>
       <p class="title">Quant. de cartas de Unidades</p>
       <p>{{ unitCards }}</p>
-      <p>Cartas Especiais</p>
-      <p :class="'title' + (this.effectCards === 10 ? ' text-green' : '')">{{ effectCards }}/10</p>
+      <p class="title">Cartas Especiais</p>
+      <p :class="(this.effectCards === 10 ? ' text-green' : '')">{{ effectCards }}/10</p>
       <p class="title">Força total Carta de Unidade</p>
       <p>{{ sumPower }}</p>
       <p class="title">Cartas de Herói</p>
@@ -454,7 +454,7 @@
   p {
     padding-top: 5px;
     color: white;
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: #a7a08f;
   }
   
