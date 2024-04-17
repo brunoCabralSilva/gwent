@@ -7,7 +7,6 @@ import Matchs from './pages/Matchs.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
 import ChatPage from './pages/Chat.vue';
-import DeckByType from './pages/DeckByType.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,7 +19,6 @@ const router = createRouter({
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/chats/:id', name: 'chat', component: ChatPage, props: true },
-    { path: '/deck/:type', name: 'deck', component: DeckByType, props: true },
   ]
 });
 
