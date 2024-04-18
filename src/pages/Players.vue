@@ -62,7 +62,7 @@
 <script>
   import { useRouter } from "vue-router";
   import { authenticate } from "../firebase/authenticate";
-  import { getPlayers } from "@/firebase/user";
+  import { getPlayers, getUserByEmail } from "@/firebase/user";
   import FooterElement from '../components/Footer.vue';
   import Navigation from '../components/Navigation.vue';
   import { invitePlayer } from "@/firebase/matchs";
@@ -79,7 +79,9 @@
         const router = useRouter();
         const auth = await authenticate();
         if (auth) {
-          await invitePlayer(auth.email, email);
+          const userToInvite = this.users.find((user) => user.email === email);
+          const userLogged = await getUserByEmail(auth.email);
+          await invitePlayer(userLogged, userToInvite);
         } else router.push("/login");
       },
     },

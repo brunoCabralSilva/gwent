@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Navigation />
+  <div class="match">
     Olá mundo!
     <div v-for="(message, index) in messages" :key="index">
       {{ message.text }}
@@ -10,7 +11,8 @@
 </template>
 
 <script>
-  import { initializeApp } from "firebase/app";
+  import Navigation from "@/components/Navigation.vue";
+import { initializeApp } from "firebase/app";
   import { getFirestore, updateDoc, getDoc, doc } from "firebase/firestore";
   import { useRouter } from 'vue-router';
 
@@ -27,13 +29,16 @@
   const db = getFirestore(firebaseApp);
 
   export default {
-    name: 'ChatPage',
+    name: 'MatchPage',
     data() {
       return {
         messages: [],
         newMessage: '',
         sysId: '',
       }
+    },
+    components: {
+      Navigation,
     },
     async created() {
       const router = useRouter();
@@ -69,4 +74,7 @@
 </script>
 
 <style scoped>
+  .match {
+    height: 100vh;
+  }
 </style>

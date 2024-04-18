@@ -7,13 +7,43 @@
         alt="Descrição da imagem"
       >
     </router-link>
-    <div class="div-icon-menu" @click="toggleMenu">
-      <div :class="{ 'bar': !isOpen, 'bar1': isOpen }"></div>
-      <div :class="{ 'bar': !isOpen, 'bar2': isOpen }"></div>
-      <div :class="{ 'bar': !isOpen, 'bar3': isOpen }"></div>
+    <div className="icons">
+      <div class="div-notification" @click="toggleNotification">
+        <FontAwesomeIcon
+          :icon="['fas', 'bell']"
+          class="notification"
+        />
+        <div v-if="this.listNotifications.length > 0" id="alert"></div>
+      </div>
+      <div class="div-icon-menu" @click="toggleMenu">
+        <div :class="{ 'bar': !isOpen, 'bar1': isOpen }"></div>
+        <div :class="{ 'bar': !isOpen, 'bar2': isOpen }"></div>
+        <div :class="{ 'bar': !isOpen, 'bar3': isOpen }"></div>
+      </div>
     </div>
   </nav>
   <img id="wallpaper" src="../assets/05.png" alt="Descrição da imagem">
+  <div v-if="this.showNotification" class="div-options-notification">
+    <div v-if="listNotifications.length === 0" class="notification-none">Você não possui notificações</div>
+    <div v-for="(notification, index) in listNotifications" :key="index" class="notification-card">
+      <div class="notification-date-close">
+        <p class="notification-date">{{ notification.date }}</p>
+        <FontAwesomeIcon
+        :icon="['fas', 'circle-xmark']"
+          class="notification"
+          @click="deleteNotification(notification.id)"
+        />
+      </div>
+      <p class="notification-message">{{ notification.message }}</p>
+      <button
+        type="button"
+        class="notification-button"
+        @click="redirectTo(notification.idMatch)"
+      >
+        Ingressar
+      </button>
+    </div>
+  </div>
   <div v-if="isOpen" class="div-options">
     <img v-if="image !== ''" :src="image" alt="imagem de perfil do usuário">
     <router-link to="/" class="link" @click="toggleMenu">Home</router-link>
@@ -44,11 +74,18 @@
   import router from "@/routes";
   import { authenticate, signOutFirebase } from "../firebase/authenticate";
   import { getUserByEmail } from "../firebase/user";
+  import { library } from '@fortawesome/fontawesome-svg-core';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { fas } from '@fortawesome/free-solid-svg-icons';
+  import { deleteNotificationById, getNotificationsByEmail } from "@/firebase/notifications";
+  library.add(fas);
   export default {
     name: "NavigationBar",
     data() {
       return {
         isOpen: false,
+        showNotification: false,
+        listNotifications: [],
         login: false,
         image: '',
       };
@@ -57,6 +94,7 @@
       const auth = await authenticate();
       if (auth) {
         const userByEmail = await getUserByEmail(auth.email);
+        this.listNotifications = await getNotificationsByEmail(auth.email);
         this.image = userByEmail.image;
         this.login = true;
       }
@@ -65,16 +103,111 @@
     methods: {
       toggleMenu() {
         this.isOpen = !this.isOpen;
+        this.showNotification = false;
+      },
+      toggleNotification() {
+        this.showNotification = !this.showNotification;
+        this.isOpen = false;
+      },
+      redirectTo(id) {
+        router.push(`/matchs/${id}`);
+      },
+      async deleteNotification(id)  {
+        this.listNotifications = this.listNotifications.filter((notif) => notif.id !== id);
+        await deleteNotificationById(id);
       },
       async signOutFirebase() {
         await signOutFirebase();
         this.login = false;
         router.push('/');
       }
+    },
+    components: {
+      FontAwesomeIcon,
     }
   }
 </script>
 <style scoped>
+  .notification-button {
+    margin-top: 10px;
+    padding: 7px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #012917;
+    color: white;
+    border: 2px solid transparent;
+    font-weight: 700;
+    font-size: 1em;
+    border:none
+  }
+
+  .notification-button:hover {
+    border: 2px solid white;
+  }
+
+  .notification-date-close {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .notification-message {
+    padding-top: 10px;
+    line-height: 1.5em;
+  }
+
+  .notification-date {
+    padding-top: 10px;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .notification-card {
+    margin-top: 10px;
+    border: 1px solid #007C44;
+    padding: 10px;
+    color: white;
+  }
+
+  .notification-none {
+    margin-top: 10vh;
+    padding: 10px;
+    color: white;
+  }
+
+  .notification-card:nth-child(1) {
+    margin-top: 10vh;
+  }
+
+  .div-notification {
+    position: relative;
+    cursor: pointer;
+  }
+
+  #alert {
+    background: #D27F3C;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: 1px solid black;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .notification {
+    color: #007C44;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
   p {
     color: white;
     font-weight: 700;
@@ -96,6 +229,24 @@
   #icon {
     width: 80px;
     cursor: pointer;
+  }
+
+  .div-options-notification {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    position: fixed;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    background-color: black;
+    height: 100vh;
+    width: 25%;
+    z-index: 40;
+    border-left: 2px solid #007C44;
+    transition: transform 0.3s ease-in-out;
   }
 
   .div-options {

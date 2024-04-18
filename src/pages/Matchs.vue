@@ -18,7 +18,6 @@
     async created() {
       const router = useRouter();
       const auth = await authenticate();
-      console.log(auth);
       if (auth) this.showData = true;
       else router.push("/login");
     },
