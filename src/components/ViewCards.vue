@@ -149,8 +149,6 @@
         const auth = await authenticate();
         if (auth) {
           const user = await getUserByEmail(auth.email);
-          console.log(this.hand);
-          console.log(this.deck);
           await updateCardsOfPlayer({
             changes: 2,
             hand: this.dataChat.hand,

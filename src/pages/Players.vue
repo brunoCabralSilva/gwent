@@ -14,6 +14,14 @@
         />
         <p>{{ user.firstName }} {{ user.lastName }}</p>
         <button
+          v-if="user.matchId"
+          type="button"
+          @click="redirectToMatch(user.matchId)"
+        >
+          Partida em Andamento
+        </button>
+        <button
+          v-else
           type="button"
           @click="invite(user.email)"
         >
@@ -34,37 +42,45 @@
   } from "@/firebase/user";
   import FooterElement from '../components/Footer.vue';
   import Navigation from '../components/Navigation.vue';
-  import { invitePlayer } from "@/firebase/matchs";
+  import { getAllMatches, invitePlayer } from "@/firebase/matchs";
   
   export default {
     name: 'PlayersPage',
     data() {
       return {
+        router: useRouter(),
         users: [],
       };
     },
     methods: {
       async invite(email) {
-        const router = useRouter();
         const auth = await authenticate();
         if (auth) {
           const userToInvite = this.users.find((user) => user.email === email);
           const userLogged = await getUserByEmail(auth.email);
           await invitePlayer(userLogged, userToInvite);
           this.$emitter.emit('child2');
-        } else router.push("/login");
+        } else this.router.push("/login");
       },
+      redirectToMatch(matchId) {
+        this.router.push(`/matchs/${matchId}`);
+      }
     },
     async beforeCreate() {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-    async created() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       const router = useRouter();
       const auth = await authenticate();
       if (auth) this.showData = true;
       else router.push("/login");
       const users = await getPlayers();
-      this.users = users.filter((user) => user.email !== auth.email);
+      const usersNotLoggeds = users.filter((user) => user.email !== auth.email);
+      const allMatches = await getAllMatches();
+      const newListUsers = usersNotLoggeds.map((userNotLogged) => {
+        const matchs = allMatches.find((match) => match.playersEmail.includes(userNotLogged.email) &&  match.playersEmail.includes(auth.email));
+        if (matchs) return { ...userNotLogged, matchId: matchs.id }
+        return userNotLogged;
+      });
+      this.users = newListUsers;
     },
     components: {
       Navigation,

@@ -5,7 +5,7 @@
         <div class="card-leader">
           <img class="image-background" src="../assets/field icons/field-cards-leader.png" alt="field cards empty">
           <img
-            v-if="dataMatchUserInvited.leader"
+            v-if="dataMatchUserInvited && dataMatchUserInvited.leader"
             class="card-leader-img"
             :src="require('../assets/cards/' + dataMatchUserInvited.leader.image + '.png')"
             :alt="dataMatchUserInvited.leader.name"
@@ -24,7 +24,7 @@
           <div class="victories-cards">
             <div class="cards-in-hand">
               <img class="card-icon-image" src="../assets/field icons/cards-white.png" alt="icon cards">
-              <span>10</span>
+              <span>{{dataMatchUserInvited.hand.length}}</span>
             </div>
             <div>
               <img
@@ -47,7 +47,7 @@
           <img
             v-for="(card, index) in fieldCards"
             :key="index"
-            class="card-field-img"
+            class="card-field-img-1"
             :src="require('../assets/cards/' + card + '.png')"
             alt="Carta de campo"
           >
@@ -61,7 +61,7 @@
           <div class="victories-cards">
             <div class="cards-in-hand">
               <img class="card-icon-image" src="../assets/field icons/cards-white.png" alt="icon cards">
-              <span>10</span>
+              <span>{{dataMatchUserLogged.hand.length}}</span>
             </div>
             <div>
               <img
@@ -99,29 +99,80 @@
       <div class="oponent-central-match">
         <div class="siege-field-oponent-cards">
           <div class="horn"></div>
-          <div class="siege-cards"></div>
+          <div class="siege-cards">
+            <div v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')" :key="index">
+              <img
+                v-if="dataMatchUserLogged.leader"
+                class="card-leader-img"
+                :src="require('../assets/cards/' + card.image + '.png')"
+                :alt="card.name"
+              >
+            </div>
+          </div>
         </div>
         <div class="ranged-field-oponent-cards">
           <div class="horn"></div>
-          <div class="ranged-cards"></div>
+          <div class="ranged-cards">
+            <div v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'ranged')" :key="index">
+              <img
+                v-if="dataMatchUserLogged.leader"
+                class="card-leader-img"
+                :src="require('../assets/cards/' + card.image + '.png')"
+                :alt="card.name"
+              >
+            </div>
+          </div>
         </div>
         <div class="melee-field-oponent-cards">
           <div class="horn"></div>
-          <div class="melee-cards"></div>
+          <div class="melee-cards">
+            <div v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'melee')" :key="index">
+              <img
+                v-if="dataMatchUserLogged.leader"
+                class="card-leader-img"
+                :src="require('../assets/cards/' + card.image + '.png')"
+                :alt="card.name"
+              >
+            </div>
+          </div>
         </div>
       </div>
       <div class="player-central-match">
         <div class="melee-field-cards">
           <div class="horn"></div>
-          <div class="melee-cards"></div>
+          <div class="melee-cards">
+            <img
+              v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'melee')"
+              :key="index"
+              :src="require('../assets/cards/' + card.image + '.png')"
+              :alt="card.name"
+              class="card-field-img"
+            >
+          </div>
         </div>
         <div class="ranged-field-cards">
           <div class="horn"></div>
-          <div class="ranged-cards"></div>
+          <div class="ranged-cards">
+            <img
+              v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'ranged')"
+              :key="index"
+              :src="require('../assets/cards/' + card.image + '.png')"
+              :alt="card.name"
+              class="card-field-img"
+            >
+          </div>
         </div>
         <div class="siege-field-cards">
           <div class="horn"></div>
-          <div class="siege-cards"></div>
+          <div class="siege-cards">
+            <img
+              v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'siege')"
+              :key="index"
+              :src="require('../assets/cards/' + card.image + '.png')"
+              :alt="card.name"
+              class="card-field-img"
+            >
+          </div>
         </div>
       </div>
       <div class="hand-cards">
@@ -142,14 +193,24 @@
       <div v-if="!selectedCard.image" class="oponent-deck-discard">
         <div class="discard-card">
           <img class="image-background" src="../assets/field icons/discard-background.png" alt="discard-background icon">
-          <!-- <img
+          <img
+            v-if="dataMatchUserInvited.discart && dataMatchUserInvited.discart.length > 0"
             class="card-leader-img"
-            src="../assets/cards/06.png"
-            alt=""
-          > -->
+            :src="require('../assets/cards/' + dataMatchUserInvited.discart[dataMatchUserInvited.discart.length - 1].image + '.png')"
+            alt="Carta de Líder"
+          >
         </div>
         <div class="deck-card">
-          <img src="../assets/field icons/nilfgaard.png" alt="discard-background icon">
+          <img
+            class="image-background"
+            v-if="dataMatchUserInvited.leader"
+            :src="require(`../assets/field icons/${dataMatchUserInvited.leader.faction}.png`)" alt="discard-background icon"
+          >
+          <div class="div-quant-deck">
+            <div class="quant-deck" v-if="dataMatchUserInvited.deck">
+              {{dataMatchUserInvited.deck.length}}
+            </div>
+          </div>
         </div>
       </div>
       <div v-if="selectedCard.image" class="card-selected">
@@ -169,7 +230,11 @@
           <p>{{ selectedCard.effect }}</p>
         </div>
 
-        <button type="button" class="button-use-card">
+        <button
+          type="button"
+          class="button-use-card"
+          @click="playCard"
+        >
           Jogar
         </button>
       </div>
@@ -184,7 +249,16 @@
           >
         </div>
         <div class="deck-card">
-          <img src="../assets/field icons/northern realms.png" alt="discard-background icon">
+          <img
+            class="image-background"
+            v-if="dataMatchUserLogged.leader"
+            :src="require(`../assets/field icons/${dataMatchUserLogged.leader.faction}.png`)" alt="discard-background icon"
+          >
+          <div class="div-quant-deck">
+            <div class="quant-deck" v-if="dataMatchUserLogged.deck">
+              {{dataMatchUserLogged.deck.length}}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -196,22 +270,10 @@
   import { useRouter } from 'vue-router';
   import { library } from '@fortawesome/fontawesome-svg-core';
   import { getUserByEmail } from "@/firebase/user";
-  import { getMatchById } from "@/firebase/matchs";
+  import { getMatchById, playInField } from "@/firebase/matchs";
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { fas } from '@fortawesome/free-solid-svg-icons';
   library.add(fas);
-
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyDRSHgIyIgCLlgvMPHmoet_DU8UFRVYHeI",
-  //   authDomain: "gwent-b5e5c.firebaseapp.com",
-  //   projectId: "gwent-b5e5c",
-  //   storageBucket: "gwent-b5e5c.appspot.com",
-  //   messagingSenderId: "340071048057",
-  //   appId: "1:340071048057:web:7eea38e2bd3955807dc5a8"
-  // };
-
-  // const firebaseApp = initializeApp(firebaseConfig);
-  // const db = getFirestore(firebaseApp);
 
   export default {
     name: 'TheGaming',
@@ -232,8 +294,30 @@
         showGame: false,
         dataUserInvited: {},
         dataUserLogged: {},
-        dataMatchUserInvited: {},
-        dataMatchUserLogged: {},
+        dataMatchUserInvited: {
+          deck: [],
+          field: [],
+          discart: [],
+          faction: { effect: "", faction: "", name: "" },
+          hand: [],
+          leader: { effect: "", faction: "gwent", image: "gwent" },
+          matchId: '',
+          play: false,
+          user: '',
+          victories: 0,
+        },
+        dataMatchUserLogged: {
+          deck: [],
+          field: [],
+          discart: [],
+          faction: { effect: "", faction: "", name: "" },
+          hand: [],
+          leader: { effect: "", faction: "gwent", image: "gwent" },
+          matchId: '',
+          play: false,
+          user: '',
+          victories: 0,
+        },
         fieldCards: [],
       }
     },
@@ -248,8 +332,9 @@
         this.dataUserInvited = userInvited;
         this.dataUserLogged = userLogged;
         const dataMatchUserLogged = match.users.find((user) => user.user === userLogged.id);
-        console.log(dataMatchUserLogged);
         this.dataMatchUserLogged = dataMatchUserLogged;
+        const dataMatchUserInvited = match.users.find((user) => user.user !== userLogged.id);
+        if (dataMatchUserInvited) this.dataMatchUserInvited = dataMatchUserInvited;
       } else router.push("/login");
     },
     methods: {
@@ -263,6 +348,20 @@
       },
       cleanSelectedCard() {
         this.selectedCard = {};
+      },
+      filteredCards (list, type) {
+        return list
+          .filter((cards) => cards.typeCard === type)
+          .sort((a, b) => {
+            if (a.power !== b.power) return b.power - a.power;
+            return b.hero - a.hero;
+          });
+      },
+      async playCard () {
+        if (this.selectedCard.typeCard === "melee" || this.selectedCard.typeCard === "ranged" || this.selectedCard.typeCard === "siege") {
+          await playInField(this.selectedCard, this.matchId, this.dataUserLogged.id);
+          this.selectedCard = {};
+        }
       }
     }
   }
@@ -329,7 +428,7 @@
     padding: 0.7em;
   }
 
-  .card-field-img {
+  .card-field-img-1 {
     width: 30%;
     height: 100%;
     position: relative;
@@ -353,6 +452,13 @@
     object-fit: contain;
     position: relative;
     z-index: 10;
+  }
+
+  .card-field-img {
+    width: 9vh;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
   }
 
   .card-selected {
@@ -503,7 +609,7 @@
 
   .melee-field-cards, .ranged-field-cards, .siege-field-cards, .melee-field-oponent-cards, .ranged-field-oponent-cards, .siege-field-oponent-cards {
     width: 100%;
-    height: 100%;
+    height: 12vh;
     display: flex;
     margin-top: 0.2em;
   }
@@ -522,6 +628,10 @@
     background-size: cover;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
   }
   
   .melee-cards {
@@ -556,12 +666,31 @@
 
   .deck-card, .discard-card {
     width: 50%;
+    position: relative;
+    display: flex;
   }
 
   .discard-card {
     cursor: pointer;
-    position: relative;
+  }
+
+  .div-quant-deck {
+    width: 100%;
+    position: absolute;
+    z-index: 8;
+    bottom: 0;
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .quant-deck {
+    padding: 0.3em;
+    background: white;
+    color: black;
+    border-radius: 100%;
+    font-weight: 800;
+    border: 2px solid black;
   }
 
   .discard-card img, .deck-card img {

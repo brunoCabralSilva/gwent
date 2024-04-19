@@ -19,6 +19,25 @@ function capitalizeWords(str) {
   });
 }
 
+export async function getAllMatches() {
+  try {
+      const firebaseApp = initializeApp(firebaseConfig);
+      const db = getFirestore(firebaseApp);
+      const matchsCollectionRef = collection(db, 'matchs');
+      const querySnapshot = await getDocs(matchsCollectionRef);
+      const matches = [];
+      querySnapshot.forEach(doc => {
+          const match = doc.data();
+          match.id = doc.id;
+          matches.push(match);
+      });
+      return matches;
+  } catch (error) {
+      window.alert('Erro ao obter todas as partidas: ', error);
+      return null;
+  }
+}
+
 export async function getMatchById(matchId) {
   try {
     const firebaseApp = initializeApp(firebaseConfig);
@@ -225,6 +244,8 @@ export async function verifyIfItsInMatch(matchId, userEmail) {
   const matchDocSnapshot = await getDoc(matchRef);
   if (matchDocSnapshot.exists()) {
     const matchData =  matchDocSnapshot.data();
+    console.log(user.id);
+    console.log(matchData);
     const find = matchData.users.find((player) => player.user === user.id);
     if (find) return true;
     return false;
@@ -327,5 +348,29 @@ export async function emailInTheMatch(matchId, emailUser) {
   } catch (error) {
     window.alert('Erro ao verificar email do usuário: ' + error.message);
     return false;
+  }
+}
+
+export async function playInField(card, matchId, idUser) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const userRef = doc(db, 'matchs', matchId);
+    const userDocSnapshot = await getDoc(userRef);
+    if (userDocSnapshot.exists()) {
+      const matchData =  userDocSnapshot.data();
+      const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
+      const findUser = matchData.users.find((match) =>  match.user === idUser);
+      findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
+      findUser.field.push(card);
+      if (findAnotherUser) {
+        await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
+      } else {
+        await updateDoc(userRef, { ...matchData, users: [ findUser ],
+        });
+      }
+    }
+  } catch (error) {
+    window.alert('Ocorreu um erro ao alançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');
   }
 }
