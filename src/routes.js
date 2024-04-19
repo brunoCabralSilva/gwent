@@ -4,9 +4,9 @@ import Cards from './pages/Cards.vue';
 import Deck from './pages/Deck.vue';
 import Players from './pages/Players.vue';
 import Matchs from './pages/Matchs.vue';
+import MatchPage from './pages/Match.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
-import MatchPage from './pages/Match.vue';
 
 const router = createRouter({
   history: createWebHistory(),

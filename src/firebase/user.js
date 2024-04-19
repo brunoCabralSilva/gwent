@@ -49,6 +49,7 @@ export async function registerUser(
       firstName: firstName.toLowerCase(),
       lastName: lastName.toLowerCase(),
       image: imageURL,
+      matchs: [],
       decks: [
         { type: 'monsters', cards: [] },
         { type: 'nilfgaard', cards: [] },
@@ -156,7 +157,6 @@ export async function updateDeckUser(email, faction, deckCards, leader) {
     const db = getFirestore(firebaseApp);
     const userDocRef = doc(db, 'users', user.id);
     await updateDoc(userDocRef, user);
-    window.alert(`Baralho de ${faction.name} salvo com sucesso!`);
     return true;
   } catch (error) {
     window.alert('Erro ao salvar o baralho do usuário para a Facção ' + faction.name + ': ' + error);

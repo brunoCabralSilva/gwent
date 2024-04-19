@@ -1,6 +1,5 @@
 <template>
-  <Navigation />
-  <div v-if="loading" class="loading">
+  <div v-if="loading">
     <LoadingPage />
   </div>
   <div v-else>
@@ -74,7 +73,7 @@
         <p>{{ sumPower }}</p>
         <p class="title">Cartas de Herói</p>
         <p>{{ heroCards }}</p>
-        <button type="button" class="save" @click="saveDeck">Salvar</button>
+        <button type="button" class="save" @click="saveDeck">Começar</button>
       </div>
       <div class="list-cards-02">
         <div v-if="deckCards.length > 0" class="div-list-cards">
@@ -90,7 +89,6 @@
       </div>
     </div>
   </div>
-  <FooterElement/>
 </template>
 
 <script>
@@ -100,19 +98,16 @@
   import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
   import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import FooterElement from '../components/Footer.vue';
-  import Navigation from '../components/Navigation.vue';
   import listCards from '../cards';
-  import LoadingPage from '../components/LoadingPage.vue';
   import { getUserByEmail, updateDeckUser } from "@/firebase/user";
+  import { emailInTheMatch, startGameUser } from "@/firebase/matchs";
+  import LoadingPage from './LoadingPage.vue';
   library.add(faAngleLeft);
   library.add(faAngleRight);
 
   export default {
     name: 'DeckByType',
-    beforeCreate() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    },
+    props: 'match',
     data() {
       return {
         factions: [
@@ -133,19 +128,29 @@
         heroCards: 0,
         user: {},
         faction: '',
+        matchId: '',
         loading: true,
       }
+    },
+    components: {
+      FontAwesomeIcon, LoadingPage,
     },
     async created() {
       this.faction = this.factions[0];
       const router = useRouter();
+      this.matchId = router.currentRoute.value.params.id;
       const auth = await authenticate();
       if (auth) {
         this.showData = true;
+        const emailInMatch = await emailInTheMatch(router.currentRoute.value.params.id, auth.email);
+        if (!emailInMatch) router.push("/");
         await this.getUserAndSetCards();
         this.loading = false;
       }
       else router.push("/login");
+    },
+    beforeCreate() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     methods: {
       previousLeader() {
@@ -281,6 +286,7 @@
         const auth = await authenticate();
         if (auth) {
           const user = await getUserByEmail(auth.email);
+          this.user = user;
           const myCards = user.decks.find((card) => card.type === this.faction.faction);
           this.deckCards = this.sortItems(myCards.cards);
           const findList = listCards
@@ -309,29 +315,34 @@
         } else router.push("/login");
       },
       async saveDeck() {
-        const router = useRouter();
+        const router = this.$router;
         if (this.numberOfCards < 22) {
           window.alert('Necessário inserir pelo menos 22 cartas para Registrar um baralho completo');
         } else {
           const auth = await authenticate();
           if (auth) {
-            const updateDeck = await updateDeckUser(auth.email, this.faction, this.deckCards, this.selectedLeader);
-            if (updateDeck) window.alert('Baralho atualizado com sucesso!')
+            await updateDeckUser(auth.email, this.faction, this.deckCards, this.selectedLeader);
+            await startGameUser({
+              matchId: this.matchId,
+              faction: this.faction,
+              user: this.user,
+              deck: this.deckCards,
+              leader: this.selectedLeader,
+            });
+            this.$emit('start-game');
           }
           else router.push("/login");
         }
       }
     },
-    components: {
-      Navigation,
-      FooterElement,
-      FontAwesomeIcon,
-      LoadingPage,
-    },
   }
 </script>
 
 <style scoped>
+  .loading {
+    height: 100vh;
+  }
+
   .leader-div {
     display: flex;
     align-items: center;
@@ -394,7 +405,7 @@
   .title-menu {
     display: flex;
     justify-content: space-between;
-    padding: 20px 20px 0 20px;
+    padding: 0 20px 0 20px;
     width: 100%;
   }
 
@@ -417,10 +428,7 @@
     justify-content: center;
     width: 100%;
     height: 80vh;
-  }
-
-  .loading {
-    height: 80vh;
+    padding-bottom: 2vh;
   }
 
   .main { 

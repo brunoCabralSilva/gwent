@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav :class="type === 'match' ? 'nav-match' : 'nav'">
     <router-link @click="toggleMenu" to="/" >
       <img
         id="icon"
@@ -22,7 +22,7 @@
       </div>
     </div>
   </nav>
-  <img id="wallpaper" src="../assets/05.png" alt="Descrição da imagem">
+  <img v-if="type !== 'match'" id="wallpaper" src="../assets/05.png" alt="Descrição da imagem">
   <div v-if="this.showNotification" class="div-options-notification">
     <div v-if="listNotifications.length === 0" class="notification-none">Você não possui notificações</div>
     <div v-for="(notification, index) in listNotifications" :key="index" class="notification-card">
@@ -81,6 +81,7 @@
   library.add(fas);
   export default {
     name: "NavigationBar",
+    props: ['type'],
     data() {
       return {
         isOpen: false,
@@ -92,6 +93,11 @@
     },
     async created() {
       const auth = await authenticate();
+      this.$emitter.on('child2', async () => {
+        console.log('aqui');
+        this.listNotifications = await getNotificationsByEmail(auth.email);
+        this.showNotification = true;
+      });
       if (auth) {
         const userByEmail = await getUserByEmail(auth.email);
         this.listNotifications = await getNotificationsByEmail(auth.email);
@@ -101,6 +107,13 @@
       else this.login = false;
     },
     methods: {
+      async updateNotification() {
+        const auth = await authenticate();
+        if (auth) {
+          this.showNotification = true;
+          this.listNotifications = await getNotificationsByEmail(auth.email);
+        }
+      },
       toggleMenu() {
         this.isOpen = !this.isOpen;
         this.showNotification = false;
@@ -111,6 +124,7 @@
       },
       redirectTo(id) {
         router.push(`/matchs/${id}`);
+        this.showNotification = false;
       },
       async deleteNotification(id)  {
         this.listNotifications = this.listNotifications.filter((notif) => notif.id !== id);
@@ -118,8 +132,8 @@
       },
       async signOutFirebase() {
         await signOutFirebase();
-        this.login = false;
         router.push('/');
+        location.reload();
       }
     },
     components: {
@@ -183,6 +197,7 @@
   .div-notification {
     position: relative;
     cursor: pointer;
+    z-index: 50;
   }
 
   #alert {
@@ -213,7 +228,7 @@
     font-weight: 700;
   }
 
-  nav {
+  .nav {
     background-color: black;
     padding: 10px 20px;
     display: flex;
@@ -226,8 +241,19 @@
     z-index: 50;
   }
 
+  .nav-match {
+    background-color: black;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 50;
+  }
+
   #icon {
-    width: 80px;
+    width: 45px;
     cursor: pointer;
   }
 

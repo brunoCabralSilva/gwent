@@ -1216,7 +1216,7 @@
     "name": "Moira",
     "subName": "Moira Alquimista",
     "power": 6,
-    "image": "017",
+    "image": "016",
     "typeCard": "melee",
     "hero": false,
     "effect": "Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente",

@@ -20,41 +20,7 @@
           Desafiar
         </button>
       </div>
-      <div
-        v-for="(user, index) in users"
-        :key="index"
-        class="player"
-      >
-        <img
-          :src="user.image"
-          :alt="user.firstName"
-        />
-        <p>{{ user.firstName }} {{ user.lastName }}</p>
-        <button
-          type="button"
-          @click="invite(user.email)"
-        >
-          Desafiar
-        </button>
-      </div>
-      <div
-        v-for="(user, index) in users"
-        :key="index"
-        class="player"
-      >
-        <img
-          :src="user.image"
-          :alt="user.firstName"
-        />
-        <p>{{ user.firstName }} {{ user.lastName }}</p>
-        <button
-          type="button"
-          @click="invite(user.email)"
-        >
-          Desafiar
-        </button>
-      </div>
-    </div>
+    </div> 
   </div>
   <FooterElement/>
 </template>
@@ -62,7 +28,10 @@
 <script>
   import { useRouter } from "vue-router";
   import { authenticate } from "../firebase/authenticate";
-  import { getPlayers, getUserByEmail } from "@/firebase/user";
+  import {
+    getPlayers,
+    getUserByEmail
+  } from "@/firebase/user";
   import FooterElement from '../components/Footer.vue';
   import Navigation from '../components/Navigation.vue';
   import { invitePlayer } from "@/firebase/matchs";
@@ -82,6 +51,7 @@
           const userToInvite = this.users.find((user) => user.email === email);
           const userLogged = await getUserByEmail(auth.email);
           await invitePlayer(userLogged, userToInvite);
+          this.$emitter.emit('child2');
         } else router.push("/login");
       },
     },
