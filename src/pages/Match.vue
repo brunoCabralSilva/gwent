@@ -7,7 +7,7 @@
     <div v-if="showSelectCards">
       <ViewCards @start-game="verifyExibition" />
     </div>
-    <div v-if="showGame">
+    <div v-if="showGame" class="gaming">
       <TheGaming />
     </div>
   </div>
@@ -90,6 +90,10 @@
 </script>
 
 <style scoped>
+  .gaming {
+    width: 100%;
+  }
+
   .div-start-game-button {
     padding: 0 1em;
     display: flex;
@@ -189,5 +193,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 </style>

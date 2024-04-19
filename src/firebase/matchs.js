@@ -19,6 +19,33 @@ function capitalizeWords(str) {
   });
 }
 
+export async function getMatchById(matchId) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+
+    const matchsCollectionRef = collection(db, 'matchs');
+    const matchDoc = await getDoc(doc(matchsCollectionRef, matchId));
+
+    if (!matchDoc.exists()) {
+      window.alert('Partida com o ID fornecido não encontrada. Por favor, atualize a página e tente novamente.');
+      return null;
+    } else {
+      const match = matchDoc.data();
+      if (match) {
+        match.id = matchDoc.id;
+        return match;
+      } else {
+        window.alert('Partida encontrado com ID inválido. Por favor, atualize a página e tente novamente.');
+        return null;
+      }
+    }
+  } catch (error) {
+    window.alert('Erro ao obter partida por ID: ' + error);
+    return null;
+  }
+}
+
 export const invitePlayer = async (userLogged, userToInvite) => {
   const create = await createMatch(userLogged, userToInvite);
   let messageToUserInvited = '';
@@ -198,7 +225,9 @@ export async function verifyIfItsInMatch(matchId, userEmail) {
   const matchDocSnapshot = await getDoc(matchRef);
   if (matchDocSnapshot.exists()) {
     const matchData =  matchDocSnapshot.data();
-    return matchData.users.find((player) => player.id !== user.id);
+    const find = matchData.users.find((player) => player.user === user.id);
+    if (find) return true;
+    return false;
   } return false;
 }
 
