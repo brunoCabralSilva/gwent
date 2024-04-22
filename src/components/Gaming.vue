@@ -1,5 +1,21 @@
 <template>
-  <div class="match-list">
+  <div v-if="!playGameNow" class="load-start-game">
+    <LoadingPage />
+    <p>Estamos preparando tudo para sua partida começar.</p>
+    <p>Assim que seu oponente estiver pronto e carregarmos tudo o que é necessário, iniciaremos a partida.</p>
+  </div>
+  <div v-else class="match-list">
+    <div v-if="dataUserLogged.id !== '' && dataUserInvited.id !== ''" class="div-message">
+      <div v-if="dataUserLogged.id === dataMatchUserLogged.user && dataMatchUserLogged.user.message.text" class="message">
+        <FontAwesomeIcon
+          :icon="['fas', 'circle-xmark']"
+          class="close-card absolute"
+          @click="cleanMessageForUser"
+        />
+        <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon? dataMatchUserLogged.message.icon : 'player'}.png`)" />
+        <p>{{ dataMatchUserLogged.user.message.text }}</p>
+      </div>
+    </div>
     <div class="data-players">
       <div class="div-card-leader">
         <div class="card-leader">
@@ -337,26 +353,26 @@
 </template>
 
 <script>
+  import LoadingPage from './LoadingPage.vue';
   import { authenticate } from "@/firebase/authenticate";
   import { useRouter } from 'vue-router';
   import { library } from '@fortawesome/fontawesome-svg-core';
   import { getUserByEmail } from "@/firebase/user";
-  import { getMatchById, playInField } from "@/firebase/matchs";
+  import { chooseInitPlayer, cleanMessage, getMatchById, playInField } from "@/firebase/matchs";
   import { doc, getFirestore } from 'firebase/firestore';
   import { initializeApp } from 'firebase/app';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { fas } from '@fortawesome/free-solid-svg-icons';
-import { onSnapshot } from "firebase/firestore";
-import { onUnmounted, ref } from "vue";
+  import { onSnapshot } from "firebase/firestore";
+  import { onUnmounted, ref } from "vue";
   library.add(fas);
   export default {
     name: 'TheGaming',
-    components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon, LoadingPage },
     data() {
       const router = useRouter();
       return {
         data: ref([]),
-        messages: [],
         newMessage: '',
         sysId: '',
         verifyChanges: 0,
@@ -379,8 +395,9 @@ import { onUnmounted, ref } from "vue";
           ranged: 0,
           melee: 0,
         },
-        dataUserInvited: { image: '', firstName: ''},
-        dataUserLogged: { image: '', firstName: ''},
+        dataUserInvited: { image: '', firstName: '', id: ''},
+        dataUserLogged: { image: '', firstName: '', id: ''},
+        playGameNow: false,
         dataMatchUserInvited: {
           deck: [],
           field: [],
@@ -425,11 +442,22 @@ import { onUnmounted, ref } from "vue";
         const db = getFirestore(firebaseApp);
         const chatSnapShot = onSnapshot(
           doc(db, 'matchs', this.matchId),
-          (snapshot) => {
+          async (snapshot) => {
             const dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
             this.dataMatchUserLogged = dataMatchUserLogged;
             const dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
-            if (dataMatchUserInvited) this.dataMatchUserInvited = dataMatchUserInvited;
+            if (dataMatchUserInvited) {
+              this.dataMatchUserInvited = dataMatchUserInvited;
+              if (dataMatchUserLogged.deck.length > 0 && dataMatchUserInvited.deck.length > 0)   
+                this.playGameNow = true;
+                if (!dataMatchUserInvited.play && !dataMatchUserLogged.play) {
+                  if (userLogged.id === dataMatchUserLogged.user) {
+                    await chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged, this.matchId);
+                  }
+                }
+            } else {
+              this.playGameNow = false;
+            }
             this.calculatePower(dataMatchUserLogged, dataMatchUserInvited);
           }
         );
@@ -475,6 +503,9 @@ import { onUnmounted, ref } from "vue";
           this.selectedCard = {};
         }
       },
+      async cleanMessageForUser() {
+        await cleanMessage(this.dataMatchUserLogged.user, this.matchId);
+      },
       async calculatePower(dataMatchUserLogged, dataMatchUserInvited) {
         let siegeLogged = 0;
         let rangedLogged = 0;
@@ -512,6 +543,47 @@ import { onUnmounted, ref } from "vue";
 </script>
 
 <style scoped>
+  .absolute {
+    position: absolute;
+    top: 2vh;
+    right: 1vw;
+  }
+
+  .div-message {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0, 0.6);
+    z-index: 30;
+  }
+  .message {
+    width: 100%;
+    background: black;
+    min-height: 20vh;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    padding: 1vw 10vw;
+    gap: 1vw;
+  }
+  .load-start-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    color: white;
+  }
+
+  .load-start-game p {
+    margin-top: 1em;
+  }
+
   .match-list {
     width: 90vw;
     height: 100vh;

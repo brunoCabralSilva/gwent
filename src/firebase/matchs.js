@@ -201,13 +201,31 @@ export async function populateMatch(objectToAdd) {
           ...userData,
           matchs: [
             findAnotherMatchs,
-            { ...findMatch, matchId, faction, hand, deck, leader, changes: 0 }
+            {
+              ...findMatch,
+              matchId,
+              faction,
+              hand,
+              deck,
+              leader,
+              changes: 0,
+              message: { text: '', icon: ''}
+            },
           ],
         });
       } else {
         await updateDoc(userRef, {
           ...userData,
-          matchs: [ { ...findMatch, matchId, faction, hand, deck, leader, changes: 0 } ],
+          matchs: [{
+            ...findMatch,
+            matchId,
+            faction,
+            hand,
+            deck,
+            leader,
+            changes: 0,
+            message: { text: '', icon: ''}
+          }],
         });
       }
     }
@@ -374,5 +392,49 @@ export async function playInField(card, matchId, idUser) {
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao alançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');
+  }
+}
+
+export async function chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged, matchId) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const userRef = doc(db, 'matchs', matchId);
+    const userDocSnapshot = await getDoc(userRef);
+    if (userDocSnapshot.exists()) {
+      const matchData =  userDocSnapshot.data();
+      const randomBoolean = Math.random() < 0.5;
+      dataMatchUserInvited.play = randomBoolean;
+      dataMatchUserInvited.message.text = "Seu adversário ganhou no cara ou coroa e começa a partida!";
+      dataMatchUserLogged.play = !randomBoolean;
+      dataMatchUserLogged.message.text = "Você ganhou no cara ou coroa e começa a partida!"
+      await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
+    }
+  } catch (error) {
+    window.alert('Ocorreu um erro ao Escolher o jogador que começa (' + error + '). Por favor, atualize a página e tente novamente.');
+  }
+}
+
+export async function cleanMessage(idUser, matchId) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const userRef = doc(db, 'matchs', matchId);
+    const userDocSnapshot = await getDoc(userRef);
+    if (userDocSnapshot.exists()) {
+      const matchData =  userDocSnapshot.data();
+      const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
+      const findUser = matchData.users.find((match) =>  match.user === idUser);
+      findUser.message = { text: '', icon: '' };
+      if (findAnotherUser) {
+        findAnotherUser.play = true;
+        await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
+      } else {
+        await updateDoc(userRef, { ...matchData, users: [ findUser ],
+        });
+      }
+    }
+  } catch (error) {
+    window.alert('Ocorreu um erro ao excluir mensagem (' + error + '). Por favor, atualize a página e tente novamente.');
   }
 }
