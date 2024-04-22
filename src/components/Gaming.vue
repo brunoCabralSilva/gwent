@@ -5,7 +5,7 @@
     <p>Assim que seu oponente estiver pronto e carregarmos tudo o que é necessário, iniciaremos a partida.</p>
   </div>
   <div v-else class="match-list">
-    <div v-if="dataUserLogged.id !== '' && dataUserInvited.id !== ''" class="div-message">
+    <div v-if="(dataUserLogged.id !== '' && dataUserInvited.id !== '') && dataMatchUserLogged.message.text !== ''" class="div-message">
       <div v-if="dataMatchUserLogged.message.text !== ''" class="message">
         <FontAwesomeIcon
           :icon="['fas', 'circle-xmark']"

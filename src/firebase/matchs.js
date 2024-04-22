@@ -262,8 +262,6 @@ export async function verifyIfItsInMatch(matchId, userEmail) {
   const matchDocSnapshot = await getDoc(matchRef);
   if (matchDocSnapshot.exists()) {
     const matchData =  matchDocSnapshot.data();
-    console.log(user.id);
-    console.log(matchData);
     const find = matchData.users.find((player) => player.user === user.id);
     if (find) return true;
     return false;
@@ -382,8 +380,12 @@ export async function playInField(card, matchId, idUser) {
       findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
       findUser.field.push(card);
       findUser.play = false;
+      findUser.message.icon = "oponent";
+      findUser.message.text = "Vez do oponente";
       if (findAnotherUser) {
         findAnotherUser.play = true;
+        findAnotherUser.message.icon = "player";
+        findAnotherUser.message.text = "Sua vez";
         await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
       } else {
         await updateDoc(userRef, { ...matchData, users: [ findUser ],
