@@ -177,7 +177,7 @@ export async function startGameUser(objectUser) {
     [matchDeck[i], matchDeck[j]] = [matchDeck[j], matchDeck[i]];
   }
   const matchDeckWithIndex = matchDeck.map((item, index) => {
-    return { ...item, index: index };
+    return { ...item, index: index, actualPower: item.power };
   });
 
   objectToAdd.hand = matchDeckWithIndex.slice(0, 10);
@@ -362,8 +362,10 @@ export async function playInField(card, matchId, idUser) {
       const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
+      // findUser.play = false;
       findUser.field.push(card);
       if (findAnotherUser) {
+        // findAnotherUser.play = true;
         await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
       } else {
         await updateDoc(userRef, { ...matchData, users: [ findUser ],

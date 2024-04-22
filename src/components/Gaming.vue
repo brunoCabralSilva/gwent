@@ -9,6 +9,7 @@
             class="card-leader-img"
             :src="require('../assets/cards/' + dataMatchUserInvited.leader.image + '.png')"
             :alt="dataMatchUserInvited.leader.name"
+            @click="selectCard({ ...dataMatchUserInvited.leader, card: 'field' })"
           >
         </div>
       </div>
@@ -17,9 +18,12 @@
           <img :src="dataUserInvited.image" alt="Image User">
         </div>
         <div>
-          <div class="oponent-name-faction">
-            <div v-if="dataUserInvited.firstName">{{ capitalizeWords(dataUserInvited.firstName) }}</div>
-            <div>Reino</div>
+          <div class="name-faction-power">
+            <div class="oponent-name-faction">
+              <div v-if="dataUserInvited.firstName">{{ capitalizeWords(dataUserInvited.firstName) }}</div>
+              <div>{{dataMatchUserInvited.faction.name}}</div>
+            </div>
+            <div class="power-value">{{ invitedTotalPower.value }}</div>
           </div>
           <div class="victories-cards">
             <div class="cards-in-hand">
@@ -76,9 +80,12 @@
               >
             </div>
           </div>
-          <div class="name-faction">
-            <div v-if="dataUserLogged.firstName">{{ capitalizeWords(dataUserLogged.firstName) }}</div>
-            <div>Reino</div>
+          <div class="name-faction-power">
+            <div class="name-faction">
+              <div v-if="dataUserLogged.firstName">{{ capitalizeWords(dataUserLogged.firstName) }}</div>
+              <div>{{dataMatchUserLogged.faction.name}}</div>
+            </div>
+            <div class="power-value">{{ loggedTotalPower.value }}</div>
           </div>
         </div>
       </div>
@@ -90,7 +97,7 @@
             class="card-leader-img"
             :src="require('../assets/cards/' + dataMatchUserLogged.leader.image + '.png')"
             :alt="dataMatchUserLogged.leader.name"
-            @click="selectCard(dataMatchUserLogged.leader)"
+            @click="selectCard({ ...dataMatchUserLogged.leader, card: 'leader' })"
           >
         </div>
       </div>
@@ -100,12 +107,22 @@
         <div class="siege-field-oponent-cards">
           <div class="horn"></div>
           <div class="siege-cards">
-            <div v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')" :key="index">
+            <div
+              v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')"
+              :key="index"
+              class="div-card-field-image"
+              @click="selectCard({ ...card, card: 'field' })"
+            >
+              <div v-if="!card.hero" class="div-power-card">
+                {{ card.actualPower }}
+              </div>
+              <div v-else class="div-power-card-hero">
+                {{ card.actualPower }}
+              </div>
               <img
-                v-if="dataMatchUserLogged.leader"
-                class="card-leader-img"
                 :src="require('../assets/cards/' + card.image + '.png')"
                 :alt="card.name"
+                class="card-field-img"
               >
             </div>
           </div>
@@ -113,12 +130,22 @@
         <div class="ranged-field-oponent-cards">
           <div class="horn"></div>
           <div class="ranged-cards">
-            <div v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'ranged')" :key="index">
+            <div
+              v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'ranged')"
+              :key="index"
+              class="div-card-field-image"
+              @click="selectCard({ ...card, card: 'field' })"
+            >
+              <div v-if="!card.hero" class="div-power-card">
+                {{ card.actualPower }}
+              </div>
+              <div v-else class="div-power-card-hero">
+                {{ card.actualPower }}
+              </div>
               <img
-                v-if="dataMatchUserLogged.leader"
-                class="card-leader-img"
                 :src="require('../assets/cards/' + card.image + '.png')"
                 :alt="card.name"
+                class="card-field-img"
               >
             </div>
           </div>
@@ -126,12 +153,22 @@
         <div class="melee-field-oponent-cards">
           <div class="horn"></div>
           <div class="melee-cards">
-            <div v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'melee')" :key="index">
+            <div
+              v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'melee')"
+              :key="index"
+              class="div-card-field-image"
+              @click="selectCard({ ...card, card: 'field' })"
+            >
+              <div v-if="!card.hero" class="div-power-card">
+                {{ card.actualPower }}
+              </div>
+              <div v-else class="div-power-card-hero">
+                {{ card.actualPower }}
+              </div>
               <img
-                v-if="dataMatchUserLogged.leader"
-                class="card-leader-img"
                 :src="require('../assets/cards/' + card.image + '.png')"
                 :alt="card.name"
+                class="card-field-img"
               >
             </div>
           </div>
@@ -141,37 +178,70 @@
         <div class="melee-field-cards">
           <div class="horn"></div>
           <div class="melee-cards">
-            <img
+            <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'melee')"
               :key="index"
-              :src="require('../assets/cards/' + card.image + '.png')"
-              :alt="card.name"
-              class="card-field-img"
+              class="div-card-field-image"
+              @click="selectCard({ ...card, card: 'field' })"
             >
+              <div v-if="!card.hero" class="div-power-card">
+                {{ card.actualPower }}
+              </div>
+              <div v-else class="div-power-card-hero">
+                {{ card.actualPower }}
+              </div>
+              <img
+                :src="require('../assets/cards/' + card.image + '.png')"
+                :alt="card.name"
+                class="card-field-img"
+              >
+            </div>
           </div>
         </div>
         <div class="ranged-field-cards">
           <div class="horn"></div>
           <div class="ranged-cards">
-            <img
+            <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'ranged')"
               :key="index"
-              :src="require('../assets/cards/' + card.image + '.png')"
-              :alt="card.name"
-              class="card-field-img"
+              class="div-card-field-image"
+              @click="selectCard({ ...card, card: 'field' })"
             >
+              <div v-if="!card.hero" class="div-power-card">
+                {{ card.actualPower }}
+              </div>
+              <div v-else class="div-power-card-hero">
+                {{ card.actualPower }}
+              </div>
+              <img
+                :src="require('../assets/cards/' + card.image + '.png')"
+                :alt="card.name"
+                class="card-field-img"
+              >
+            </div>
           </div>
         </div>
         <div class="siege-field-cards">
           <div class="horn"></div>
           <div class="siege-cards">
-            <img
+            <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'siege')"
               :key="index"
-              :src="require('../assets/cards/' + card.image + '.png')"
-              :alt="card.name"
-              class="card-field-img"
+              class="div-card-field-image"
+              @click="selectCard({ ...card, card: 'field' })"
             >
+              <div v-if="!card.hero" class="div-power-card">
+                {{ card.actualPower }}
+              </div>
+              <div v-else class="div-power-card-hero">
+                {{ card.actualPower }}
+              </div>
+              <img
+                :src="require('../assets/cards/' + card.image + '.png')"
+                :alt="card.name"
+                class="card-field-img"
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -182,7 +252,7 @@
             v-for="(card, index) in dataMatchUserLogged.hand"
             :key="index"
             class="card-field-hand"
-            @click="selectCard(card)"
+            @click="selectCard({ ...card, card: 'hand' })"
             :src="require('../assets/cards/' + card.image + '.png')"
             alt="Carta de campo"
           >
@@ -231,6 +301,7 @@
         </div>
 
         <button
+          v-if="(selectedCard.card === 'hand' || selectedCard.card === 'leader') && this.dataMatchUserLogged.play"
           type="button"
           class="button-use-card"
           @click="playCard"
@@ -271,16 +342,20 @@
   import { library } from '@fortawesome/fontawesome-svg-core';
   import { getUserByEmail } from "@/firebase/user";
   import { getMatchById, playInField } from "@/firebase/matchs";
+  import { doc, getFirestore } from 'firebase/firestore';
+  import { initializeApp } from 'firebase/app';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { fas } from '@fortawesome/free-solid-svg-icons';
+import { onSnapshot } from "firebase/firestore";
+import { onUnmounted, ref } from "vue";
   library.add(fas);
-
   export default {
     name: 'TheGaming',
     components: { FontAwesomeIcon },
     data() {
       const router = useRouter();
       return {
+        data: ref([]),
         messages: [],
         newMessage: '',
         sysId: '',
@@ -292,8 +367,20 @@
         showSelectDeck: false,
         showSelectCards: false,
         showGame: false,
-        dataUserInvited: {},
-        dataUserLogged: {},
+        invitedTotalPower: {
+          value: 0,
+          siege: 0,
+          ranged: 0,
+          melee: 0,
+        },
+        loggedTotalPower: {
+          value: 0,
+          siege: 0,
+          ranged: 0,
+          melee: 0,
+        },
+        dataUserInvited: { image: '', firstName: ''},
+        dataUserLogged: { image: '', firstName: ''},
         dataMatchUserInvited: {
           deck: [],
           field: [],
@@ -321,8 +408,35 @@
         fieldCards: [],
       }
     },
-    async beforeCreate() {
+    async mounted() {
+      const firebaseConfig = {
+        apiKey: "AIzaSyDRSHgIyIgCLlgvMPHmoet_DU8UFRVYHeI",
+        authDomain: "gwent-b5e5c.firebaseapp.com",
+        projectId: "gwent-b5e5c",
+        storageBucket: "gwent-b5e5c.appspot.com",
+        messagingSenderId: "340071048057",
+        appId: "1:340071048057:web:7eea38e2bd3955807dc5a8"
+      };
       const router = useRouter();
+      const auth = await authenticate();
+      if (auth) {
+        const userLogged = await getUserByEmail(auth.email);
+        const firebaseApp = initializeApp(firebaseConfig);
+        const db = getFirestore(firebaseApp);
+        const chatSnapShot = onSnapshot(
+          doc(db, 'matchs', this.matchId),
+          (snapshot) => {
+            const dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
+            this.dataMatchUserLogged = dataMatchUserLogged;
+            const dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
+            if (dataMatchUserInvited) this.dataMatchUserInvited = dataMatchUserInvited;
+            this.calculatePower(dataMatchUserLogged, dataMatchUserInvited);
+          }
+        );
+        onUnmounted(chatSnapShot);
+      } else router.push("/login");
+    },
+    async beforeCreate() {
       const auth = await authenticate();
       if (auth) {
         const match = await getMatchById(this.matchId);
@@ -331,11 +445,7 @@
         const userLogged = await getUserByEmail(auth.email);
         this.dataUserInvited = userInvited;
         this.dataUserLogged = userLogged;
-        const dataMatchUserLogged = match.users.find((user) => user.user === userLogged.id);
-        this.dataMatchUserLogged = dataMatchUserLogged;
-        const dataMatchUserInvited = match.users.find((user) => user.user !== userLogged.id);
-        if (dataMatchUserInvited) this.dataMatchUserInvited = dataMatchUserInvited;
-      } else router.push("/login");
+      }
     },
     methods: {
       capitalizeWords(str) {
@@ -358,9 +468,43 @@
           });
       },
       async playCard () {
+        await this.calculatePower(this.dataMatchUserLogged, this.dataMatchUserInvited);
         if (this.selectedCard.typeCard === "melee" || this.selectedCard.typeCard === "ranged" || this.selectedCard.typeCard === "siege") {
-          await playInField(this.selectedCard, this.matchId, this.dataUserLogged.id);
+          console.log(this.selectedCard, this.matchId, this.dataMatchUserLogged.user);
+          await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user);
           this.selectedCard = {};
+        }
+      },
+      async calculatePower(dataMatchUserLogged, dataMatchUserInvited) {
+        let siegeLogged = 0;
+        let rangedLogged = 0;
+        let meleeLogged = 0;
+        
+        for (let i = 0; i < dataMatchUserLogged.field.length; i += 1) {
+          const dataCard = dataMatchUserLogged.field[i];
+          if (dataCard.typeCard === 'melee') meleeLogged += dataCard.actualPower;
+          if (dataCard.typeCard === 'ranged') rangedLogged += dataCard.actualPower;
+          if (dataCard.typeCard === 'siege') siegeLogged += dataCard.actualPower;
+        }
+        this.loggedTotalPower.siege = siegeLogged;
+        this.loggedTotalPower.ranged = rangedLogged;
+        this.loggedTotalPower.melee = meleeLogged;
+        this.loggedTotalPower.value = siegeLogged + rangedLogged + meleeLogged;
+
+        if (dataMatchUserInvited) {
+          let siegeInvited = 0;
+          let rangedInvited = 0;
+          let meleeInvited = 0;
+          for (let i = 0; i < dataMatchUserInvited.field.length; i += 1) {
+            const dataCard = dataMatchUserInvited.field[i];
+            if (dataCard.typeCard === 'siege') siegeInvited += dataCard.actualPower;
+            if (dataCard.typeCard === 'ranged') rangedInvited += dataCard.actualPower;
+            if (dataCard.typeCard === 'melee') meleeInvited += dataCard.actualPower;
+          }
+          this.invitedTotalPower.siege = siegeInvited;
+          this.invitedTotalPower.ranged = rangedInvited;
+          this.invitedTotalPower.melee = meleeInvited;
+          this.invitedTotalPower.value = siegeInvited + rangedInvited + meleeInvited;
         }
       }
     }
@@ -422,7 +566,8 @@
   .div-card-field-img {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 5px;
     align-items: center;
     position: relative;
     padding: 0.7em;
@@ -438,11 +583,14 @@
   }
 
   .card-field-hand {
+    width: 5.3vw;
     height: 100%;
-    position: relative;
     object-fit: contain;
     z-index: 10;
     cursor: pointer;
+    object-fit: cover;
+    object-position: top;
+    position: relative;
   }
   
   .card-leader-img {
@@ -454,11 +602,50 @@
     z-index: 10;
   }
 
+  .div-card-field-image {
+    width: 4.8vw;
+    height: 100%;
+    position: relative;
+  }
+
   .card-field-img {
-    width: 9vh;
+    width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .div-power-card {
+    width: 1.5vw;
+    height: 1.5vw;
+    z-index: 20;
+    background: white;
+    border-radius: 100%;
+    position: absolute;
+    font-size: 1vw;
+    color: black;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .div-power-card-hero {
+    width: 1.5vw;
+    height: 1.5vw;
+    z-index: 20;
+    background: black;
+    border-radius: 100%;
+    position: absolute;
+    font-size: 1vw;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .card-selected {
@@ -486,7 +673,6 @@
 
   .card-selected-img {
     width: 100%;
-    /* height: 100%; */
     object-fit: contain;
     position: relative;
     z-index: 10;
@@ -555,20 +741,49 @@
     margin-right: 0.2em;
   }
 
-  .name-faction {
+  .name-faction-power {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .name-faction-power:nth-child(1) {
+    margin-bottom: 0.5em;
+  }
+
+  .name-faction-power:nth-child(2) {
     margin-top: 0.5em;
+  }
+
+  .name-faction {
     display: flex;
     flex-direction: column;
     align-items: start;
     font-size: 0.7em;
+    text-align: start;
+  }
+
+  .power-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 0.5em;
+    width: 2em;
+    height: 2em;
+    border-radius: 100%;
+    color: black;
+    font-weight: 700;
   }
 
   .oponent-name-faction {
-    margin-bottom: 0.5em;
     display: flex;
     flex-direction: column;
     align-items: start;
     font-size: 0.7em;
+    text-align: start;
   }
 
   .name-faction div:nth-child(1), .oponent-name-faction div:nth-child(1) {
