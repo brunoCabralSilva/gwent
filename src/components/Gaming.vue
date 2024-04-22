@@ -12,7 +12,7 @@
           class="close-card absolute"
           @click="cleanMessageForUser"
         />
-        <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon? dataMatchUserLogged.message.icon : 'player'}.png`)" />
+        <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon !== '' ? dataMatchUserLogged.message.icon : 'player'}.png`)" />
         <p>{{ dataMatchUserLogged.user.message.text }}</p>
       </div>
     </div>
