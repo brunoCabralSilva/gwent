@@ -6,14 +6,14 @@
   </div>
   <div v-else class="match-list">
     <div v-if="dataUserLogged.id !== '' && dataUserInvited.id !== ''" class="div-message">
-      <div v-if="dataUserLogged.id === dataMatchUserLogged.user && dataMatchUserLogged.user.message.text" class="message">
+      <div v-if="dataMatchUserLogged.message.text !== ''" class="message">
         <FontAwesomeIcon
           :icon="['fas', 'circle-xmark']"
           class="close-card absolute"
           @click="cleanMessageForUser"
         />
         <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon !== '' ? dataMatchUserLogged.message.icon : 'player'}.png`)" />
-        <p>{{ dataMatchUserLogged.user.message.text }}</p>
+        <p>{{ dataMatchUserLogged.message.text }}</p>
       </div>
     </div>
     <div class="data-players">
@@ -373,7 +373,6 @@
       const router = useRouter();
       return {
         data: ref([]),
-        newMessage: '',
         sysId: '',
         verifyChanges: 0,
         dataChat: {},
@@ -409,6 +408,7 @@
           play: false,
           user: '',
           victories: 0,
+          message: { text: '', icon: '' }
         },
         dataMatchUserLogged: {
           deck: [],
@@ -421,6 +421,7 @@
           play: false,
           user: '',
           victories: 0,
+          message: { text: '', icon: '' }
         },
         fieldCards: [],
       }
