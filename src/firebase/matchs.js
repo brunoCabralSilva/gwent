@@ -362,10 +362,10 @@ export async function playInField(card, matchId, idUser) {
       const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
-      // findUser.play = false;
       findUser.field.push(card);
+      findUser.play = false;
       if (findAnotherUser) {
-        // findAnotherUser.play = true;
+        findAnotherUser.play = true;
         await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
       } else {
         await updateDoc(userRef, { ...matchData, users: [ findUser ],
