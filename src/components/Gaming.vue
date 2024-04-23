@@ -9,7 +9,7 @@
       <FontAwesomeIcon
         :icon="['fas', 'circle-xmark']"
         class="close-card absolute"
-        @click="cleanMessageForUser"
+        @click="endMatch"
       />
       <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon}.png`)" />
       <p>{{ dataMatchUserLogged.message.text }}</p>
@@ -496,6 +496,9 @@
         return str.replace(/\b\w/g, function(char) {
           return char.toUpperCase();
         });
+      },
+      endMatch() {
+        
       },
       async pass() {
         await passTurn(this.dataMatchUserLogged.user, this.matchId);

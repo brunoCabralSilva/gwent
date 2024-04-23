@@ -544,20 +544,20 @@ export async function chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged
       const matchData =  userDocSnapshot.data();
       const randomBoolean = Math.random() < 0.5;
       dataMatchUserInvited.play = randomBoolean;
-      dataMatchUserLogged.play = !randomBoolean;
       if (dataMatchUserInvited.play) {
+        dataMatchUserInvited.play = true;
+        dataMatchUserLogged.play = false;
         dataMatchUserInvited.message.text = "Você ganhou no cara ou coroa e começa a partida!";
         dataMatchUserInvited.message.icon = 'player';
-      } else {
-        dataMatchUserInvited.message.text = "Seu adversário ganhou no cara ou coroa e começa a partida!";
-        dataMatchUserInvited.message.icon = 'oponent';
-      }
-      if (dataMatchUserLogged.play) {
-        dataMatchUserLogged.message.text = "Você ganhou no cara ou coroa e começa a partida!";
-        dataMatchUserLogged.message.icon = 'player';
-      } else {
         dataMatchUserLogged.message.text = "Seu adversário ganhou no cara ou coroa e começa a partida!";
         dataMatchUserLogged.message.icon = 'oponent';
+      } else {
+        dataMatchUserInvited.play = false;
+        dataMatchUserLogged.play = true;
+        dataMatchUserInvited.message.text = "Seu adversário ganhou no cara ou coroa e começa a partida!";
+        dataMatchUserInvited.message.icon = 'oponent';
+        dataMatchUserLogged.message.text = "Você ganhou no cara ou coroa e começa a partida!";
+        dataMatchUserLogged.message.icon = 'player';
       }
       await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
     }
