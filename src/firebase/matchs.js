@@ -500,7 +500,7 @@ export async function passTurn(idUser, matchId) {
       findAnotherUser.message.text = "Seu oponente passou a vez!";
       findUser.message.icon = "pass-turn";
       findUser.message.text = "Passou a vez!";
-      if (findAnotherUser.pass) await checkWinner(matchData, userRef, findUser, findAnotherUser);
+      if (findAnotherUser.pass || findAnotherUser.hand.length === 0) await checkWinner(matchData, userRef, findUser, findAnotherUser);
       else await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
     }
   } catch (error) {
@@ -520,16 +520,19 @@ export async function playInField(card, matchId, idUser) {
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
       findUser.field.push(card);
-      if (findAnotherUser.pass || findAnotherUser.hand.length === 0) findUser.play = true;
+      if (findAnotherUser.hand.length === 0 && findUser.hand.length === 0) await checkWinner(matchData, userRef, findUser, findAnotherUser);
       else {
-        findUser.message.icon = "oponent";
-        findUser.message.text = "Vez do oponente";
-        findAnotherUser.message.icon = "player";
-        findAnotherUser.message.text = "Sua vez!";
-        findUser.play = false;
-        findAnotherUser.play = true;
+        if (findAnotherUser.pass || findAnotherUser.hand.length === 0) findUser.play = true;
+        else {
+          findUser.message.icon = "oponent";
+          findUser.message.text = "Vez do oponente";
+          findAnotherUser.message.icon = "player";
+          findAnotherUser.message.text = "Sua vez!";
+          findUser.play = false;
+          findAnotherUser.play = true;
+        }
+        await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
       }
-      await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao alançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');
