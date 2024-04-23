@@ -578,7 +578,6 @@ export async function cleanMessage(idUser, matchId) {
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.message = { text: '', icon: '' };
       if (findAnotherUser) {
-        findAnotherUser.play = true;
         await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
       } else {
         await updateDoc(userRef, { ...matchData, users: [ findUser ],
