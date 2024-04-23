@@ -598,10 +598,9 @@
               dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'melee' && !cardUser.hero)
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-              return cardUser;
-            });
-            console.log(dataMatchUserLogged);
-          }
+                return cardUser;
+              });
+            }
             if (dataMatchUserLogged.horns.ranged.length > 0) {
               dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'ranged' && !cardUser.hero)
@@ -611,6 +610,27 @@
             }
             if (dataMatchUserLogged.horns.siege.length > 0) {
               dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                return cardUser;
+              });
+            }
+            if (dataMatchUserInvited.horns.melee.length > 0) {
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
+                if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                return cardUser;
+              });
+            }
+            if (dataMatchUserInvited.horns.ranged.length > 0) {
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
+                if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                return cardUser;
+              });
+            }
+            if (dataMatchUserInvited.horns.siege.length > 0) {
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
                 if (cardUser.typeCard === 'siege' && !cardUser.hero)
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
                 return cardUser;
