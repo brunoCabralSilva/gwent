@@ -64,7 +64,7 @@
       },
       redirectToMatch(matchId) {
         this.router.push(`/matchs/${matchId}`);
-      }
+      },
     },
     async beforeCreate() {
       window.scrollTo({ top: 0, behavior: 'smooth' });

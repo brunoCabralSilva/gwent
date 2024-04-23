@@ -176,6 +176,7 @@ export async function startGameUser(objectUser) {
     const j = Math.floor(Math.random() * (i + 1));
     [matchDeck[i], matchDeck[j]] = [matchDeck[j], matchDeck[i]];
   }
+
   const matchDeckWithIndex = matchDeck.map((item, index) => {
     return { ...item, index: index, actualPower: item.power };
   });
@@ -492,7 +493,7 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     const position = Math.floor(Math.random() * findUser.field.length);
     const saveDeckInTheField = findUser.field[position];
     findUser.discart = findUser.field.filter((card) => card.index !== saveDeckInTheField.index);
-    findUser.field.filter((card) => card.index === saveDeckInTheField.index);
+    findUser.field = findUser.field.filter((card) => card.index === saveDeckInTheField.index);
   } else {
     findUser.discart = findUser.field;
     findUser.field = [];
@@ -501,7 +502,7 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     const position = Math.floor(Math.random() * findAnotherUser.field.length);
     const saveDeckInTheField = findAnotherUser.field[position];
     findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
-    findAnotherUser.field.filter((card) => card.index === saveDeckInTheField.index);
+    findUser.field = findAnotherUser.field.filter((card) => card.index === saveDeckInTheField.index);
   } else {
     findAnotherUser.discart = findAnotherUser.field;
     findAnotherUser.field = [];
