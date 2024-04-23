@@ -1,7 +1,7 @@
 import { registerNotification } from "./notifications";
 'use client'
 import { initializeApp } from 'firebase/app';
-import { getFirestore, addDoc, doc, getDoc, updateDoc, collection, getDocs, query, where, runTransaction } from 'firebase/firestore';
+import { getFirestore, addDoc, doc, getDoc, updateDoc, collection, getDocs, query, where, runTransaction, deleteDoc } from 'firebase/firestore';
 import { getUserByEmail } from "./user";
 
 const firebaseConfig = {
@@ -496,6 +496,8 @@ export async function passTurn(idUser, matchId) {
       const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.pass = true;
+      findUser.play = false;
+      findAnotherUser.play = true;
       findAnotherUser.message.icon = "player";
       findAnotherUser.message.text = "Seu oponente passou a vez!";
       findUser.message.icon = "pass-turn";
@@ -591,5 +593,24 @@ export async function cleanMessage(idUser, matchId) {
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao excluir mensagem (' + error + '). Por favor, atualize a página e tente novamente.');
+  }
+}
+
+export async function removeUserFromMatch(idUser, matchId) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const userRef = doc(db, 'matchs', matchId);
+    const userDocSnapshot = await getDoc(userRef);
+    if (userDocSnapshot.exists()) {
+      const matchData =  userDocSnapshot.data();
+      const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
+      const findUser = matchData.users.find((match) =>  match.user === idUser);
+      findUser.leave = true;
+      if (findAnotherUser.leave) await deleteDoc(userRef);
+      else await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
+    }
+  } catch (error) {
+    window.alert('Ocorreu um erro ao encontrar Jogador (' + error + '). Por favor, atualize a página e tente novamente.');
   }
 }

@@ -5,7 +5,7 @@
     <p>Assim que seu oponente estiver pronto e carregarmos tudo o que é necessário, iniciaremos a partida.</p>
   </div>
   <div v-else class="match-list">
-    <div v-if="winner" class="div-message">
+    <div v-if="winner" class="div-message-winner-loose">
       <FontAwesomeIcon
         :icon="['fas', 'circle-xmark']"
         class="close-card absolute"
@@ -371,13 +371,14 @@
   import { useRouter } from 'vue-router';
   import { library } from '@fortawesome/fontawesome-svg-core';
   import { getUserByEmail } from "@/firebase/user";
-  import { chooseInitPlayer, cleanMessage, getMatchById, passTurn, playInField } from "@/firebase/matchs";
+  import { chooseInitPlayer, cleanMessage, getMatchById, passTurn, playInField, removeUserFromMatch } from "@/firebase/matchs";
   import { doc, getFirestore } from 'firebase/firestore';
   import { initializeApp } from 'firebase/app';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { fas } from '@fortawesome/free-solid-svg-icons';
   import { onSnapshot } from "firebase/firestore";
   import { onUnmounted, ref } from "vue";
+import router from '@/routes';
   library.add(fas);
   export default {
     name: 'TheGaming',
@@ -497,8 +498,9 @@
           return char.toUpperCase();
         });
       },
-      endMatch() {
-
+      async endMatch() {
+        router.push('/');
+        await removeUserFromMatch(this.dataMatchUserLogged.user, this.matchId);
       },
       async pass() {
         await passTurn(this.dataMatchUserLogged.user, this.matchId);
@@ -581,6 +583,24 @@
     background: rgb(0, 0, 0, 0.6);
     z-index: 30;
   }
+
+  .div-message-winner-loose {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0, 0.9);
+    z-index: 30;
+  }
+
+  .div-message-winner-loose p {
+    margin-top: 2em;
+  }
+
   .message {
     width: 100%;
     background: black;
