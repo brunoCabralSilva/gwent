@@ -401,6 +401,8 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
       findUser.message.icon = 'player';
       findAnotherUser.message.text = 'Seu oponente venceu a rodada!';
       findAnotherUser.message.icon = 'oponent';
+      findAnotherUser.play = false;
+      findUser.play = true;
     }
   } else if (totalValueLogged < totalValueInvited) {
     findAnotherUser.victories += 1;
@@ -415,35 +417,43 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
       findAnotherUser.message.icon = 'player';
       findUser.message.text = 'Seu oponente venceu a rodada!';
       findUser.message.icon = 'oponent';
+      findAnotherUser.play = true;
+      findUser.play = false;
     }
   } else {
     if (findAnotherUser.faction.faction === 'nilfgaard' && findUser.faction.faction !== 'nilfgaard') {
       findAnotherUser.victories += 1;
       if (findAnotherUser.victories === 2) {
         winner = true;
-        findAnotherUser.message.text = 'Você venceu a partida!';
+        findAnotherUser.message.text = 'Você venceu a partida pois a Facção de Nilfgaard vence em caso de empate!';
         findAnotherUser.message.icon = 'winner';
-        findUser.message.text = 'Seu oponente venceu a partida!';
+        findUser.message.text = 'Seu oponente venceu a partida, pois a Facção de Nilfgaard vence em caso de empate!';
         findUser.message.icon = 'loose';
       } else {
-        findAnotherUser.message.text = 'Você venceu a rodada!';
+        findAnotherUser.message.text = 'Você venceu a rodada pois a Facção de Nilfgaard vence em caso de empate!';
         findAnotherUser.message.icon = 'player';
-        findUser.message.text = 'Seu oponente venceu a rodada!';
+        findUser.message.text = 'Seu oponente venceu a rodada, pois a Facção de Nilfgaard vence em caso de empate!';
         findUser.message.icon = 'oponent';
+        findAnotherUser.play = true;
+        findUser.play = false;
+        findAnotherUser.play = true;
+        findUser.play = false;
       }
     } else if (findUser.faction.faction === 'nilfgaard' && findAnotherUser.faction.faction !== 'nilfgaard') {
       findUser.victories += 1;
       if (findUser.victories === 2) {
         winner = true;
-        findUser.message.text = 'Você venceu a partida!';
+        findUser.message.text = 'Você venceu a partida pois a Facção de Nilfgaard vence em caso de empate!';
         findUser.message.icon = 'winner';
-        findAnotherUser.message.text = 'Seu oponente venceu a partida!';
+        findAnotherUser.message.text = 'Seu oponente venceu a partida, pois a Facção de Nilfgaard vence em caso de empate!';
         findAnotherUser.message.icon = 'loose';
       } else {
-        findUser.message.text = 'Você venceu a rodada!';
+        findUser.message.text = 'Você venceu a rodada pois a Facção de Nilfgaard vence em caso de empate!';
         findUser.message.icon = 'player';
-        findAnotherUser.message.text = 'Seu oponente venceu a rodada!';
+        findAnotherUser.message.text = 'Seu oponente venceu a rodada, pois a Facção de Nilfgaard vence em caso de empate!';
         findAnotherUser.message.icon = 'oponent';
+        findAnotherUser.play = false;
+        findUser.play = true;
       }
     } else {
       findAnotherUser.victories += 1;
@@ -474,10 +484,22 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
       }
     }
   }
+  if (findUser.faction.name === "Reinos do Norte" && findUser.play) {
+    findUser.hand.push(findUser.deck[0]);
+    findUser.deck.filter((card) => card.index !== findUser.deck[0].index);
+  }
+  if (findUser.faction.name === "Monstros") {
+    const position = Math.floor(Math.random() * findUser.field.length);
+    const saveDeckInTheField = findUser.field[position];
+    findUser.field.filter((card) => card.index === saveDeckInTheField.index);
+  } else findUser.field = [];
+  if (findAnotherUser.faction.name === "Monstros") {
+    const position = Math.floor(Math.random() * findAnotherUser.field.length);
+    const saveDeckInTheField = findAnotherUser.field[position];
+    findAnotherUser.field.filter((card) => card.index === saveDeckInTheField.index);
+  } else findAnotherUser.field = [];
   findAnotherUser.pass = false;
   findUser.pass = false;
-  findUser.field = [];
-  findAnotherUser.field = [];
   await updateDoc(userRef, {
     ...matchData,
     winner: winner,
