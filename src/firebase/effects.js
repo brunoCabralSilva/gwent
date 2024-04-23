@@ -48,7 +48,7 @@ export async function playInField(card, matchId, idUser, effect) {
           findUser.deck.filter((cardDeck) => cardDeck.index !== deckToEspiao0.index && cardDeck.index !== deckToEspiao1.index);
           break;
         case 'horns':
-          if (!matchData.climatics.find((cardClim) => cardClim.fieldHorn === card.fieldHorn)) findUser.horns.push(card);
+          findUser.horns = { ...findUser.horns, [card.typeHorn]: [JSON.parse(JSON.stringify(card))] }
           break;
         case 'same cards from deck':
           findUser.field = [...findUser.field, ...findUser.deck.filter((cardDeck) => cardDeck.name === card.name)];

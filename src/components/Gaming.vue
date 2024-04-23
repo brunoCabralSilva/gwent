@@ -343,6 +343,39 @@
           <p>{{ selectedCard.effect }}</p>
         </div>
 
+        <div v-if="selectedCard.effect==='Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.'">
+          Escolha a fileira
+          <div
+            v-if="dataMatchUserLogged.horns.melee.length === 0"
+            class="melee-cards option-horn"
+            @click="setValueOfHorn('melee')"
+          >
+          </div>
+          <div
+            v-if="dataMatchUserLogged.horns.ranged.length === 0"
+            class="ranged-cards option-horn"
+            @click="setValueOfHorn('ranged')"
+          >
+          </div>
+          <div
+            v-if="dataMatchUserLogged.horns.siege.length === 0"
+            class="siege-cards option-horn"
+            @click="setValueOfHorn('siege')"
+          >
+          </div>
+        </div>
+
+        <div v-if="selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.'">
+          Escolha a carta que irá retornar para sua mão
+          <img
+            v-for="(card, index) in filterCardsIntheField()"
+            :key="index"
+            class="card-field-hand"
+            @click="setIndexValue(card.index)"
+            :src="require('../assets/cards/' + card.image + '.png')"
+            alt="Carta de campo"
+          >
+        </div>
         <button
           v-if="(selectedCard.card === 'hand' || selectedCard.card === 'leader') && this.dataMatchUserLogged.play"
           type="button"
@@ -434,6 +467,7 @@
           faction: { effect: "", faction: "", name: "" },
           hand: [],
           leader: { effect: "", faction: "gwent", image: "gwent" },
+          horns: { melee: [], ranger: [], siege: [] },
           matchId: '',
           play: false,
           user: '',
@@ -444,6 +478,7 @@
           deck: [],
           field: [],
           discart: [],
+          horns: { melee: [], ranger: [], siege: [] },
           faction: { effect: "", faction: "", name: "" },
           hand: [],
           leader: { effect: "", faction: "gwent", image: "gwent" },
@@ -548,9 +583,7 @@
                     await chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged, this.matchId);
                   }
                 }
-            } else {
-              this.playGameNow = false;
-            }
+            } else this.playGameNow = false;
             this.calculatePower(dataMatchUserLogged, dataMatchUserInvited);
           }
         );
@@ -569,10 +602,19 @@
       }
     },
     methods: {
+      setIndexValue(index) {
+        this.selectedCard.cardIndex = index;
+      },
+      filterCardsIntheField() {
+        return this.dataMatchUserLogged.field.filter((card) => !card.hero);
+      },
       capitalizeWords(str) {
         return str.replace(/\b\w/g, function(char) {
           return char.toUpperCase();
         });
+      },
+      setValueOfHorn(type) {
+        this.selectedCard.typeHorn = type;
       },
       async endMatch() {
         router.push('/');
@@ -597,49 +639,59 @@
       },
       async playCard () {
         await this.calculatePower(this.dataMatchUserLogged, this.dataMatchUserInvited);
-        switch(this.selectedCard.effect) {
-          case 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'queimar');
-            break;
-          case 'Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
-            break;
-          case 'Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
-            break;
-          case 'Define para 1 a força de todas as cartas de Cerco para ambos os jogadores.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
-            break;
-          case 'Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial).':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'tempo claro');
-            break;
-          case 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'espião');
-            break;
-          case 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.':
+        if (this.selectedCard.effect === 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.') {
+          if (this.selectedCard.typeHorn === 'melee' || this.selectedCard.typeHorn === 'siege' || this.selectedCard.typeHorn === 'ranged') {
             await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'horns');
-            break;
-          case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
-            break;
-          case 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.':
+          } else {
+            if (this.dataMatchUserLogged.horns.siege.length > 0 && this.dataMatchUserLogged.horns.ranged.length > 0 && this.dataMatchUserLogged.horns.melee.length > 0) {
+              window.alert("Não é possível lançar a Corneta do Comandante, pois todos os espaços reservados estão preenchidos");
+            } else {
+              window.alert("Necessário escolher uma das fileiras que você deseja inserir a Corneta do Comandante.");
+            }
+          }
+        } else if(this.selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.') {
+          if (this.selectedCard.cardIndex) {
             await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'isca');
-            break;
-          case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
-            console.log('');
-            break;
-          case 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).':
-            console.log('');
-            break;
-          case 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.':
-            console.log('');
-            break;
-          case 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).':
-            console.log('');
-            break;
-          default:
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
-            break;
+          } else window.alert("Necessário escolher uma das cartas disponíveis em campo.");
+        } else {
+          switch(this.selectedCard.effect) {
+            case 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'queimar');
+              break;
+            case 'Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores.':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+              break;
+            case 'Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores.':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+              break;
+            case 'Define para 1 a força de todas as cartas de Cerco para ambos os jogadores.':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+              break;
+            case 'Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial).':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'tempo claro');
+              break;
+            case 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'espião');
+              break;
+            case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
+              break;
+            case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
+              console.log('');
+              break;
+            case 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).':
+              console.log('');
+              break;
+            case 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.':
+              console.log('');
+              break;
+            case 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).':
+              console.log('');
+              break;
+            default:
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
+              break;
+          }
         }
         this.selectedCard = {};
       },
@@ -1111,6 +1163,11 @@
     justify-content: center;
     align-items: center;
     gap: 0.3em;
+  }
+
+  .option-horn {
+    width: 100%;
+    height: 10vh;
   }
   
   .melee-cards {

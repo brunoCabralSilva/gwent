@@ -329,7 +329,7 @@ export async function updateCardsOfPlayer(objectMatch) {
             message: { text: '', icon: '' },
             pass: false,
             winner: false,
-            horns: [],
+            horns: { melee: [], ranged: [], siege: [] },
           };
           const updatedUsers = [...matchData.users, obj];
           transaction.update(matchRef, { users: updatedUsers });
