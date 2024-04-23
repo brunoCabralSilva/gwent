@@ -209,7 +209,9 @@ export async function populateMatch(objectToAdd) {
               deck,
               leader,
               changes: 0,
-              message: { text: '', icon: ''}
+              message: { text: '', icon: ''},
+              pass: false,
+              winner: false,
             },
           ],
         });
@@ -224,7 +226,9 @@ export async function populateMatch(objectToAdd) {
             deck,
             leader,
             changes: 0,
-            message: { text: '', icon: ''}
+            message: { text: '', icon: ''},
+            pass: false,
+            winner: false,
           }],
         });
       }
@@ -322,6 +326,8 @@ export async function updateCardsOfPlayer(objectMatch) {
             victories: 0,
             play: false,
             message: { text: '', icon: '' },
+            pass: false,
+            winner: false,
           };
           const updatedUsers = [...matchData.users, obj];
           transaction.update(matchRef, { users: updatedUsers });
@@ -367,6 +373,137 @@ export async function emailInTheMatch(matchId, emailUser) {
   }
 }
 
+export async function checkWinner(matchData, userRef, findUser, findAnotherUser) {
+  let totalValueLogged = 0;
+  let totalValueInvited = 0;
+  let winner = false;
+  
+  for (let i = 0; i < findUser.field.length; i += 1) {
+    const dataCard = findUser.field[i];
+    totalValueLogged += dataCard.actualPower;
+  }
+
+  for (let i = 0; i < findAnotherUser.field.length; i += 1) {
+    const dataCard = findAnotherUser.field[i];
+    totalValueInvited += dataCard.actualPower;
+  }
+
+  if (totalValueLogged > totalValueInvited) {
+    findUser.victories += 1;
+    if (findUser.victories === 2) {
+      winner = true;
+      findUser.message.text = 'Você venceu a partida!';
+      findUser.message.icon = 'winner';
+      findAnotherUser.message.text = 'Seu oponente venceu a partida!';
+      findAnotherUser.message.icon = 'loose';
+    } else {
+      findUser.message.text = 'Você venceu a rodada!';
+      findUser.message.icon = 'player';
+      findAnotherUser.message.text = 'Seu oponente venceu a rodada!';
+      findAnotherUser.message.icon = 'oponent';
+    }
+  } else if (totalValueLogged < totalValueInvited) {
+    findAnotherUser.victories += 1;
+    if (findAnotherUser.victories === 2) {
+      winner = true;
+      findAnotherUser.message.text = 'Você venceu a partida!';
+      findAnotherUser.message.icon = 'winner';
+      findUser.message.text = 'Seu oponente venceu a partida!';
+      findUser.message.icon = 'loose';
+    } else {
+      findAnotherUser.message.text = 'Você venceu a rodada!';
+      findAnotherUser.message.icon = 'player';
+      findUser.message.text = 'Seu oponente venceu a rodada!';
+      findUser.message.icon = 'oponent';
+    }
+  } else {
+    if (findAnotherUser.faction.faction === 'nilfgaard' && findUser.faction.faction !== 'nilfgaard') {
+      findAnotherUser.victories += 1;
+      if (findAnotherUser.victories === 2) {
+        winner = true;
+        findAnotherUser.message.text = 'Você venceu a partida!';
+        findAnotherUser.message.icon = 'winner';
+        findUser.message.text = 'Seu oponente venceu a partida!';
+        findUser.message.icon = 'loose';
+      } else {
+        findAnotherUser.message.text = 'Você venceu a rodada!';
+        findAnotherUser.message.icon = 'player';
+        findUser.message.text = 'Seu oponente venceu a rodada!';
+        findUser.message.icon = 'oponent';
+      }
+    } else if (findUser.faction.faction === 'nilfgaard' && findAnotherUser.faction.faction !== 'nilfgaard') {
+      findUser.victories += 1;
+      if (findUser.victories === 2) {
+        winner = true;
+        findUser.message.text = 'Você venceu a partida!';
+        findUser.message.icon = 'winner';
+        findAnotherUser.message.text = 'Seu oponente venceu a partida!';
+        findAnotherUser.message.icon = 'loose';
+      } else {
+        findUser.message.text = 'Você venceu a rodada!';
+        findUser.message.icon = 'player';
+        findAnotherUser.message.text = 'Seu oponente venceu a rodada!';
+        findAnotherUser.message.icon = 'oponent';
+      }
+    } else {
+      findAnotherUser.victories += 1;
+      findUser.victories += 1;
+      if (findUser.victories === 2 && findAnotherUser.victories === 2) {
+        winner = true;
+        findUser.message.text = 'Fim da partida. Empate!';
+        findUser.message.icon = 'winner';
+        findAnotherUser.message.text = 'Fim da partida. Empate!';
+        findAnotherUser.message.icon = 'loose';
+      } else if (findUser.victories === 2 && findAnotherUser.victories !== 2) {
+        winner = true;
+        findUser.message.text = 'Você venceu a partida!';
+        findUser.message.icon = 'winner';
+        findAnotherUser.message.text = 'Seu oponente venceu a partida!';
+        findAnotherUser.message.icon = 'loose';
+      } else if (findUser.victories !== 2 && findAnotherUser.victories === 2) {
+        winner = true;
+        findAnotherUser.message.text = 'Você venceu a partida!';
+        findAnotherUser.message.icon = 'winner';
+        findUser.message.text = 'Seu oponente venceu a partida!';
+        findUser.message.icon = 'loose';
+      } else {
+        findUser.message.text = 'Empate!';
+        findUser.message.icon = 'player';
+        findAnotherUser.message.text = 'Empate!';
+        findAnotherUser.message.icon = 'oponent';
+      }
+    }
+  }
+  await updateDoc(userRef, {
+    ...matchData,
+    winner: winner,
+    users: [ findAnotherUser, findUser]
+  });
+}
+
+export async function passTurn(idUser, matchId) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const userRef = doc(db, 'matchs', matchId);
+    const userDocSnapshot = await getDoc(userRef);
+    if (userDocSnapshot.exists()) {
+      const matchData =  userDocSnapshot.data();
+      const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
+      const findUser = matchData.users.find((match) =>  match.user === idUser);
+      findUser.pass = true;
+      findAnotherUser.message.icon = "player";
+      findAnotherUser.message.text = "Seu oponente passou a vez!";
+      findUser.message.icon = "pass-turn";
+      findUser.message.text = "Passou a vez!";
+      if (findAnotherUser.pass) await checkWinner(matchData, userRef, findUser, findAnotherUser);
+      else await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
+    }
+  } catch (error) {
+    window.alert('Ocorreu um erro ao passar o turno (' + error + '). Por favor, atualize a página e tente novamente.');
+  }
+}
+
 export async function playInField(card, matchId, idUser) {
   try {
     const firebaseApp = initializeApp(firebaseConfig);
@@ -379,18 +516,16 @@ export async function playInField(card, matchId, idUser) {
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
       findUser.field.push(card);
-      findUser.play = false;
-      findUser.message.icon = "oponent";
-      findUser.message.text = "Vez do oponente";
-      if (findAnotherUser) {
-        findAnotherUser.play = true;
+      if (findAnotherUser.pass || findAnotherUser.hand.length === 0) findUser.play = true;
+      else {
+        findUser.message.icon = "oponent";
+        findUser.message.text = "Vez do oponente";
         findAnotherUser.message.icon = "player";
-        findAnotherUser.message.text = "Sua vez";
-        await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
-      } else {
-        await updateDoc(userRef, { ...matchData, users: [ findUser ],
-        });
+        findAnotherUser.message.text = "Sua vez!";
+        findUser.play = false;
+        findAnotherUser.play = true;
       }
+      await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao alançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');

@@ -5,6 +5,15 @@
     <p>Assim que seu oponente estiver pronto e carregarmos tudo o que é necessário, iniciaremos a partida.</p>
   </div>
   <div v-else class="match-list">
+    <div v-if="winner" class="div-message">
+      <FontAwesomeIcon
+        :icon="['fas', 'circle-xmark']"
+        class="close-card absolute"
+        @click="cleanMessageForUser"
+      />
+      <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon}.png`)" />
+      <p>{{ dataMatchUserLogged.message.text }}</p>
+    </div>
     <div v-if="(dataUserLogged.id !== '' && dataUserInvited.id !== '') && dataMatchUserLogged.message.text !== ''" class="div-message">
       <div v-if="dataMatchUserLogged.message.text !== ''" class="message">
         <FontAwesomeIcon
@@ -28,6 +37,7 @@
             @click="selectCard({ ...dataMatchUserInvited.leader, card: 'field' })"
           >
         </div>
+        <div type="button" class="turn-oponent">Passou a vez</div>
       </div>
       <div class="user-details">
         <div v-if="dataUserInvited.image" class="image-user">
@@ -115,6 +125,9 @@
             :alt="dataMatchUserLogged.leader.name"
             @click="selectCard({ ...dataMatchUserLogged.leader, card: 'leader' })"
           >
+        </div>
+        <div class="div-button-logged">
+          <button type="button" class="pass-turn" @click="pass">Pular Rodada</button>
         </div>
       </div>
     </div>
@@ -358,7 +371,7 @@
   import { useRouter } from 'vue-router';
   import { library } from '@fortawesome/fontawesome-svg-core';
   import { getUserByEmail } from "@/firebase/user";
-  import { chooseInitPlayer, cleanMessage, getMatchById, playInField } from "@/firebase/matchs";
+  import { chooseInitPlayer, cleanMessage, getMatchById, passTurn, playInField } from "@/firebase/matchs";
   import { doc, getFirestore } from 'firebase/firestore';
   import { initializeApp } from 'firebase/app';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -382,6 +395,7 @@
         showSelectDeck: false,
         showSelectCards: false,
         showGame: false,
+        winner: false,
         invitedTotalPower: {
           value: 0,
           siege: 0,
@@ -444,6 +458,7 @@
         const chatSnapShot = onSnapshot(
           doc(db, 'matchs', this.matchId),
           async (snapshot) => {
+            this.winner = snapshot.data().winner;
             const dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
             this.dataMatchUserLogged = dataMatchUserLogged;
             const dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
@@ -481,6 +496,9 @@
         return str.replace(/\b\w/g, function(char) {
           return char.toUpperCase();
         });
+      },
+      async pass() {
+        await passTurn(this.dataMatchUserLogged.user, this.matchId);
       },
       selectCard(card) {
         this.selectedCard = card;
@@ -616,17 +634,56 @@
 
   .div-card-leader {
     display: flex;
-    width: 100%;
+    /* width: 10vw; */
     justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .div-button-logged {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+  }
+
+  .turn-oponent {
+    height: 8vh;
+    color: #bea57c;
+    font-weight: 700;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 1em;
+    text-align: start;
+  }
+
+  .pass-turn {
+    border: 1px solid black;
+    height: 6vh;
+    width: 100%;
+    background: #bea57c;
+    color: black;
+    font-weight: 700;
+    font-size: 0.7em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: start;
+    padding: 0 0.5em;
+    cursor: pointer;
+    border-radius: 0.5em;
   }
 
   .card-leader {
     display: flex;
     justify-content: flex-start;
-    height: 22vh;
-    width: 5.5vw;
+    align-items: start;
     cursor: pointer;
     position: relative;
+    margin-right: 0.5em;
+    width: 5.5vw;
+    height: 22vh;
   }
 
   .image-background {
