@@ -498,15 +498,15 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     findUser.discart = findUser.field;
     findUser.field = [];
   }
-  if (findAnotherUser.faction.name === "Monstros") {
-    const position = Math.floor(Math.random() * findAnotherUser.field.length);
-    const saveDeckInTheField = findAnotherUser.field[position];
-    findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
-    findUser.field = findAnotherUser.field.filter((card) => card.index === saveDeckInTheField.index);
-  } else {
-    findAnotherUser.discart = findAnotherUser.field;
-    findAnotherUser.field = [];
-  }
+  // if (findAnotherUser.faction.name === "Monstros") {
+  //   const position = Math.floor(Math.random() * findAnotherUser.field.length);
+  //   const saveDeckInTheField = findAnotherUser.field[position];
+  //   findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
+  //   findUser.field = findAnotherUser.field.filter((card) => card.index === saveDeckInTheField.index);
+  // } else {
+  //   findAnotherUser.discart = findAnotherUser.field;
+  //   findAnotherUser.field = [];
+  // }
   findAnotherUser.pass = false;
   findUser.pass = false;
   await updateDoc(userRef, {
