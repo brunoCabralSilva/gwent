@@ -493,20 +493,21 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     const position = Math.floor(Math.random() * findUser.field.length);
     const saveDeckInTheField = findUser.field[position];
     findUser.discart = findUser.field.filter((card) => card.index !== saveDeckInTheField.index);
-    findUser.field = findUser.field.filter((card) => card.index === saveDeckInTheField.index);
+    findUser.field = [findUser.field.find((card) => card.index === saveDeckInTheField.index)];
   } else {
     findUser.discart = findUser.field;
     findUser.field = [];
   }
-  // if (findAnotherUser.faction.name === "Monstros") {
-  //   const position = Math.floor(Math.random() * findAnotherUser.field.length);
-  //   const saveDeckInTheField = findAnotherUser.field[position];
-  //   findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
-  //   findUser.field = findAnotherUser.field.filter((card) => card.index === saveDeckInTheField.index);
-  // } else {
-  //   findAnotherUser.discart = findAnotherUser.field;
-  //   findAnotherUser.field = [];
-  // }
+  if (findAnotherUser.faction.name === "Monstros") {
+    const position = Math.floor(Math.random() * findAnotherUser.field.length);
+    const saveDeckInTheField = findAnotherUser.field[position];
+    findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
+    findAnotherUser.field = [findAnotherUser.field.find((card) => card.index === saveDeckInTheField.index)];
+  } else {
+    findAnotherUser.discart = findAnotherUser.field;
+    findAnotherUser.field = [];
+  }
+  
   findAnotherUser.pass = false;
   findUser.pass = false;
   await updateDoc(userRef, {
