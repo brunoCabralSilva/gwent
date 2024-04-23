@@ -14,7 +14,7 @@
       <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon}.png`)" />
       <p>{{ dataMatchUserLogged.message.text }}</p>
     </div>
-    <div v-if="(dataUserLogged.id !== '' && dataUserInvited.id !== '') && dataMatchUserLogged.message.text !== ''" class="div-message">
+    <div v-if="(dataUserLogged.id !== '' && dataUserInvited.id !== '') && dataMatchUserLogged.message.text !== '' && !winner" class="div-message">
       <div v-if="dataMatchUserLogged.message.text !== ''" class="message">
         <FontAwesomeIcon
           :icon="['fas', 'circle-xmark']"
@@ -498,7 +498,7 @@
         });
       },
       endMatch() {
-        
+
       },
       async pass() {
         await passTurn(this.dataMatchUserLogged.user, this.matchId);
