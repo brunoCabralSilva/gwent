@@ -127,7 +127,12 @@
           >
         </div>
         <div class="div-button-logged">
-          <button type="button" class="pass-turn" @click="pass">Pular Rodada</button>
+          <button
+            type="button"
+            class="pass-turn"
+            @click="pass"
+            :disabled="!dataMatchUserLogged.play"
+          >{{ dataMatchUserLogged.pass ? 'Passou a vez' : 'Pular Rodada' }}</button>
         </div>
       </div>
     </div>
