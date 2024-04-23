@@ -474,6 +474,8 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
       }
     }
   }
+  findAnotherUser.pass = false;
+  findUser.pass = false;
   findUser.field = [];
   findAnotherUser.field = [];
   await updateDoc(userRef, {
