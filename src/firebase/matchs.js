@@ -100,7 +100,7 @@ export async function createMatch(userLogged, userToInvite) {
       } else {
         const matchCollectionRef = collection(db, 'matchs');
         const dataMatch = await addDoc(
-          matchCollectionRef, { users: [], playersEmail: [userLogged.email, userToInvite.email] }
+          matchCollectionRef, { climatics: [], users: [], playersEmail: [userLogged.email, userToInvite.email] }
         );
         const matchId = dataMatch.id;
         await updateDoc(
@@ -329,6 +329,7 @@ export async function updateCardsOfPlayer(objectMatch) {
             message: { text: '', icon: '' },
             pass: false,
             winner: false,
+            horns: [],
           };
           const updatedUsers = [...matchData.users, obj];
           transaction.update(matchRef, { users: updatedUsers });
@@ -507,7 +508,7 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     findAnotherUser.discart = findAnotherUser.field;
     findAnotherUser.field = [];
   }
-  
+
   findAnotherUser.pass = false;
   findUser.pass = false;
   await updateDoc(userRef, {
@@ -539,37 +540,6 @@ export async function passTurn(idUser, matchId) {
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao passar o turno (' + error + '). Por favor, atualize a página e tente novamente.');
-  }
-}
-
-export async function playInField(card, matchId, idUser) {
-  try {
-    const firebaseApp = initializeApp(firebaseConfig);
-    const db = getFirestore(firebaseApp);
-    const userRef = doc(db, 'matchs', matchId);
-    const userDocSnapshot = await getDoc(userRef);
-    if (userDocSnapshot.exists()) {
-      const matchData =  userDocSnapshot.data();
-      const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
-      const findUser = matchData.users.find((match) =>  match.user === idUser);
-      findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
-      findUser.field.push(card);
-      if (findAnotherUser.hand.length === 0 && findUser.hand.length === 0) await checkWinner(matchData, userRef, findUser, findAnotherUser);
-      else {
-        if (findAnotherUser.pass || findAnotherUser.hand.length === 0) findUser.play = true;
-        else {
-          findUser.message.icon = "oponent";
-          findUser.message.text = "Vez do oponente";
-          findAnotherUser.message.icon = "player";
-          findAnotherUser.message.text = "Sua vez!";
-          findUser.play = false;
-          findAnotherUser.play = true;
-        }
-        await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
-      }
-    }
-  } catch (error) {
-    window.alert('Ocorreu um erro ao alançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');
   }
 }
 

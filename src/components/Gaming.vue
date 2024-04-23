@@ -37,7 +37,14 @@
             @click="selectCard({ ...dataMatchUserInvited.leader, card: 'field' })"
           >
         </div>
-        <div type="button" class="turn-oponent">Passou a vez</div>
+        <div
+          v-if="dataMatchUserInvited.pass"
+          type="button"
+          class="text-turn"
+        >
+          Passou a vez
+        </div>
+        <p v-if="dataMatchUserInvited.play" class="text-turn">Vez do oponente!</p>
       </div>
       <div class="user-details">
         <div v-if="dataUserInvited.image" class="image-user">
@@ -126,14 +133,16 @@
             @click="selectCard({ ...dataMatchUserLogged.leader, card: 'leader' })"
           >
         </div>
-        <div class="div-button-logged">
+        <div v-if="dataMatchUserLogged.play" class="div-button-logged">
+          <p class="text-turn">É sua Vez!</p>
           <button
             type="button"
             class="pass-turn"
             @click="pass"
             :disabled="!dataMatchUserLogged.play"
-          >{{ dataMatchUserLogged.pass ? 'Passou a vez' : 'Pular Rodada' }}</button>
+          >Pular Rodada</button>
         </div>
+        <p class="text-turn" v-if="dataMatchUserLogged.pass">Você passou</p>
       </div>
     </div>
     <div class="central-match">
@@ -376,14 +385,15 @@
   import { useRouter } from 'vue-router';
   import { library } from '@fortawesome/fontawesome-svg-core';
   import { getUserByEmail } from "@/firebase/user";
-  import { chooseInitPlayer, cleanMessage, getMatchById, passTurn, playInField, removeUserFromMatch } from "@/firebase/matchs";
+  import { chooseInitPlayer, cleanMessage, getMatchById, passTurn, removeUserFromMatch } from "@/firebase/matchs";
   import { doc, getFirestore } from 'firebase/firestore';
   import { initializeApp } from 'firebase/app';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { fas } from '@fortawesome/free-solid-svg-icons';
   import { onSnapshot } from "firebase/firestore";
   import { onUnmounted, ref } from "vue";
-import router from '@/routes';
+  import router from '@/routes';
+  import { playInField } from '@/firebase/effects';
   library.add(fas);
   export default {
     name: 'TheGaming',
@@ -465,9 +475,70 @@ import router from '@/routes';
           doc(db, 'matchs', this.matchId),
           async (snapshot) => {
             this.winner = snapshot.data().winner;
-            const dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
+            let dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
+            this.climatics = snapshot.data().climatics;
+            let dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
+            const meleeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Chuva Torrencial');
+            const rangedClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Névoa Impenetrável');
+            const siegeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Frio Congelante');
+            if (meleeClimatics) {
+              dataMatchUserInvited = dataMatchUserInvited.field.map((cardUser) => {
+                if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                return { ...cardUser, actualPower: 1 }
+                return cardUser;
+              });
+              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                return { ...cardUser, actualPower: 1 }
+                return cardUser;
+              });
+            }
+            if (rangedClimatics) {
+              dataMatchUserInvited = dataMatchUserInvited.field.map((cardUser) => {
+                if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                return { ...cardUser, actualPower: 1 }
+                return cardUser;
+              });
+              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                return { ...cardUser, actualPower: 1 }
+                return cardUser;
+              });
+            }
+            if (siegeClimatics) {
+              dataMatchUserInvited = dataMatchUserInvited.field.map((cardUser) => {
+                if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                return { ...cardUser, actualPower: 1 }
+                return cardUser;
+              });
+              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                return { ...cardUser, actualPower: 1 }
+                return cardUser;
+              });
+            }
+            if (dataMatchUserLogged.horns.melee.length > 0) {
+              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                return cardUser;
+              });
+            }
+            if (dataMatchUserLogged.horns.ranged.length > 0) {
+              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                return cardUser;
+              });
+            }
+            if (dataMatchUserLogged.horns.siege.length > 0) {
+              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+                if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                return cardUser;
+              });
+            }
             this.dataMatchUserLogged = dataMatchUserLogged;
-            const dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
             if (dataMatchUserInvited) {
               this.dataMatchUserInvited = dataMatchUserInvited;
               if (dataMatchUserLogged.deck.length > 0 && dataMatchUserInvited.deck.length > 0)   
@@ -526,11 +597,51 @@ import router from '@/routes';
       },
       async playCard () {
         await this.calculatePower(this.dataMatchUserLogged, this.dataMatchUserInvited);
-        if (this.selectedCard.typeCard === "melee" || this.selectedCard.typeCard === "ranged" || this.selectedCard.typeCard === "siege") {
-          console.log(this.selectedCard, this.matchId, this.dataMatchUserLogged.user);
-          await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user);
-          this.selectedCard = {};
+        switch(this.selectedCard.effect) {
+          case 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'queimar');
+            break;
+          case 'Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+            break;
+          case 'Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+            break;
+          case 'Define para 1 a força de todas as cartas de Cerco para ambos os jogadores.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+            break;
+          case 'Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial).':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'tempo claro');
+            break;
+          case 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'espião');
+            break;
+          case 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'horns');
+            break;
+          case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
+            break;
+          case 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.':
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'isca');
+            break;
+          case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
+            console.log('');
+            break;
+          case 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).':
+            console.log('');
+            break;
+          case 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.':
+            console.log('');
+            break;
+          case 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).':
+            console.log('');
+            break;
+          default:
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
+            break;
         }
+        this.selectedCard = {};
       },
       async cleanMessageForUser() {
         await cleanMessage(this.dataMatchUserLogged.user, this.matchId);
@@ -662,33 +773,28 @@ import router from '@/routes';
 
   .div-card-leader {
     display: flex;
-    /* width: 10vw; */
+    width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
   }
 
   .div-button-logged {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     height: 100%;
+    padding-top: 0.5em;
   }
 
-  .turn-oponent {
-    height: 8vh;
-    color: #bea57c;
-    font-weight: 700;
+  .text-turn {
+    font-weight: 800;
     font-size: 0.8em;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 1em;
-    text-align: start;
+    text-align: left;
   }
 
   .pass-turn {
     border: 1px solid black;
-    height: 6vh;
     width: 100%;
     background: #bea57c;
     color: black;
@@ -698,7 +804,7 @@ import router from '@/routes';
     justify-content: flex-start;
     align-items: center;
     text-align: start;
-    padding: 0 0.5em;
+    padding: 1em;
     cursor: pointer;
     border-radius: 0.5em;
   }
