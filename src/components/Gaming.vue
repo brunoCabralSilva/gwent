@@ -148,7 +148,14 @@
     <div class="central-match">
       <div class="oponent-central-match">
         <div class="siege-field-oponent-cards">
-          <div class="horn"></div>
+          <div class="horn">
+            <img
+              v-if="this.dataMatchUserInvited.horns.siege.length > 0"
+              :src="require('../assets/cards/' + this.dataMatchUserInvited.horns.siege[0].image + '.png')"
+              :alt="this.dataMatchUserInvited.horns.siege[0].name"
+              class="card-field-img"
+            >
+          </div>
           <div class="siege-cards">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')"
@@ -171,7 +178,14 @@
           </div>
         </div>
         <div class="ranged-field-oponent-cards">
-          <div class="horn"></div>
+          <div class="horn">
+            <img
+              v-if="this.dataMatchUserInvited.horns.ranged.length > 0"
+              :src="require('../assets/cards/' + this.dataMatchUserInvited.horns.ranged[0].image + '.png')"
+              :alt="this.dataMatchUserInvited.horns.ranged[0].name"
+              class="card-field-img"
+            >
+          </div>
           <div class="ranged-cards">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'ranged')"
@@ -194,7 +208,14 @@
           </div>
         </div>
         <div class="melee-field-oponent-cards">
-          <div class="horn"></div>
+          <div class="horn">
+            <img
+              v-if="this.dataMatchUserInvited.horns.melee.length > 0"
+              :src="require('../assets/cards/' + this.dataMatchUserInvited.horns.melee[0].image + '.png')"
+              :alt="this.dataMatchUserInvited.horns.melee[0].name"
+              class="card-field-img"
+            >
+          </div>
           <div class="melee-cards">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'melee')"
@@ -219,7 +240,14 @@
       </div>
       <div class="player-central-match">
         <div class="melee-field-cards">
-          <div class="horn"></div>
+          <div class="horn">
+            <img
+              v-if="this.dataMatchUserLogged.horns.melee.length > 0"
+              :src="require('../assets/cards/' + this.dataMatchUserLogged.horns.melee[0].image + '.png')"
+              :alt="this.dataMatchUserLogged.horns.melee[0].name"
+              class="card-field-img"
+            >
+          </div>
           <div class="melee-cards">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'melee')"
@@ -242,7 +270,14 @@
           </div>
         </div>
         <div class="ranged-field-cards">
-          <div class="horn"></div>
+          <div class="horn">
+            <img
+              v-if="this.dataMatchUserLogged.horns.ranged.length > 0"
+              :src="require('../assets/cards/' + this.dataMatchUserLogged.horns.ranged[0].image + '.png')"
+              :alt="this.dataMatchUserLogged.horns.ranged[0].name"
+              class="card-field-img"
+            >
+          </div>
           <div class="ranged-cards">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'ranged')"
@@ -265,7 +300,14 @@
           </div>
         </div>
         <div class="siege-field-cards">
-          <div class="horn"></div>
+          <div class="horn">
+            <img
+              v-if="this.dataMatchUserLogged.horns.siege.length > 0"
+              :src="require('../assets/cards/' + this.dataMatchUserLogged.horns.siege[0].image + '.png')"
+              :alt="this.dataMatchUserLogged.horns.siege[0].name"
+              class="card-field-img"
+            >
+          </div>
           <div class="siege-cards">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'siege')"
@@ -467,7 +509,7 @@
           faction: { effect: "", faction: "", name: "" },
           hand: [],
           leader: { effect: "", faction: "gwent", image: "gwent" },
-          horns: { melee: [], ranger: [], siege: [] },
+          horns: { melee: [], ranged: [], siege: [] },
           matchId: '',
           play: false,
           user: '',
@@ -478,7 +520,7 @@
           deck: [],
           field: [],
           discart: [],
-          horns: { melee: [], ranger: [], siege: [] },
+          horns: { melee: [], ranged: [], siege: [] },
           faction: { effect: "", faction: "", name: "" },
           hand: [],
           leader: { effect: "", faction: "gwent", image: "gwent" },
@@ -553,21 +595,22 @@
               });
             }
             if (dataMatchUserLogged.horns.melee.length > 0) {
-              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'melee' && !cardUser.hero)
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                return cardUser;
-              });
-            }
+              return cardUser;
+            });
+            console.log(dataMatchUserLogged);
+          }
             if (dataMatchUserLogged.horns.ranged.length > 0) {
-              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'ranged' && !cardUser.hero)
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
                 return cardUser;
               });
             }
             if (dataMatchUserLogged.horns.siege.length > 0) {
-              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'siege' && !cardUser.hero)
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
                 return cardUser;
