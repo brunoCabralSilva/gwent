@@ -53,7 +53,8 @@ export async function playInField(card, matchId, idUser, effect) {
           else findUser.horns = { ...findUser.horns, [card.typeHorn]: [JSON.parse(JSON.stringify(card))] }
           break;
         case 'same cards from deck':
-          findUser.field = [...findUser.field, ...findUser.deck.filter((cardDeck) => cardDeck.name === card.name)];
+          console.log(findUser.deck);
+          findUser.field = [card, ...findUser.field, ...findUser.deck.filter((cardDeck) => cardDeck.name === card.name)];
           findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.name !== card.name);
           break;
         case 'isca':

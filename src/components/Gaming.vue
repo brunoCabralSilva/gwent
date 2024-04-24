@@ -483,18 +483,6 @@
   export default {
     name: 'TheGaming',
     components: { FontAwesomeIcon, LoadingPage, Swiper, SwiperSlide },
-    setup() {
-      const onSwiper = (swiper) => {
-        console.log(swiper);
-      };
-      const onSlideChange = () => {
-        console.log('slide change');
-      };
-      return {
-        onSwiper,
-        onSlideChange,
-      };
-    },
     data() {
       const router = useRouter();
       return {
