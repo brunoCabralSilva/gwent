@@ -45,7 +45,7 @@ export async function playInField(card, matchId, idUser, effect) {
           findAnotherUser.field.push(card);
           findUser.hand.push(deckToEspiao0);
           findUser.hand.push(deckToEspiao1);
-          findUser.deck.filter((cardDeck) => cardDeck.index !== deckToEspiao0.index && cardDeck.index !== deckToEspiao1.index);
+          findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== deckToEspiao0.index && cardDeck.index !== deckToEspiao1.index);
           break;
         case 'horns':
           findUser.horns = { ...findUser.horns, [card.typeHorn]: [JSON.parse(JSON.stringify(card))] }

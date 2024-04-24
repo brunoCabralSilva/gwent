@@ -332,16 +332,23 @@
       </div>
       <div class="hand-cards">
         <img class="image-background" src="../assets/field icons/hand-field.png" alt="discard-background icon">
-        <div class="div-card-field-img">
-          <img
-            v-for="(card, index) in dataMatchUserLogged.hand"
-            :key="index"
-            class="card-field-hand"
-            @click="selectCard({ ...card, card: 'hand' })"
-            :src="require('../assets/cards/' + card.image + '.png')"
-            alt="Carta de campo"
-          >
-        </div>
+        {{ dataMatchUserLogged.hand.length }}
+        <swiper
+          :slides-per-view="10"
+          :space-between="50"
+          @swiper="onSwiper"
+          @slideChange="onSlideChange"
+          class="div-card-field-img"
+        >
+          <swiper-slide v-for="(card, index) in dataMatchUserLogged.hand" :key="index">
+            <img
+              class="card-field-hand"
+              @click="selectCard({ ...card, card: 'hand' })"
+              :src="require('../assets/cards/' + card.image + '.png')"
+              alt="Carta de campo"
+            >
+          </swiper-slide>
+        </swiper>
       </div>
     </div>
     <div class="data-decks">
@@ -385,7 +392,7 @@
           <p>{{ selectedCard.effect }}</p>
         </div>
 
-        <div v-if="selectedCard.effect==='Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.'">
+        <div v-if="selectedCard.effect==='Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.'" class="units-div">
           Escolha a fileira
           <div
             v-if="dataMatchUserLogged.horns.melee.length === 0"
@@ -406,7 +413,6 @@
           >
           </div>
         </div>
-
         <div v-if="selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.'">
           Escolha a carta que irá retornar para sua mão
           <img
@@ -419,7 +425,7 @@
           >
         </div>
         <button
-          v-if="(selectedCard.card === 'hand' || selectedCard.card === 'leader') && this.dataMatchUserLogged.play"
+          v-if="selectedCard.card === 'hand' && this.dataMatchUserLogged.play"
           type="button"
           class="button-use-card"
           @click="playCard"
@@ -469,10 +475,24 @@
   import { onUnmounted, ref } from "vue";
   import router from '@/routes';
   import { playInField } from '@/firebase/effects';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import 'swiper/css';
   library.add(fas);
   export default {
     name: 'TheGaming',
-    components: { FontAwesomeIcon, LoadingPage },
+    components: { FontAwesomeIcon, LoadingPage, Swiper, SwiperSlide },
+    setup() {
+      const onSwiper = (swiper) => {
+        console.log(swiper);
+      };
+      const onSlideChange = () => {
+        console.log('slide change');
+      };
+      return {
+        onSwiper,
+        onSlideChange,
+      };
+    },
     data() {
       const router = useRouter();
       return {
@@ -949,7 +969,9 @@
     gap: 5px;
     align-items: center;
     position: relative;
-    padding: 0.7em;
+    padding: 0.7em 0;
+    z-index: 10;
+    margin: 0 0.5em 0 0;
   }
 
   .card-field-img-1 {
@@ -1035,6 +1057,10 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
+  }
+
+  .card-selected::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem no Chrome/Safari */
   }
 
   .div-close-card {
@@ -1227,10 +1253,25 @@
     align-items: center;
     gap: 0.3em;
   }
+  
+  .option-horn:nth-child(1) {
+    margin-top: 0.5em;
+  }
 
   .option-horn {
     width: 100%;
-    height: 10vh;
+    height: 6vh;
+    margin-bottom: 0.5em;
+    cursor:pointer;
+    border: 2px solid transparent;
+  }
+
+  .option-horn:hover {
+    border: 2px solid black;
+  }
+
+  .units-div {
+    width: 100%;
   }
   
   .melee-cards {
