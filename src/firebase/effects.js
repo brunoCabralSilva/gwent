@@ -32,7 +32,8 @@ export async function playInField(card, matchId, idUser, effect) {
           findAnotherUser.field = findAnotherUser.field.filter(function (item) {
               return !(item.hero === false && item.actualPower === maxPowerValue);
           });
-          findUser.discart.push(card);
+          if (card.name === "Villentretenmerth") findUser.field.push(card);
+          else findUser.discart.push(card);
           break;
         case 'climatics':
           if (!matchData.climatics.find((cardClim) => cardClim.name === card.name)) matchData.climatics.push(card);
@@ -48,7 +49,8 @@ export async function playInField(card, matchId, idUser, effect) {
           findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== deckToEspiao0.index && cardDeck.index !== deckToEspiao1.index);
           break;
         case 'horns':
-          findUser.horns = { ...findUser.horns, [card.typeHorn]: [JSON.parse(JSON.stringify(card))] }
+          if(card.name === 'Dandelion') findUser.field.push(card);
+          else findUser.horns = { ...findUser.horns, [card.typeHorn]: [JSON.parse(JSON.stringify(card))] }
           break;
         case 'same cards from deck':
           findUser.field = [...findUser.field, ...findUser.deck.filter((cardDeck) => cardDeck.name === card.name)];

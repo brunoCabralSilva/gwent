@@ -80,13 +80,14 @@
       </div>
       <div class="field-cards">
         <img class="image-background" src="../assets/field icons/field-cards.png" alt="field cards empty">
-        <div class="div-card-field-img">
+        <div class="div-card-field">
           <img
-            v-for="(card, index) in fieldCards"
+            v-for="(card, index) in climatics"
             :key="index"
             class="card-field-img-1"
-            :src="require('../assets/cards/' + card + '.png')"
+            :src="require('../assets/cards/' + card.image + '.png')"
             alt="Carta de campo"
+            @click="selectCard({ ...card, card: 'field' })"
           >
         </div>
       </div>
@@ -335,7 +336,6 @@
         {{ dataMatchUserLogged.hand.length }}
         <swiper
           :slides-per-view="10"
-          :space-between="50"
           @swiper="onSwiper"
           @slideChange="onSlideChange"
           class="div-card-field-img"
@@ -392,37 +392,39 @@
           <p>{{ selectedCard.effect }}</p>
         </div>
 
-        <div v-if="selectedCard.effect==='Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.'" class="units-div">
-          Escolha a fileira
+        <div v-if="selectedCard.effect==='Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.' && selectedCard.name !== 'Dandelion'" class="units-div">
+          <p>Escolha a fileira</p>
           <div
             v-if="dataMatchUserLogged.horns.melee.length === 0"
-            class="melee-cards option-horn"
+            :class="selectedCard.typeHorn === 'melee' ? 'melee-cards border-black' : 'melee-cards option-horn'"
             @click="setValueOfHorn('melee')"
           >
           </div>
           <div
             v-if="dataMatchUserLogged.horns.ranged.length === 0"
-            class="ranged-cards option-horn"
+            :class="selectedCard.typeHorn === 'ranged' ? 'ranged-cards border-black' : 'ranged-cards option-horn'"
             @click="setValueOfHorn('ranged')"
           >
           </div>
           <div
             v-if="dataMatchUserLogged.horns.siege.length === 0"
-            class="siege-cards option-horn"
+            :class="selectedCard.typeHorn === 'siege' ? 'siege-cards border-black' : 'siege-cards option-horn'"
             @click="setValueOfHorn('siege')"
           >
           </div>
         </div>
         <div v-if="selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.'">
           Escolha a carta que irá retornar para sua mão
-          <img
-            v-for="(card, index) in filterCardsIntheField()"
-            :key="index"
-            class="card-field-hand"
-            @click="setIndexValue(card.index)"
-            :src="require('../assets/cards/' + card.image + '.png')"
-            alt="Carta de campo"
-          >
+          <div class="select-isca">
+            <img
+              v-for="(card, index) in filterCardsIntheField()"
+              :key="index"
+              :class="this.selectedCard.cardIndex === card.index ? 'border-card-black' : 'card-field-select'"
+              @click="setIndexValue(card.index)"
+              :src="require('../assets/cards/' + card.image + '.png')"
+              alt="Carta de campo"
+            >
+          </div>
         </div>
         <button
           v-if="selectedCard.card === 'hand' && this.dataMatchUserLogged.play"
@@ -507,6 +509,7 @@
         showSelectCards: false,
         showGame: false,
         winner: false,
+        climatics: [],
         invitedTotalPower: {
           value: 0,
           siege: 0,
@@ -575,48 +578,48 @@
             let dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
             this.climatics = snapshot.data().climatics;
             let dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
-            const meleeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Chuva Torrencial');
+            const meleeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Frio Congelante');
             const rangedClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Névoa Impenetrável');
-            const siegeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Frio Congelante');
+            const siegeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Chuva Torrencial');
             if (meleeClimatics) {
-              dataMatchUserInvited = dataMatchUserInvited.field.map((cardUser) => {
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
                 if (cardUser.typeCard === 'melee' && !cardUser.hero)
                 return { ...cardUser, actualPower: 1 }
                 return cardUser;
               });
-              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'melee' && !cardUser.hero)
                 return { ...cardUser, actualPower: 1 }
                 return cardUser;
               });
             }
             if (rangedClimatics) {
-              dataMatchUserInvited = dataMatchUserInvited.field.map((cardUser) => {
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
                 if (cardUser.typeCard === 'ranged' && !cardUser.hero)
                 return { ...cardUser, actualPower: 1 }
                 return cardUser;
               });
-              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'ranged' && !cardUser.hero)
                 return { ...cardUser, actualPower: 1 }
                 return cardUser;
               });
             }
             if (siegeClimatics) {
-              dataMatchUserInvited = dataMatchUserInvited.field.map((cardUser) => {
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
                 if (cardUser.typeCard === 'siege' && !cardUser.hero)
                 return { ...cardUser, actualPower: 1 }
                 return cardUser;
               });
-              dataMatchUserLogged = dataMatchUserLogged.field.map((cardUser) => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
                 if (cardUser.typeCard === 'siege' && !cardUser.hero)
                 return { ...cardUser, actualPower: 1 }
                 return cardUser;
               });
             }
-            if (dataMatchUserLogged.horns.melee.length > 0) {
+            if (dataMatchUserLogged.horns.melee.length > 0 || dataMatchUserLogged.field.find((card) => card.name === 'Dandelion')) {
               dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.name !== 'Dandelion')
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
                 return cardUser;
               });
@@ -635,7 +638,7 @@
                 return cardUser;
               });
             }
-            if (dataMatchUserInvited.horns.melee.length > 0) {
+            if (dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')) {
               dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
                 if (cardUser.typeCard === 'melee' && !cardUser.hero)
                 return { ...cardUser, actualPower: cardUser.actualPower * 2 }
@@ -723,7 +726,7 @@
       async playCard () {
         await this.calculatePower(this.dataMatchUserLogged, this.dataMatchUserInvited);
         if (this.selectedCard.effect === 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.') {
-          if (this.selectedCard.typeHorn === 'melee' || this.selectedCard.typeHorn === 'siege' || this.selectedCard.typeHorn === 'ranged') {
+          if ((this.selectedCard.typeHorn === 'melee' || this.selectedCard.typeHorn === 'siege' || this.selectedCard.typeHorn === 'ranged') || this.selectedCard.name === 'Dandelion') {
             await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'horns');
           } else {
             if (this.dataMatchUserLogged.horns.siege.length > 0 && this.dataMatchUserLogged.horns.ranged.length > 0 && this.dataMatchUserLogged.horns.melee.length > 0) {
@@ -974,11 +977,24 @@
     margin: 0 0.5em 0 0;
   }
 
+  .div-card-field {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: center;
+    position: relative;
+    padding: 0.7em;
+    z-index: 10;
+    margin: 0 0.5em 0 0;
+  }
+
   .card-field-img-1 {
-    width: 30%;
+    width: 33%;
     height: 100%;
     position: relative;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: top;
     z-index: 10;
     cursor: pointer;
   }
@@ -992,6 +1008,43 @@
     object-fit: cover;
     object-position: top;
     position: relative;
+  }
+
+  .select-isca {
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em 0;
+  }
+
+  .border-card-black {
+    width: 45%;
+    height: 20vh;
+    object-fit: contain;
+    z-index: 10;
+    cursor: pointer;
+    object-fit: cover;
+    object-position: top;
+    position: relative;
+    border: 0.2em solid black;
+  }
+
+  .card-field-select {
+    width: 45%;
+    height: 20vh;
+    object-fit: contain;
+    z-index: 10;
+    cursor: pointer;
+    object-fit: cover;
+    object-position: top;
+    position: relative;
+    border: 0.2em solid transparent;
+  }
+
+  .card-field-select:hover {
+    border: 0.2em solid black;
   }
   
   .card-leader-img {
@@ -1060,7 +1113,7 @@
   }
 
   .card-selected::-webkit-scrollbar {
-    display: none; /* Oculta a barra de rolagem no Chrome/Safari */
+    display: none;
   }
 
   .div-close-card {
@@ -1253,9 +1306,17 @@
     align-items: center;
     gap: 0.3em;
   }
-  
-  .option-horn:nth-child(1) {
-    margin-top: 0.5em;
+
+  .border-black {
+    width: 100%;
+    height: 6vh;
+    margin-bottom: 0.5em;
+    cursor:pointer;
+    border: 2px solid black;
+  }
+
+  .units-div p {
+    margin-bottom: 0.5em;
   }
 
   .option-horn {
