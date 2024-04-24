@@ -287,7 +287,6 @@ export async function verifyChanges(matchId, emailUser) {
         user = doc.data();
         user.id = doc.id;
       });
-      console.log(matchId, emailUser);
       const findUser = user.matchs.find((match) => match.matchId === matchId);
       return findUser.changes;
     }
@@ -379,6 +378,8 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
   let totalValueLogged = 0;
   let totalValueInvited = 0;
   let winner = false;
+
+  console.log(findAnotherUser.field)
   
   for (let i = 0; i < findUser.field.length; i += 1) {
     const dataCard = findUser.field[i];
@@ -491,12 +492,19 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     findUser.deck.filter((card) => card.index !== findUser.deck[0].index);
   }
   if (findUser.faction.name === "Monstros") {
-    const position = Math.floor(Math.random() * findUser.field.length);
-    const saveDeckInTheField = findUser.field[position];
-    findUser.discart = [...findUser.field.filter((card) => card.index !== saveDeckInTheField.index), ...matchData.climatics, ...findUser.horns.melee, ...findUser.horns.ranged, ...findUser.horns.siege];
-    findUser.field = [findUser.field.find((card) => card.index === saveDeckInTheField.index)];
-    matchData.climatics = [];
-    findUser.horns = { melee: [], ranged: [], siege: [] };
+    if (findUser.field.length === 0) {
+      findUser.discart = [...findUser.field, ...matchData.climatics, ...findUser.horns.melee, ...findUser.horns.ranged, ...findUser.horns.siege];
+      findUser.field = [];
+      matchData.climatics = [];
+      findUser.horns = { melee: [], ranged: [], siege: [] };
+    } else {
+      const position = Math.floor(Math.random() * findUser.field.length);
+      const saveDeckInTheField = findUser.field[position];
+      findUser.discart = [...findUser.field.filter((card) => card.index !== saveDeckInTheField.index), ...matchData.climatics, ...findUser.horns.melee, ...findUser.horns.ranged, ...findUser.horns.siege];
+      findUser.field = [findUser.field.find((card) => card.index === saveDeckInTheField.index)];
+      matchData.climatics = [];
+      findUser.horns = { melee: [], ranged: [], siege: [] };
+    }
   } else {
     findUser.discart = [...findUser.field, ...matchData.climatics, ...findUser.horns.melee, ...findUser.horns.ranged, ...findUser.horns.siege];
     findUser.field = [];
@@ -504,22 +512,41 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
     findUser.horns = { melee: [], ranged: [], siege: [] };
   }
   if (findAnotherUser.faction.name === "Monstros") {
-    const position = Math.floor(Math.random() * findAnotherUser.field.length);
-    const saveDeckInTheField = findAnotherUser.field[position];
-    findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
-    findAnotherUser.field = [findAnotherUser.field.find((card) => card.index === saveDeckInTheField.index)];
+    if (findAnotherUser.field.length === 0) {
+      findAnotherUser.discart = [...findAnotherUser.field, ...matchData.climatics, ...findAnotherUser.horns.melee, ...findAnotherUser.horns.ranged, ...findAnotherUser.horns.siege];
+      findAnotherUser.field = [];
+      matchData.climatics = [];
+      findAnotherUser.horns = { melee: [], ranged: [], siege: [] };
+    } else {
+      const position = Math.floor(Math.random() * findAnotherUser.field.length);
+      const saveDeckInTheField = findAnotherUser.field[position];
+      findAnotherUser.discart = findAnotherUser.field.filter((card) => card.index !== saveDeckInTheField.index);
+      findAnotherUser.field = [findAnotherUser.field.find((card) => card.index === saveDeckInTheField.index)];
+    }
   } else {
-    findAnotherUser.discart = findAnotherUser.field;
+    findAnotherUser.discart = [...findAnotherUser.field, ...matchData.climatics, ...findAnotherUser.horns.melee, ...findAnotherUser.horns.ranged, ...findAnotherUser.horns.siege];
     findAnotherUser.field = [];
+    matchData.climatics = [];
+    findAnotherUser.horns = { melee: [], ranged: [], siege: [] };
   }
 
   findAnotherUser.pass = false;
   findUser.pass = false;
-  await updateDoc(userRef, {
-    ...matchData,
-    winner: winner,
-    users: [ findAnotherUser, findUser]
-  });
+
+  console.log(findAnotherUser.field)
+  if (findAnotherUser.field.length === 0 && findUser.field.length === 0) {
+    console.log('Aqui');
+    await updateDoc(userRef,{ ...matchData, winner: winner, users: [{ ...findAnotherUser, field: [] }, { ...findUser, field: [] }]});
+  } else if (findAnotherUser.field.length === 0) {
+    console.log('Aqui2');
+    await updateDoc(userRef,{ ...matchData, winner: winner, users: [{ ...findAnotherUser, field: [] }, findUser ]});
+  } else if (findUser.field.length === 0) {
+    console.log('Aqui3');
+    await updateDoc(userRef,{ ...matchData, winner: winner, users: [ findAnotherUser, { ...findUser, field: [] }]});
+  } else {
+    console.log('Aqu4');
+    await updateDoc(userRef, { ...matchData, winner: winner, users: [ findAnotherUser, findUser]});
+  }
 }
 
 export async function passTurn(idUser, matchId) {

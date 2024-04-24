@@ -65,12 +65,12 @@
             </div>
             <div>
               <img
-                src="../assets/field icons/rubi-victory.png"
+                :src="require(`../assets/field icons/${dataMatchUserLogged.victories === 2 ? 'rubi-loose' : 'rubi-victory'}.png`)"
                 alt="Rubi 1"
                 class="rubi"
               >
               <img
-                src="../assets/field icons/rubi-victory.png"
+                :src="require(`../assets/field icons/${dataMatchUserLogged.victories >= 1 ? 'rubi-loose' : 'rubi-victory'}.png`)"
                 alt="Rubi 1"
                 class="rubi"
               >
@@ -103,12 +103,12 @@
             </div>
             <div>
               <img
-                src="../assets/field icons/rubi-victory.png"
+                :src="require(`../assets/field icons/${dataMatchUserInvited.victories === 2 ? 'rubi-loose' : 'rubi-victory'}.png`)"
                 alt="Rubi 1"
                 class="rubi"
               >
               <img
-                src="../assets/field icons/rubi-victory.png"
+                :src="require(`../assets/field icons/${dataMatchUserInvited.victories >= 1 ? 'rubi-loose' : 'rubi-victory'}.png`)"
                 alt="Rubi 1"
                 class="rubi"
               >
@@ -151,9 +151,9 @@
         <div class="siege-field-oponent-cards">
           <div class="horn">
             <img
-              v-if="this.dataMatchUserInvited.horns.siege.length > 0"
-              :src="require('../assets/cards/' + this.dataMatchUserInvited.horns.siege[0].image + '.png')"
-              :alt="this.dataMatchUserInvited.horns.siege[0].name"
+              v-if="dataMatchUserInvited.horns.siege.length > 0"
+              :src="require('../assets/cards/' + dataMatchUserInvited.horns.siege[0].image + '.png')"
+              :alt="dataMatchUserInvited.horns.siege[0].name"
               class="card-field-img"
             >
           </div>
@@ -181,9 +181,9 @@
         <div class="ranged-field-oponent-cards">
           <div class="horn">
             <img
-              v-if="this.dataMatchUserInvited.horns.ranged.length > 0"
-              :src="require('../assets/cards/' + this.dataMatchUserInvited.horns.ranged[0].image + '.png')"
-              :alt="this.dataMatchUserInvited.horns.ranged[0].name"
+              v-if="dataMatchUserInvited.horns.ranged.length > 0"
+              :src="require('../assets/cards/' + dataMatchUserInvited.horns.ranged[0].image + '.png')"
+              :alt="dataMatchUserInvited.horns.ranged[0].name"
               class="card-field-img"
             >
           </div>
@@ -211,9 +211,9 @@
         <div class="melee-field-oponent-cards">
           <div class="horn">
             <img
-              v-if="this.dataMatchUserInvited.horns.melee.length > 0"
-              :src="require('../assets/cards/' + this.dataMatchUserInvited.horns.melee[0].image + '.png')"
-              :alt="this.dataMatchUserInvited.horns.melee[0].name"
+              v-if="dataMatchUserInvited.horns.melee.length > 0"
+              :src="require('../assets/cards/' + dataMatchUserInvited.horns.melee[0].image + '.png')"
+              :alt="dataMatchUserInvited.horns.melee[0].name"
               class="card-field-img"
             >
           </div>
@@ -243,9 +243,9 @@
         <div class="melee-field-cards">
           <div class="horn">
             <img
-              v-if="this.dataMatchUserLogged.horns.melee.length > 0"
-              :src="require('../assets/cards/' + this.dataMatchUserLogged.horns.melee[0].image + '.png')"
-              :alt="this.dataMatchUserLogged.horns.melee[0].name"
+              v-if="dataMatchUserLogged.horns.melee.length > 0"
+              :src="require('../assets/cards/' + dataMatchUserLogged.horns.melee[0].image + '.png')"
+              :alt="dataMatchUserLogged.horns.melee[0].name"
               class="card-field-img"
             >
           </div>
@@ -273,9 +273,9 @@
         <div class="ranged-field-cards">
           <div class="horn">
             <img
-              v-if="this.dataMatchUserLogged.horns.ranged.length > 0"
-              :src="require('../assets/cards/' + this.dataMatchUserLogged.horns.ranged[0].image + '.png')"
-              :alt="this.dataMatchUserLogged.horns.ranged[0].name"
+              v-if="dataMatchUserLogged.horns.ranged.length > 0"
+              :src="require('../assets/cards/' + dataMatchUserLogged.horns.ranged[0].image + '.png')"
+              :alt="dataMatchUserLogged.horns.ranged[0].name"
               class="card-field-img"
             >
           </div>
@@ -303,9 +303,9 @@
         <div class="siege-field-cards">
           <div class="horn">
             <img
-              v-if="this.dataMatchUserLogged.horns.siege.length > 0"
-              :src="require('../assets/cards/' + this.dataMatchUserLogged.horns.siege[0].image + '.png')"
-              :alt="this.dataMatchUserLogged.horns.siege[0].name"
+              v-if="dataMatchUserLogged.horns.siege.length > 0"
+              :src="require('../assets/cards/' + dataMatchUserLogged.horns.siege[0].image + '.png')"
+              :alt="dataMatchUserLogged.horns.siege[0].name"
               class="card-field-img"
             >
           </div>
@@ -313,7 +313,7 @@
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'siege')"
               :key="index"
-              class="div-card-field-image"
+              :class="filteredCards(dataMatchUserLogged.field, 'siege').length <= 10 ? 'div-card-field-image' : 'div-card-field-image-more'"
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
@@ -411,6 +411,35 @@
             :class="selectedCard.typeHorn === 'siege' ? 'siege-cards border-black' : 'siege-cards option-horn'"
             @click="setValueOfHorn('siege')"
           >
+          </div>
+        </div>
+
+        <div v-if="selectedCard.effect==='Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.'" class="units-div">
+          <p>Escolha a fileira</p>
+          <div
+            v-if="dataMatchUserLogged.horns.melee.length === 0"
+            :class="selectedCard.typeHorn === 'melee' ? 'melee-cards border-black' : 'melee-cards option-horn'"
+            @click="setValueOfHorn('melee')"
+          >
+          </div>
+          <div
+            v-if="dataMatchUserLogged.horns.ranged.length === 0"
+            :class="selectedCard.typeHorn === 'ranged' ? 'ranged-cards border-black' : 'ranged-cards option-horn'"
+            @click="setValueOfHorn('ranged')"
+          >
+          </div>
+        </div>
+        <div v-if="selectedCard.effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).' && dataMatchUserLogged.discart.filter((cardDisc) => !cardDisc.hero && cardDisc.typeCard !== 'effect').length > 0">
+          Escolha a carta que irá retornar ao jogo
+          <div class="select-isca">
+            <img
+              v-for="(card, index) in filterCardsFromDiscart()"
+              :key="index"
+              :class="this.selectedCard.cardIndex === card.index ? 'border-card-black' : 'card-field-select'"
+              @click="setIndexValue(card.index)"
+              :src="require('../assets/cards/' + card.image + '.png')"
+              alt="Carta de campo"
+            >
           </div>
         </div>
         <div v-if="selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.'">
@@ -626,29 +655,94 @@
                 return cardUser;
               });
             }
-            if (dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')) {
-              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                if (cardUser.typeCard === 'melee' && !cardUser.hero)
-                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                return cardUser;
+            const groupSameCards = [];
+            dataMatchUserLogged.field.forEach(cart => {
+              if (cart.effect === "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).") {
+                let existentGroup = groupSameCards.find(grupo => grupo.name === cart.name);
+                if (!existentGroup) {
+                  existentGroup = { name: cart.name, cartas: [] };
+                  groupSameCards.push(existentGroup);
+                }
+                existentGroup.cartas.push(cart);
+              }
+            });
+
+            dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardField) => {
+              const findCard = groupSameCards.find((cardGroup) => cardGroup.name === cardField.name);
+              if (findCard) {
+                return {
+                  ...cardField,
+                  actualPower: cardField.actualPower * findCard.cartas.length,
+                }
+              } else return cardField;
+            });
+            
+            const cardMoreOne = dataMatchUserLogged.field.filter(cart => {
+              return cart.effect === "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)." && cart.hero === false;
+            });
+            cardMoreOne.forEach(cardOne => {
+              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardField) => {
+              if (cardField.typeCard === cardOne.typeCard && !cardField.hero && cardField.index !== cardOne.index) {
+                return { ...cardField, actualPower: cardField.actualPower += 1 };
+              } return cardField;
               });
-            }
-            if (dataMatchUserInvited.horns.ranged.length > 0) {
-              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                if (cardUser.typeCard === 'ranged' && !cardUser.hero)
-                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                return cardUser;
-              });
-            }
-            if (dataMatchUserInvited.horns.siege.length > 0) {
-              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                if (cardUser.typeCard === 'siege' && !cardUser.hero)
-                return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                return cardUser;
-              });
-            }
+            });
+
             this.dataMatchUserLogged = dataMatchUserLogged;
             if (dataMatchUserInvited) {
+              if (dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')) {
+                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
+                  if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                  return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                  return cardUser;
+                });
+              }
+              if (dataMatchUserInvited.horns.ranged.length > 0) {
+                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
+                  if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                  return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                  return cardUser;
+                });
+              }
+              if (dataMatchUserInvited.horns.siege.length > 0) {
+                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
+                  if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                  return { ...cardUser, actualPower: cardUser.actualPower * 2 }
+                  return cardUser;
+                });
+              }
+              dataMatchUserInvited.field.forEach(cart => {
+                if (cart.effect === "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).") {
+                  let existentGroup = groupSameCards.find(grupo => grupo.name === cart.name);
+                  if (!existentGroup) {
+                    existentGroup = { name: cart.name, cartas: [] };
+                    groupSameCards.push(existentGroup);
+                  }
+                  existentGroup.cartas.push(cart);
+                }
+              });
+
+              dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardField) => {
+                const findCard = groupSameCards.find((cardGroup) => cardGroup.name === cardField.name);
+                if (findCard) {
+                  return {
+                    ...cardField,
+                    actualPower: cardField.actualPower * findCard.cartas.length,
+                  }
+                } else return cardField;
+              });
+
+              const cardMoreOne = dataMatchUserInvited.field.filter(cart => {
+                return cart.effect === "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)." && cart.hero === false;
+              });
+              cardMoreOne.forEach(cardOne => {
+                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardField) => {
+                if (cardField.typeCard === cardOne.typeCard && !cardField.hero && cardField.index !== cardOne.index) {
+                  return { ...cardField, actualPower: cardField.actualPower += 1 };
+                } return cardField;
+                });
+              });
+              
               this.dataMatchUserInvited = dataMatchUserInvited;
               if (dataMatchUserLogged.deck.length > 0 && dataMatchUserInvited.deck.length > 0)   
                 this.playGameNow = true;
@@ -678,6 +772,9 @@
     methods: {
       setIndexValue(index) {
         this.selectedCard.cardIndex = index;
+      },
+      filterCardsFromDiscart() {
+        return this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect');
       },
       filterCardsIntheField() {
         return this.dataMatchUserLogged.field.filter((card) => !card.hero);
@@ -750,17 +847,17 @@
             case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
               await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
               break;
+            case 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).':
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'ress');
+              break;
             case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
-              console.log('');
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
               break;
             case 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).':
-              console.log('');
+              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
               break;
             case 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.':
-              console.log('');
-              break;
-            case 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).':
-              console.log('');
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'both');
               break;
             default:
               await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
@@ -1051,7 +1148,9 @@
   }
 
   .div-card-field-image-more {
+    width: 100%;
     height: 100%;
+    object-fit: cover;
     position: relative;
   }
 

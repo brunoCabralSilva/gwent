@@ -21,8 +21,6 @@ export async function playInField(card, matchId, idUser, effect) {
       const matchData =  userDocSnapshot.data();
       const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
       const findUser = matchData.users.find((match) =>  match.user === idUser);
-      const deckToEspiao0 = findUser.deck[0];
-      const deckToEspiao1 = findUser.deck[1];
       switch(effect) {
         case 'queimar':
           var maxPowerObj = findAnotherUser.field.reduce(function (prev, current) {
@@ -44,9 +42,15 @@ export async function playInField(card, matchId, idUser, effect) {
           break;
         case 'espião':
           findAnotherUser.field.push(card);
-          findUser.hand.push(deckToEspiao0);
-          findUser.hand.push(deckToEspiao1);
-          findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== deckToEspiao0.index && cardDeck.index !== deckToEspiao1.index);
+          if (findUser.deck.length >= 2) {
+            findUser.hand.push(findUser.deck[0]);
+            findUser.hand.push(findUser.deck[1]);
+            findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== findUser.deck[0].index && cardDeck.index !== findUser.deck[1].index);
+          } 
+          if (findUser.deck.length === 1) {
+            findUser.hand.push(findUser.deck[0]);
+            findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== findUser.deck[0].index);
+          }
           break;
         case 'horns':
           if(card.name === 'Dandelion') findUser.field.push(card);
@@ -62,6 +66,16 @@ export async function playInField(card, matchId, idUser, effect) {
           findUser.field = findUser.field.filter((cardField) => cardField.index !== card.cardIndex);
           findUser.field.push(card);
           break;
+        case 'ress':
+          if (findUser.discart.length === 0) findUser.field.push(card);
+          else {
+            findUser.field = [...findUser.field, card, findUser.discart.find((cardField) => cardField.index === card.cardIndex)];
+            findUser.discart = findUser.discart.filter((cardField) => cardField.index !== card.cardIndex);
+          }
+          break;
+          case 'both':
+            findUser.field.push({...card, typeCard: card.typeHorn });
+            break;
         default:
           findUser.field.push(card);
           break;
