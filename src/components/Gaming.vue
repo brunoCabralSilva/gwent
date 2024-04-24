@@ -161,7 +161,7 @@
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')"
               :key="index"
-              class="div-card-field-image"
+              :class="filteredCards(dataMatchUserInvited.field, 'siege').length <= 10 ? 'div-card-field-image' : 'div-card-field-image-more'"
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
@@ -191,7 +191,7 @@
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'ranged')"
               :key="index"
-              class="div-card-field-image"
+              :class="filteredCards(dataMatchUserInvited.field, 'ranged').length <= 10 ? 'div-card-field-image' : 'div-card-field-image-more'"
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
@@ -221,7 +221,7 @@
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'melee')"
               :key="index"
-              class="div-card-field-image"
+              :class="filteredCards(dataMatchUserInvited.field, 'melee').length <= 10 ? 'div-card-field-image' : 'div-card-field-image-more'"
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
@@ -253,7 +253,7 @@
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'melee')"
               :key="index"
-              class="div-card-field-image"
+              :class="filteredCards(dataMatchUserLogged.field, 'melee').length <= 10 ? 'div-card-field-image' : 'div-card-field-image-more'"
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
@@ -283,7 +283,7 @@
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'ranged')"
               :key="index"
-              class="div-card-field-image"
+              :class="filteredCards(dataMatchUserLogged.field, 'ranged').length <= 10 ? 'div-card-field-image' : 'div-card-field-image-more'"
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
@@ -1046,6 +1046,11 @@
 
   .div-card-field-image {
     width: 4.8vw;
+    height: 100%;
+    position: relative;
+  }
+
+  .div-card-field-image-more {
     height: 100%;
     position: relative;
   }
