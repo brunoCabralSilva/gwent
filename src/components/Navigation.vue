@@ -94,7 +94,6 @@
     async created() {
       const auth = await authenticate();
       this.$emitter.on('child2', async () => {
-        console.log('aqui');
         this.listNotifications = await getNotificationsByEmail(auth.email);
         this.showNotification = true;
       });

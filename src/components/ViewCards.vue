@@ -127,9 +127,7 @@
           updatedHand.push(this.dataChat.deck[0]);
           const updatedDeck = this.dataChat.deck.filter((card) => card.index !== this.dataChat.deck[0].index);
           updatedDeck.push(this.selectedCard);
-          console.log('VerifyChanges ' + this.verifyChanges);
           const changes = this.verifyChanges + 1;
-          console.log('Changes ' + changes);
           this.dataChat.hand = updatedHand;
           this.dataChat.deck = updatedDeck;
           this.verifyChanges = changes;

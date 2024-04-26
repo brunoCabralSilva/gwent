@@ -378,8 +378,6 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
   let totalValueLogged = 0;
   let totalValueInvited = 0;
   let winner = false;
-
-  console.log(findAnotherUser.field)
   
   for (let i = 0; i < findUser.field.length; i += 1) {
     const dataCard = findUser.field[i];
@@ -532,19 +530,13 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
 
   findAnotherUser.pass = false;
   findUser.pass = false;
-
-  console.log(findAnotherUser.field)
   if (findAnotherUser.field.length === 0 && findUser.field.length === 0) {
-    console.log('Aqui');
     await updateDoc(userRef,{ ...matchData, winner: winner, users: [{ ...findAnotherUser, field: [] }, { ...findUser, field: [] }]});
   } else if (findAnotherUser.field.length === 0) {
-    console.log('Aqui2');
     await updateDoc(userRef,{ ...matchData, winner: winner, users: [{ ...findAnotherUser, field: [] }, findUser ]});
   } else if (findUser.field.length === 0) {
-    console.log('Aqui3');
     await updateDoc(userRef,{ ...matchData, winner: winner, users: [ findAnotherUser, { ...findUser, field: [] }]});
   } else {
-    console.log('Aqu4');
     await updateDoc(userRef, { ...matchData, winner: winner, users: [ findAnotherUser, findUser]});
   }
 }
