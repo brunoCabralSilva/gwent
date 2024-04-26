@@ -711,27 +711,163 @@
                   }, 2000);
                 }, 3000);
                 break;
-              case 'Vez do oponente':
-                setTimeout(() => {
-                  this.message.text = dataMatchUserLogged.message.text;
-                  this.message.icon = dataMatchUserLogged.message.icon;
+              case 'Você venceu a rodada!':
+                this.message.text = dataMatchUserLogged.message.text;
+                this.message.icon = dataMatchUserLogged.message.icon;
+                if (dataMatchUserLogged.faction.name === 'Reinos do Norte' || dataMatchUserInvited.faction.name === 'Reinos do Norte') {
                   setTimeout(() => {
-                    this.message.text = '';
-                    this.message.icon = '';
-                  }, 2000);
-                }, 2000);
+                    this.message.text = 'Habilidade de Facção Reinos do Norte ativada. O norte compra uma carta extra';
+                    this.message.icon = 'northern-realm-shield';
+                    if (dataMatchUserInvited) {
+                      if (dataMatchUserLogged.faction.name === 'Monstros' || dataMatchUserInvited.faction.name === 'Monstros') {
+                        setTimeout(() => {
+                          this.message.text = 'Habilidade de Facção dos monstros ativada. Uma Carta de Unidade Monstro aleatória fica no tabuleiro';
+                          this.message.icon = 'monsters-shield';
+                          setTimeout(() => {
+                            this.message.text = 'Sua vez';
+                            this.message.icon = 'player';
+                            setTimeout(() => {
+                              this.message.text = '';
+                              this.message.icon = '';
+                            }, 2000);
+                          }, 3000);
+                        }, 3000);
+                      }
+                    } else {
+                      setTimeout(() => {
+                        this.message.text = 'Sua vez';
+                        this.message.icon = 'player';
+                        setTimeout(() => {
+                          this.message.text = '';
+                          this.message.icon = '';
+                        }, 2000);
+                      }, 3000);
+                    }
+                  }, 3000);
+                } else if (dataMatchUserLogged.faction.name === 'Monstros' || dataMatchUserInvited.faction.name === 'Monstros') {
+                  setTimeout(() => {
+                    this.message.text = 'Habilidade de Facção dos monstros ativada. Uma Carta de Unidade Monstro aleatória fica no tabuleiro';
+                    this.message.icon = 'monsters-shield';
+                    if (dataMatchUserInvited) {
+                      if (dataMatchUserLogged.faction.name === 'Reinos do Norte' || dataMatchUserInvited.faction.name === 'Reinos do Norte') {
+                        setTimeout(() => {
+                          this.message.text = 'Habilidade de Facção Reinos do Norte ativada. O norte compra uma carta extra';
+                          this.message.icon = 'northern-realm-shield';
+                          setTimeout(() => {
+                            this.message.text = 'Sua vez';
+                            this.message.icon = 'player';
+                            setTimeout(() => {
+                              this.message.text = '';
+                              this.message.icon = '';
+                            }, 2000);
+                          }, 3000);
+                        }, 3000);
+                      }
+                    } else {
+                      setTimeout(() => {
+                        this.message.text = 'Sua vez';
+                        this.message.icon = 'player';
+                        setTimeout(() => {
+                          this.message.text = '';
+                          this.message.icon = '';
+                        }, 2000);
+                      }, 3000);
+                    }
+                  }, 3000);
+                } else {
+                  setTimeout(() => {
+                    this.message.text = 'Sua vez';
+                    this.message.icon = 'player';
+                    setTimeout(() => {
+                      this.message.text = '';
+                      this.message.icon = '';
+                    }, 2000);
+                  }, 3000);
+                }
                 break;
-              case 'Sua vez':
-                setTimeout(() => {
-                  this.message.text = dataMatchUserLogged.message.text;
-                  this.message.icon = dataMatchUserLogged.message.icon;
+              case 'Seu oponente venceu a rodada!':
+              this.message.text = dataMatchUserLogged.message.text;
+                this.message.icon = dataMatchUserLogged.message.icon;
+                if (dataMatchUserLogged.faction.name === 'Reinos do Norte' || dataMatchUserInvited.faction.name === 'Reinos do Norte') {
                   setTimeout(() => {
-                    this.message.text = '';
-                    this.message.icon = '';
-                  }, 2000);
-                }, 2000);
+                    this.message.text = 'Habilidade de Facção Reinos do Norte ativada. O norte compra uma carta extra';
+                    this.message.icon = 'northern-realm-shield';
+                    if (dataMatchUserInvited) {
+                      if (dataMatchUserLogged.faction.name === 'Monstros' || dataMatchUserInvited.faction.name === 'Monstros') {
+                        setTimeout(() => {
+                          this.message.text = 'Habilidade de Facção dos monstros ativada. Uma Carta de Unidade Monstro aleatória fica no tabuleiro';
+                          this.message.icon = 'monsters-shield';
+                          setTimeout(() => {
+                            this.message.text = 'Vez do Oponente!';
+                            this.message.icon = 'oponent';
+                            setTimeout(() => {
+                              this.message.text = '';
+                              this.message.icon = '';
+                            }, 2000);
+                          }, 3000);
+                        }, 3000);
+                      }
+                    } else {
+                      setTimeout(() => {
+                        this.message.text = 'Vez do Oponente!';
+                        this.message.icon = 'oponent';
+                        setTimeout(() => {
+                          this.message.text = '';
+                          this.message.icon = '';
+                        }, 2000);
+                      }, 3000);
+                    }
+                  }, 3000);
+                } else if (dataMatchUserLogged.faction.name === 'Monstros' || dataMatchUserInvited.faction.name === 'Monstros') {
+                  setTimeout(() => {
+                    this.message.text = 'Habilidade de Facção dos monstros ativada. Uma Carta de Unidade Monstro aleatória fica no tabuleiro';
+                    this.message.icon = 'monsters-shield';
+                    if (dataMatchUserInvited) {
+                      if (dataMatchUserLogged.faction.name === 'Reinos do Norte' || dataMatchUserInvited.faction.name === 'Reinos do Norte') {
+                        setTimeout(() => {
+                          this.message.text = 'Habilidade de Facção Reinos do Norte ativada. O norte compra uma carta extra';
+                          this.message.icon = 'northern-realm-shield';
+                          setTimeout(() => {
+                            this.message.text = 'Vez do Oponente!';
+                            this.message.icon = 'oponent';
+                            setTimeout(() => {
+                              this.message.text = '';
+                              this.message.icon = '';
+                            }, 2000);
+                          }, 3000);
+                        }, 3000);
+                      }
+                    } else {
+                      setTimeout(() => {
+                        this.message.text = 'Vez do Oponente!';
+                        this.message.icon = 'oponent';
+                        setTimeout(() => {
+                          this.message.text = '';
+                          this.message.icon = '';
+                        }, 2000);
+                      }, 3000);
+                    }
+                  }, 3000);
+                } else {
+                  setTimeout(() => {
+                    this.message.text = 'Sua vez';
+                    this.message.icon = 'player';
+                    setTimeout(() => {
+                      this.message.text = '';
+                      this.message.icon = '';
+                    }, 2000);
+                  }, 3000);
+                }
                 break;
               default:
+                setTimeout(() => {
+                  this.message.text = dataMatchUserLogged.message.text;
+                  this.message.icon = dataMatchUserLogged.message.icon;
+                  setTimeout(() => {
+                    this.message.text = '';
+                    this.message.icon = '';
+                  }, 2000);
+                }, 2000);
                 break;
             }
 

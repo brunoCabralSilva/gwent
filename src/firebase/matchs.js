@@ -415,9 +415,9 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
       findUser.message.icon = 'loose';
     } else {
       findAnotherUser.message.text = 'Você venceu a rodada!';
-      findAnotherUser.message.icon = 'player';
+      findAnotherUser.message.icon = 'winner-round';
       findUser.message.text = 'Seu oponente venceu a rodada!';
-      findUser.message.icon = 'oponent';
+      findUser.message.icon = 'looser-round';
       findAnotherUser.play = true;
       findUser.play = false;
     }

@@ -82,8 +82,13 @@ export async function playInField(card, matchId, idUser, effect) {
       findUser.hand = findUser.hand.filter((cardItem) => cardItem.index !== card.index);
       if (findAnotherUser.hand.length === 0 && findUser.hand.length === 0) await checkWinner(matchData, userRef, findUser, findAnotherUser);
       else {
-        if (findAnotherUser.pass || findAnotherUser.hand.length === 0) findUser.play = true;
-        else {
+        if (findAnotherUser.pass || findAnotherUser.hand.length === 0) {
+          findUser.play = true;
+          findUser.message.icon = '';
+          findUser.message.text = '';
+          findAnotherUser.message.icon = '';
+          findAnotherUser.message.text = '';
+        } else {
           findUser.message.icon = "oponent";
           findUser.message.text = "Vez do oponente";
           findAnotherUser.message.icon = "player";
