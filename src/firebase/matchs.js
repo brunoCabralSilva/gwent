@@ -592,38 +592,6 @@ export async function chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged
         dataMatchUserLogged.message.icon = 'start-player';
       }
       await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
-
-      setTimeout(async () => {
-        if (dataMatchUserInvited.play) {
-          dataMatchUserInvited.message.text = "Sua vez!";
-          dataMatchUserInvited.message.icon = 'player';
-          dataMatchUserLogged.message.text = "Vez do oponente";
-          dataMatchUserLogged.message.icon = 'oponent';
-        } else {
-          dataMatchUserInvited.message.text = "Vez do oponente";
-          dataMatchUserInvited.message.icon = 'oponent';
-          dataMatchUserLogged.message.text = "Sua vez!";
-          dataMatchUserLogged.message.icon = 'player';
-        }
-        await updateDoc(userRef, { ...matchData, users: [dataMatchUserInvited, dataMatchUserLogged] });
-      
-        setTimeout(async () => {
-          if (dataMatchUserInvited.play) {
-            dataMatchUserInvited.message.text = '';
-            dataMatchUserInvited.message.icon = '';
-            dataMatchUserLogged.message.text = '';
-            dataMatchUserLogged.message.icon = '';
-          } else {
-            dataMatchUserInvited.play = false;
-            dataMatchUserLogged.play = true;
-            dataMatchUserInvited.message.text = '';
-            dataMatchUserInvited.message.icon = '';
-            dataMatchUserLogged.message.text = '';
-            dataMatchUserLogged.message.icon = '';
-          }
-          await updateDoc(userRef, { ...matchData, users: [dataMatchUserInvited, dataMatchUserLogged] });
-        }, 2000);
-      }, 2000);
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao Escolher o jogador que começa (' + error + '). Por favor, atualize a página e tente novamente.');

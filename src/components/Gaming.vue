@@ -689,6 +689,25 @@
             });
 
             this.dataMatchUserLogged = dataMatchUserLogged;
+            
+            switch(dataMatchUserLogged.message.text) {
+              case 'Você ganhou no cara ou coroa e começa a partida!':
+                setTimeout(() => {
+                  this.dataMatchUserLogged.message.text = 'Sua vez';
+                  this.dataMatchUserLogged.message.icon = 'player';
+                }, 2000);
+                break;
+              case 'Seu adversário ganhou no cara ou coroa e começa a partida!':
+                setTimeout(() => {
+                  this.dataMatchUserLogged.message.text = 'Vez do oponente';
+                  this.dataMatchUserLogged.message.icon = 'oponent';
+                }, 2000);
+                break;
+              default:
+                break;
+            }
+
+
             if (dataMatchUserInvited) {
               if (dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
