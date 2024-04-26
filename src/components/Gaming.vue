@@ -11,18 +11,13 @@
         class="close-card absolute"
         @click="endMatch"
       />
-      <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon}.png`)" />
-      <p>{{ dataMatchUserLogged.message.text }}</p>
+      <img :src="require(`../assets/field icons/${message.icon}.png`)" />
+      <p>{{ message.text }}</p>
     </div>
-    <div v-if="(dataUserLogged.id !== '' && dataUserInvited.id !== '') && dataMatchUserLogged.message.text !== '' && !winner" class="div-message">
-      <div v-if="dataMatchUserLogged.message.text !== ''" class="message">
-        <FontAwesomeIcon
-          :icon="['fas', 'circle-xmark']"
-          class="close-card absolute"
-          @click="cleanMessageForUser"
-        />
-        <img :src="require(`../assets/field icons/${dataMatchUserLogged.message.icon !== '' ? dataMatchUserLogged.message.icon : 'player'}.png`)" />
-        <p>{{ dataMatchUserLogged.message.text }}</p>
+    <div v-if="(dataUserLogged.id !== '' && dataUserInvited.id !== '') && message.text !== '' && !winner" class="div-message">
+      <div v-if="message.text !== ''" class="message">
+        <img :src="require(`../assets/field icons/${message.icon !== '' ? message.icon : 'player'}.png`)" />
+        <p>{{ message.text }}</p>
       </div>
     </div>
     <div class="data-players">
@@ -539,6 +534,7 @@
           ranged: 0,
           melee: 0,
         },
+        message: { text: '', icon: '' },
         dataUserInvited: { image: '', firstName: '', id: ''},
         dataUserLogged: { image: '', firstName: '', id: ''},
         playGameNow: false,
@@ -692,29 +688,52 @@
             
             switch(dataMatchUserLogged.message.text) {
               case 'Você ganhou no cara ou coroa e começa a partida!':
+                this.message.text = dataMatchUserLogged.message.text;
+                this.message.icon = dataMatchUserLogged.message.icon;
                 setTimeout(() => {
-                  this.dataMatchUserLogged.message.text = 'Sua vez';
-                  this.dataMatchUserLogged.message.icon = 'player';
+                  this.message.text = 'Sua vez';
+                  this.message.icon = 'player';
                   setTimeout(() => {
-                    this.dataMatchUserLogged.message.text = '';
-                    this.dataMatchUserLogged.message.icon = '';
+                    this.message.text = '';
+                    this.message.icon = '';
+                  }, 2000);
+                }, 3000);
+                break;
+              case 'Seu adversário ganhou no cara ou coroa e começa a partida!':
+                this.message.text = dataMatchUserLogged.message.text;
+                this.message.icon = dataMatchUserLogged.message.icon;
+                setTimeout(() => {
+                  this.message.text = 'Vez do oponente';
+                  this.message.icon = 'oponent';
+                  setTimeout(() => {
+                    this.message.text = '';
+                    this.message.icon = '';
+                  }, 2000);
+                }, 3000);
+                break;
+              case 'Vez do oponente':
+                setTimeout(() => {
+                  this.message.text = dataMatchUserLogged.message.text;
+                  this.message.icon = dataMatchUserLogged.message.icon;
+                  setTimeout(() => {
+                    this.message.text = '';
+                    this.message.icon = '';
                   }, 2000);
                 }, 2000);
                 break;
-              case 'Seu adversário ganhou no cara ou coroa e começa a partida!':
+              case 'Sua vez':
                 setTimeout(() => {
-                  this.dataMatchUserLogged.message.text = 'Vez do oponente';
-                  this.dataMatchUserLogged.message.icon = 'oponent';
+                  this.message.text = dataMatchUserLogged.message.text;
+                  this.message.icon = dataMatchUserLogged.message.icon;
                   setTimeout(() => {
-                    this.dataMatchUserLogged.message.text = '';
-                    this.dataMatchUserLogged.message.icon = '';
+                    this.message.text = '';
+                    this.message.icon = '';
                   }, 2000);
                 }, 2000);
                 break;
               default:
                 break;
             }
-
 
             if (dataMatchUserInvited) {
               if (dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')) {
@@ -770,32 +789,6 @@
               });
               
               this.dataMatchUserInvited = dataMatchUserInvited;
-
-              switch(dataMatchUserLogged.message.text) {
-                case 'Você ganhou no cara ou coroa e começa a partida!':
-                  setTimeout(() => {
-                    this.dataMatchUserInvited.message.text = 'Sua vez';
-                    this.dataMatchUserInvited.message.icon = 'player';
-                    setTimeout(() => {
-                      this.dataMatchUserInvited.message.text = '';
-                      this.dataMatchUserInvited.message.icon = '';
-                    }, 2000);
-                  }, 2000);
-                  break;
-                case 'Seu adversário ganhou no cara ou coroa e começa a partida!':
-                  setTimeout(() => {
-                    this.dataMatchUserInvited.message.text = 'Vez do oponente';
-                    this.dataMatchUserInvited.message.icon = 'oponent';
-                    setTimeout(() => {
-                      this.dataMatchUserInvited.message.text = '';
-                      this.dataMatchUserInvited.message.icon = '';
-                    }, 2000);
-                  }, 2000);
-                  break;
-                default:
-                  break;
-              }
-
               if (dataMatchUserLogged.deck.length > 0 && dataMatchUserInvited.deck.length > 0)   
                 this.playGameNow = true;
                 if (!dataMatchUserInvited.play && !dataMatchUserLogged.play) {
@@ -971,7 +964,6 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: rgb(0, 0, 0, 0.6);
     z-index: 30;
   }
 
@@ -1004,6 +996,11 @@
     padding: 1vw 10vw;
     gap: 1vw;
   }
+
+  .message img {
+    height: 20vh;
+  }
+
   .load-start-game {
     display: flex;
     flex-direction: column;
