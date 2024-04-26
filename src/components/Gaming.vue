@@ -153,10 +153,10 @@
             >
           </div>
           <div class="siege-cards">
-            <div class="back-row-toggle splat-toggle">
+            <!-- <div class="back-row-toggle splat-toggle">
               <div class="rain front-row"></div>
               <div class="rain back-row"></div>
-            </div>
+            </div> -->
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')"
               :key="index"
@@ -1741,33 +1741,6 @@
   }
 
   /* //rain */
-  .rain {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
-
-  .rain.back-row {
-    display: none;
-    z-index: 1;
-    bottom: 60px;
-    opacity: 0.5;
-  }
-
-  .back-row-toggle .rain.back-row {
-    display: block;
-  }
-
-  .drop {
-    position: absolute;
-    bottom: 100%;
-    width: 15px;
-    height: 120px;
-    pointer-events: none;
-    animation: drop 0.5s linear infinite;
-  }
 
   @keyframes drop {
     0% {
@@ -1836,43 +1809,6 @@
       opacity: 0;
       transform: scale(1.5);
     }
-  }
-
-  .toggles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-  }
-
-  .toggle {
-    position: absolute;
-    left: 20px;
-    width: 50px;
-    height: 50px;
-    line-height: 51px;
-    box-sizing: border-box;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: 10px;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .toggle:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-
-  .toggle:active {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .toggle.active {
-    background-color: rgba(255, 255, 255, 0.4);
   }
 
   .splat-toggle {
