@@ -732,6 +732,15 @@
                             }, 2000);
                           }, 3000);
                         }, 3000);
+                      } else {
+                        setTimeout(() => {
+                          this.message.text = 'Sua vez';
+                          this.message.icon = 'player';
+                          setTimeout(() => {
+                            this.message.text = '';
+                            this.message.icon = '';
+                          }, 2000);
+                        }, 3000);
                       }
                     } else {
                       setTimeout(() => {
@@ -761,6 +770,15 @@
                               this.message.icon = '';
                             }, 2000);
                           }, 3000);
+                        }, 3000);
+                      } else {
+                        setTimeout(() => {
+                          this.message.text = 'Sua vez';
+                          this.message.icon = 'player';
+                          setTimeout(() => {
+                            this.message.text = '';
+                            this.message.icon = '';
+                          }, 2000);
                         }, 3000);
                       }
                     } else {
