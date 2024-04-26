@@ -554,7 +554,7 @@ export async function passTurn(idUser, matchId) {
       findUser.pass = true;
       findUser.play = false;
       findAnotherUser.play = true;
-      findAnotherUser.message.icon = "player";
+      findAnotherUser.message.icon = "pass-turn";
       findAnotherUser.message.text = "Seu oponente passou a vez!";
       findUser.message.icon = "pass-turn";
       findUser.message.text = "Passou a vez!";
