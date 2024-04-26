@@ -695,12 +695,20 @@
                 setTimeout(() => {
                   this.dataMatchUserLogged.message.text = 'Sua vez';
                   this.dataMatchUserLogged.message.icon = 'player';
+                  setTimeout(() => {
+                    this.dataMatchUserLogged.message.text = '';
+                    this.dataMatchUserLogged.message.icon = '';
+                  }, 2000);
                 }, 2000);
                 break;
               case 'Seu adversário ganhou no cara ou coroa e começa a partida!':
                 setTimeout(() => {
                   this.dataMatchUserLogged.message.text = 'Vez do oponente';
                   this.dataMatchUserLogged.message.icon = 'oponent';
+                  setTimeout(() => {
+                    this.dataMatchUserLogged.message.text = '';
+                    this.dataMatchUserLogged.message.icon = '';
+                  }, 2000);
                 }, 2000);
                 break;
               default:
@@ -740,7 +748,6 @@
                   existentGroup.cartas.push(cart);
                 }
               });
-
               dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardField) => {
                 const findCard = groupSameCards.find((cardGroup) => cardGroup.name === cardField.name);
                 if (findCard) {
@@ -763,6 +770,32 @@
               });
               
               this.dataMatchUserInvited = dataMatchUserInvited;
+
+              switch(dataMatchUserLogged.message.text) {
+                case 'Você ganhou no cara ou coroa e começa a partida!':
+                  setTimeout(() => {
+                    this.dataMatchUserInvited.message.text = 'Sua vez';
+                    this.dataMatchUserInvited.message.icon = 'player';
+                    setTimeout(() => {
+                      this.dataMatchUserInvited.message.text = '';
+                      this.dataMatchUserInvited.message.icon = '';
+                    }, 2000);
+                  }, 2000);
+                  break;
+                case 'Seu adversário ganhou no cara ou coroa e começa a partida!':
+                  setTimeout(() => {
+                    this.dataMatchUserInvited.message.text = 'Vez do oponente';
+                    this.dataMatchUserInvited.message.icon = 'oponent';
+                    setTimeout(() => {
+                      this.dataMatchUserInvited.message.text = '';
+                      this.dataMatchUserInvited.message.icon = '';
+                    }, 2000);
+                  }, 2000);
+                  break;
+                default:
+                  break;
+              }
+
               if (dataMatchUserLogged.deck.length > 0 && dataMatchUserInvited.deck.length > 0)   
                 this.playGameNow = true;
                 if (!dataMatchUserInvited.play && !dataMatchUserLogged.play) {
