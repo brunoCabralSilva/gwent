@@ -608,7 +608,7 @@ export async function chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged
           dataMatchUserLogged.message.icon = 'player';
         }
         await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
-      }, 2000);
+      }, 3000);
 
       setTimeout( async () => {
         if (dataMatchUserInvited.play) {
@@ -625,7 +625,7 @@ export async function chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged
           dataMatchUserLogged.message.icon = '';
         }
         await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
-      }, 2000);
+      }, 6000);
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao Escolher o jogador que começa (' + error + '). Por favor, atualize a página e tente novamente.');
