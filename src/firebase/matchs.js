@@ -593,39 +593,37 @@ export async function chooseInitPlayer(dataMatchUserInvited, dataMatchUserLogged
       }
       await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
 
-      setTimeout( async () => {
+      setTimeout(async () => {
         if (dataMatchUserInvited.play) {
           dataMatchUserInvited.message.text = "Sua vez!";
           dataMatchUserInvited.message.icon = 'player';
           dataMatchUserLogged.message.text = "Vez do oponente";
-          dataMatchUserLogged.message.icon = 'oponent';
+          dataMatchUserLogged.message.icon = 'opponent';
         } else {
-          dataMatchUserInvited.play = false;
-          dataMatchUserLogged.play = true;
           dataMatchUserInvited.message.text = "Vez do oponente";
-          dataMatchUserInvited.message.icon = 'oponent';
+          dataMatchUserInvited.message.icon = 'opponent';
           dataMatchUserLogged.message.text = "Sua vez!";
           dataMatchUserLogged.message.icon = 'player';
         }
-        await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
-      }, 3000);
-
-      setTimeout( async () => {
-        if (dataMatchUserInvited.play) {
-          dataMatchUserInvited.message.text = '';
-          dataMatchUserInvited.message.icon = '';
-          dataMatchUserLogged.message.text = '';
-          dataMatchUserLogged.message.icon = '';
-        } else {
-          dataMatchUserInvited.play = false;
-          dataMatchUserLogged.play = true;
-          dataMatchUserInvited.message.text = '';
-          dataMatchUserInvited.message.icon = '';
-          dataMatchUserLogged.message.text = '';
-          dataMatchUserLogged.message.icon = '';
-        }
-        await updateDoc(userRef, { ...matchData, users: [ dataMatchUserInvited, dataMatchUserLogged] });
-      }, 6000);
+        await updateDoc(userRef, { ...matchData, users: [dataMatchUserInvited, dataMatchUserLogged] });
+      
+        setTimeout(async () => {
+          if (dataMatchUserInvited.play) {
+            dataMatchUserInvited.message.text = '';
+            dataMatchUserInvited.message.icon = '';
+            dataMatchUserLogged.message.text = '';
+            dataMatchUserLogged.message.icon = '';
+          } else {
+            dataMatchUserInvited.play = false;
+            dataMatchUserLogged.play = true;
+            dataMatchUserInvited.message.text = '';
+            dataMatchUserInvited.message.icon = '';
+            dataMatchUserLogged.message.text = '';
+            dataMatchUserLogged.message.icon = '';
+          }
+          await updateDoc(userRef, { ...matchData, users: [dataMatchUserInvited, dataMatchUserLogged] });
+        }, 5000);
+      }, 5000);
     }
   } catch (error) {
     window.alert('Ocorreu um erro ao Escolher o jogador que começa (' + error + '). Por favor, atualize a página e tente novamente.');
