@@ -611,36 +611,36 @@
               const siegeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Chuva Torrencial');
               if (meleeClimatics) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.name !== 'Isca')
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero)
+                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.name !== 'Isca')
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
               }
               if (rangedClimatics) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.name !== 'Isca')
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero)
+                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.name !== 'Isca')
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
               }
               if (siegeClimatics) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.name !== 'Isca')
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero)
+                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.name !== 'Isca')
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
