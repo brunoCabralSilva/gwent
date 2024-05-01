@@ -66,7 +66,7 @@ export async function playInField(card, matchId, idUser, effect) {
             var findCardIndex = findUser.field.find((cardField) => cardField.index === card.cardIndex);
             findUser.hand.push(findCardIndex);
             findUser.field = findUser.field.filter((cardField) => cardField.index !== card.cardIndex);
-            findUser.field.push({ ...card, typecard: findCardIndex.typeCard });
+            findUser.field.push({ ...card, typeCard: findCardIndex.typeCard });
           }
           break;
         case 'ress':

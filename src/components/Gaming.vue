@@ -438,7 +438,7 @@
           </div>
         </div>
         <div v-if="selectedCard.effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).' && dataMatchUserLogged.discart.filter((cardDisc) => !cardDisc.hero && cardDisc.typeCard !== 'effect').length > 0">
-          Escolha a carta que irá retornar ao jogo
+          <p v-if="filterCardsFromDiscart()">Escolha a carta que irá retornar ao jogo</p>
           <div class="select-isca">
             <img
               v-for="(card, index) in filterCardsFromDiscart()"
@@ -451,7 +451,7 @@
           </div>
         </div>
         <div v-if="selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.'">
-          Escolha a carta que irá retornar para sua mão
+          <p v-if="filterCardsIntheField().length > 0">Escolha a carta que irá retornar para sua mão</p>
           <div class="select-isca">
             <img
               v-for="(card, index) in filterCardsIntheField()"
