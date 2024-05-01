@@ -23,17 +23,12 @@ export async function playInField(card, matchId, idUser, effect) {
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       switch(effect) {
         case 'queimar':
-          var maxPowerObj = findAnotherUser.field.reduce(function(prev, current) {
-            if (!prev || (!current.hero && prev.actualPower > current.actualPower)) return prev;
-            return current;
-          }, null);
-          
-          var maxPowerValue = maxPowerObj ? maxPowerObj.actualPower : null;
-          
-          findAnotherUser.field = findAnotherUser.field.filter(function(item) {
-              return !(item.hero === false && item.actualPower === maxPowerValue);
-          });
-          
+          var maxPower = 0;
+          for (let i = 0; i < findAnotherUser.field.length; i += 1) {
+            if (!findAnotherUser.field[i].hero && findAnotherUser.field[i].actualPower > maxPower) maxPower = findAnotherUser.field[i].actualPower;
+          }
+          findAnotherUser.field = findAnotherUser.field.filter((item) => item.hero || item.actualPower !== maxPower);
+          findAnotherUser.discart = [...findAnotherUser.discart, ...findAnotherUser.field.filter((item) => !item.hero && item.actualPower === maxPower)];
           if (card.name === "Villentretenmerth") findUser.field.push(card);
           else findUser.discart.push(card);
           break;
