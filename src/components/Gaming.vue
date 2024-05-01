@@ -1243,7 +1243,7 @@
         return this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect');
       },
       filterCardsIntheField() {
-        return this.dataMatchUserLogged.field.filter((card) => !card.hero);
+        return this.dataMatchUserLogged.field.filter((card) => !card.hero && card.name !== 'Isca');
       },
       capitalizeWords(str) {
         return str.replace(/\b\w/g, function(char) {
@@ -1287,9 +1287,13 @@
             }
           }
         } else if(this.selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.') {
-          if (this.selectedCard.cardIndex) {
+          if (this.selectedCard.cardIndex || this.dataMatchUserLogged.field.filter((card) => !card.hero && card.name !== 'Isca').length === 0) {
             await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'isca');
           } else window.alert("Necessário escolher uma das cartas disponíveis em campo.");
+        } else if (this.selectedCard.effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).') {
+          if (this.selectedCard.cardIndex || this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect').length === 0) {
+            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'ress');
+          } else window.alert("Necessário escolher uma das cartas disponíveis na pilha de descarte.");
         } else {
           switch(this.selectedCard.effect) {
             case 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.':
@@ -1312,9 +1316,6 @@
               break;
             case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
               await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
-              break;
-            case 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'ress');
               break;
             case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
               await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');

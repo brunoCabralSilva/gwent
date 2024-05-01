@@ -60,14 +60,17 @@ export async function playInField(card, matchId, idUser, effect) {
           findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.name !== card.name);
           break;
         case 'isca':
-          var findCardIndex = findUser.field.find((cardField) => cardField.index === card.cardIndex);
-          findUser.hand.push(findCardIndex);
-          findUser.field = findUser.field.filter((cardField) => cardField.index !== card.cardIndex);
-          findUser.field.push({ ...card, typecard: findCardIndex.typeCard });
+          if (!card.cardIndex) {
+            findUser.discart.push(card);
+          } else {
+            var findCardIndex = findUser.field.find((cardField) => cardField.index === card.cardIndex);
+            findUser.hand.push(findCardIndex);
+            findUser.field = findUser.field.filter((cardField) => cardField.index !== card.cardIndex);
+            findUser.field.push({ ...card, typecard: findCardIndex.typeCard });
+          }
           break;
         case 'ress':
-          if (findUser.discart.length === 0) findUser.field.push(card);
-          else {
+          if (card.cardIndex) {
             const cardToField = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
             findUser.field = [...findUser.field, card, cardToField];
             findUser.discart = findUser.discart.filter((cardField) => cardField.index !== card.cardIndex);
@@ -80,7 +83,7 @@ export async function playInField(card, matchId, idUser, effect) {
             // else if (cardToField.effect === 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.') {
 
             // }
-          }
+          } else findUser.field.push(card);
           break;
           case 'both':
             findUser.field.push({...card, typeCard: card.typeHorn });
