@@ -72,14 +72,30 @@ export async function playInField(card, matchId, idUser, effect) {
         case 'ress':
           if (card.cardIndex) {
             const cardToField = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
-            findUser.field = [...findUser.field, card, cardToField];
             findUser.discart = findUser.discart.filter((cardField) => cardField.index !== card.cardIndex);
-
             if (cardToField.effect === 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.') {
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'espião');
+              findAnotherUser.field.push(findCardIndex);
+              if (findUser.deck.length >= 2) {
+                findUser.hand.push(findUser.deck[0]);
+                findUser.hand.push(findUser.deck[1]);
+                findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== findUser.deck[0].index && cardDeck.index !== findUser.deck[1].index);
+              } 
+              if (findUser.deck.length === 1) {
+                findUser.hand.push(findUser.deck[0]);
+                findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== findUser.deck[0].index);
+              }
             } else if (cardToField.effect === 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.') {
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'queimar');
-            } 
+              var newMaxPower = 0;
+              for (let i = 0; i < findAnotherUser.field.length; i += 1) {
+                if (!findAnotherUser.field[i].hero && findAnotherUser.field[i].actualPower > newMaxPower) newMaxPower = findAnotherUser.field[i].actualPower;
+              }
+              findAnotherUser.discart = [...findAnotherUser.discart, ...findAnotherUser.field.filter((item) => !item.hero && item.actualPower === newMaxPower)];
+              findAnotherUser.field = findAnotherUser.field.filter((item) => item.hero || item.actualPower !== newMaxPower);
+              if (card.name === "Villentretenmerth") findUser.field.push(card);
+              else findUser.discart.push(card);
+            } else {
+              findUser.field = [...findUser.field, card, cardToField];
+            }
             // else if (cardToField.effect === 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.') {
 
             // }
@@ -113,6 +129,6 @@ export async function playInField(card, matchId, idUser, effect) {
       }
     }
   } catch (error) {
-    window.alert('Ocorreu um erro ao alançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');
+    window.alert('Ocorreu um erro ao lançar a carta em jogo (' + error + '). Por favor, atualize a página e tente novamente.');
   }
 }

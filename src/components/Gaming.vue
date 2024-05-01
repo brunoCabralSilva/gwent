@@ -1290,9 +1290,10 @@
           if (this.selectedCard.cardIndex || this.dataMatchUserLogged.field.filter((card) => !card.hero && card.name !== 'Isca').length === 0) {
             await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'isca');
           } else window.alert("Necessário escolher uma das cartas disponíveis em campo.");
-        } else if (this.selectedCard.effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).') {
-          if (this.selectedCard.cardIndex || this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect').length === 0) {
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'ress');
+        } else if (JSON.parse(JSON.stringify(this.selectedCard)).effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).') {
+          const selected = JSON.parse(JSON.stringify(this.selectedCard));
+          if (selected.cardIndex || this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect').length === 0) {
+            await playInField(selected, this.matchId, this.dataMatchUserLogged.user, 'ress');
           } else window.alert("Necessário escolher uma das cartas disponíveis na pilha de descarte.");
         } else {
           switch(this.selectedCard.effect) {
