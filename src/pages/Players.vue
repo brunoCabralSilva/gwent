@@ -70,17 +70,19 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       const router = useRouter();
       const auth = await authenticate();
-      if (auth) this.showData = true;
+      if (auth) {
+        this.showData = true;
+        const users = await getPlayers();
+        const usersNotLoggeds = users.filter((user) => user.email !== auth.email);
+        const allMatches = await getAllMatches();
+        const newListUsers = usersNotLoggeds.map((userNotLogged) => {
+          const matchs = allMatches.find((match) => match.playersEmail.includes(userNotLogged.email) &&  match.playersEmail.includes(auth.email));
+          if (matchs) return { ...userNotLogged, matchId: matchs.id }
+          return userNotLogged;
+        });
+        this.users = newListUsers;
+      }
       else router.push("/login");
-      const users = await getPlayers();
-      const usersNotLoggeds = users.filter((user) => user.email !== auth.email);
-      const allMatches = await getAllMatches();
-      const newListUsers = usersNotLoggeds.map((userNotLogged) => {
-        const matchs = allMatches.find((match) => match.playersEmail.includes(userNotLogged.email) &&  match.playersEmail.includes(auth.email));
-        if (matchs) return { ...userNotLogged, matchId: matchs.id }
-        return userNotLogged;
-      });
-      this.users = newListUsers;
     },
     components: {
       Navigation,

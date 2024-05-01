@@ -144,7 +144,8 @@
     <div class="central-match">
       <div class="oponent-central-match">
         <div class="siege-field-oponent-cards">
-          <div class="horn">
+          <div id="rain" v-if="verifyClimatics('Chuva Torrencial')"></div>
+          <div :class="verifyClimatics('Chuva Torrencial') ? 'horn-rain' : 'horn'">
             <img
               v-if="dataMatchUserInvited.horns.siege.length > 0"
               :src="require('../assets/cards/' + dataMatchUserInvited.horns.siege[0].image + '.png')"
@@ -152,11 +153,7 @@
               class="card-field-img"
             >
           </div>
-          <div class="siege-cards">
-            <!-- <div class="back-row-toggle splat-toggle">
-              <div class="rain front-row"></div>
-              <div class="rain back-row"></div>
-            </div> -->
+          <div :class="verifyClimatics('Chuva Torrencial') ? 'siege-cards-rain' : 'siege-cards'">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'siege')"
               :key="index"
@@ -178,7 +175,13 @@
           </div>
         </div>
         <div class="ranged-field-oponent-cards">
-          <div class="horn">
+          <div id="wrapper" v-if="verifyClimatics('Névoa Impenetrável')">
+            <div class="wrapper-2">
+              <div class="img-area thing1"></div>
+              <div class="img-area thing2"></div>
+            </div>
+          </div>
+          <div :class="verifyClimatics('Névoa Impenetrável') ? 'horn-mist' : 'horn'">
             <img
               v-if="dataMatchUserInvited.horns.ranged.length > 0"
               :src="require('../assets/cards/' + dataMatchUserInvited.horns.ranged[0].image + '.png')"
@@ -186,7 +189,7 @@
               class="card-field-img"
             >
           </div>
-          <div class="ranged-cards">
+          <div :class="verifyClimatics('Névoa Impenetrável') ? 'ranged-cards-mist' : 'ranged-cards'">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'ranged')"
               :key="index"
@@ -208,7 +211,7 @@
           </div>
         </div>
         <div class="melee-field-oponent-cards">
-          <div class="horn">
+          <div :class="verifyClimatics('Frio Congelante') ? 'horn-frozen' : 'horn'">
             <img
               v-if="dataMatchUserInvited.horns.melee.length > 0"
               :src="require('../assets/cards/' + dataMatchUserInvited.horns.melee[0].image + '.png')"
@@ -216,7 +219,7 @@
               class="card-field-img"
             >
           </div>
-          <div class="melee-cards">
+          <div :class="verifyClimatics('Frio Congelante') ? 'melee-cards-frozen' : 'melee-cards'">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserInvited.field, 'melee')"
               :key="index"
@@ -240,7 +243,7 @@
       </div>
       <div class="player-central-match">
         <div class="melee-field-cards">
-          <div class="horn">
+          <div :class="verifyClimatics('Frio Congelante') ? 'horn-frozen' : 'horn'">
             <img
               v-if="dataMatchUserLogged.horns.melee.length > 0"
               :src="require('../assets/cards/' + dataMatchUserLogged.horns.melee[0].image + '.png')"
@@ -248,7 +251,7 @@
               class="card-field-img"
             >
           </div>
-          <div class="melee-cards">
+          <div :class="verifyClimatics('Frio Congelante') ? 'melee-cards-frozen' : 'melee-cards'">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'melee')"
               :key="index"
@@ -270,7 +273,13 @@
           </div>
         </div>
         <div class="ranged-field-cards">
-          <div class="horn">
+          <div id="wrapper" v-if="verifyClimatics('Névoa Impenetrável')">
+            <div class="wrapper-2">
+              <div class="img-area thing1"></div>
+              <div class="img-area thing2"></div>
+            </div>
+          </div>
+          <div :class="verifyClimatics('Névoa Impenetrável') ? 'horn-mist' : 'horn'">
             <img
               v-if="dataMatchUserLogged.horns.ranged.length > 0"
               :src="require('../assets/cards/' + dataMatchUserLogged.horns.ranged[0].image + '.png')"
@@ -278,7 +287,7 @@
               class="card-field-img"
             >
           </div>
-          <div class="ranged-cards">
+          <div :class="verifyClimatics('Névoa Impenetrável') ? 'ranged-cards-mist' : 'ranged-cards'">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'ranged')"
               :key="index"
@@ -300,7 +309,7 @@
           </div>
         </div>
         <div class="siege-field-cards">
-          <div class="horn">
+          <div :class="verifyClimatics('Chuva Torrencial') ? 'horn-rain' : 'horn'">
             <img
               v-if="dataMatchUserLogged.horns.siege.length > 0"
               :src="require('../assets/cards/' + dataMatchUserLogged.horns.siege[0].image + '.png')"
@@ -308,7 +317,7 @@
               class="card-field-img"
             >
           </div>
-          <div class="siege-cards">
+          <div :class="verifyClimatics('Chuva Torrencial') ? 'siege-cards-rain' : 'siege-cards'">
             <div
               v-for="(card, index) in filteredCards(dataMatchUserLogged.field, 'siege')"
               :key="index"
@@ -1007,6 +1016,11 @@
       }
     },
     methods: {
+      verifyClimatics(climaticCard) {
+        const findClimatic = this.climatics.find((clmCard) => clmCard.name === climaticCard);
+        if (findClimatic) return true;
+        return false;
+      },
       setIndexValue(index) {
         this.selectedCard.cardIndex = index;
       },
@@ -1622,11 +1636,39 @@
     height: 12vh;
     display: flex;
     margin-top: 0.2em;
+    position: relative;
   }
   
   .horn {
     width: 15vh;
     background-image: url('../assets/field icons/horn.png');
+    background-position: center;
+    background-size: cover;
+    margin-right: 0.2em;
+    height: 100%;
+  }
+
+  .horn-rain {
+    width: 15vh;
+    background-image: url('../assets/field icons/horn-rain.png');
+    background-position: center;
+    background-size: cover;
+    margin-right: 0.2em;
+    height: 100%;
+  }
+
+  .horn-mist {
+    width: 15vh;
+    background-image: url('../assets/field icons/horn-mist.png');
+    background-position: center;
+    background-size: cover;
+    margin-right: 0.2em;
+    height: 100%;
+  }
+
+  .horn-frozen {
+    width: 15vh;
+    background-image: url('../assets/field icons/horn-frozen.png');
     background-position: center;
     background-size: cover;
     margin-right: 0.2em;
@@ -1642,6 +1684,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.3em;
+    position: relative;
   }
 
   .border-black {
@@ -1676,12 +1719,51 @@
     background-image: url('../assets/field icons/melee-field.png');
   }
 
+  .melee-cards-frozen {
+    background-image: url('../assets/field icons/frozen.png');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+    position: relative;
+  }
+
   .ranged-cards {
     background-image: url('../assets/field icons/ranged-field.png');
   }
 
+  .ranged-cards-mist {
+    background-image: url('../assets/field icons/mist.png');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+    position: relative;
+  }
+
   .siege-cards {
     background-image: url('../assets/field icons/siege-field.png');
+  }
+
+  .siege-cards-rain {
+    background-image: url('../assets/field icons/rain.png');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+    position: relative;
   }
 
   .data-decks {
@@ -1738,98 +1820,5 @@
 
   .deck-card img {
     object-fit: contain;
-  }
-
-  /* //rain */
-
-  @keyframes drop {
-    0% {
-      transform: translateY(0vh);
-    }
-    75% {
-      transform: translateY(90vh);
-    }
-    100% {
-      transform: translateY(90vh);
-    }
-  }
-
-  .stem {
-    width: 1px;
-    height: 60%;
-    margin-left: 7px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
-    animation: stem 0.5s linear infinite;
-  }
-
-  @keyframes stem {
-    0% {
-      opacity: 1;
-    }
-    65% {
-      opacity: 1;
-    }
-    75% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  .splat {
-    width: 15px;
-    height: 10px;
-    border-top: 2px dotted rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    opacity: 1;
-    transform: scale(0);
-    animation: splat 0.5s linear infinite;
-    display: none;
-  }
-
-  .splat-toggle .splat {
-    display: block;
-  }
-
-  @keyframes splat {
-    0% {
-      opacity: 1;
-      transform: scale(0);
-    }
-    80% {
-      opacity: 1;
-      transform: scale(0);
-    }
-    90% {
-      opacity: 0.5;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.5);
-    }
-  }
-
-  .splat-toggle {
-    top: 20px;
-  }
-
-  .back-row-toggle {
-    top: 90px;
-    line-height: 12px;
-    padding-top: 14px;
-  }
-
-  .single-toggle {
-    top: 160px;
-  }
-
-  .single-toggle .drop {
-    display: none;
-  }
-
-  .single-toggle .drop:nth-child(10) {
-    display: block;
   }
 </style>

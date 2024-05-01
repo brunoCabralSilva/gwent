@@ -241,7 +241,7 @@
         }
       },
       addCard(card) {
-        if (card.typeCard !== 'siege' && card.typeCard !== 'ranged' && card.typeCard !== 'melee' && card.typeCard !== 'leader') {
+        if (card.typeCard !== 'siege' && card.typeCard !== 'ranged' && card.typeCard !== 'melee' && card.typeCard !== 'leader' && card.typeCard !== 'melee and ranged') {
           if(this.effectCards <= 9) {
             if (card.quant === 1) {
               this.allCards = this.allCards.filter((card1) => card1.image !== card.image);

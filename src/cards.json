@@ -1065,7 +1065,7 @@
     "name": "Milva",
     "power": 10,
     "image": "101",
-    "typeCard": "melee",
+    "typeCard": "ranged",
     "hero": false,
     "effect": "Adiciona +1 para todas as unidades na linha (exceto a si mesmo).",
     "quant": 1    
