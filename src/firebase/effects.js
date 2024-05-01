@@ -60,9 +60,10 @@ export async function playInField(card, matchId, idUser, effect) {
           findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.name !== card.name);
           break;
         case 'isca':
-          findUser.hand.push(findUser.field.find((cardField) => cardField.index === card.cardIndex));
+          var findCardIndex = findUser.field.find((cardField) => cardField.index === card.cardIndex);
+          findUser.hand.push(findCardIndex);
           findUser.field = findUser.field.filter((cardField) => cardField.index !== card.cardIndex);
-          findUser.field.push(card);
+          findUser.field.push({ ...card, typecard: findCardIndex.typeCard });
           break;
         case 'ress':
           if (findUser.discart.length === 0) findUser.field.push(card);
