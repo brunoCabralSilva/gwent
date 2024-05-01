@@ -636,6 +636,7 @@ export async function removeUserFromMatch(idUser, matchId) {
       findUser.leave = true;
       if (findAnotherUser.leave) {
         await deleteDoc(userRef);
+        console.log('aqui');
         await deleteNotificationsByMatch(matchId);
       }
       else await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });

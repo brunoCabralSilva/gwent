@@ -78,6 +78,10 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { fas } from '@fortawesome/free-solid-svg-icons';
   import { deleteNotificationById, getNotificationsByEmail } from "@/firebase/notifications";
+  import { onUnmounted } from "vue";
+  import { collection, getFirestore, onSnapshot } from "firebase/firestore";
+  import { initializeApp } from "firebase/app";
+  import { useRouter } from "vue-router";
   library.add(fas);
   export default {
     name: "NavigationBar",
@@ -102,8 +106,44 @@
         this.listNotifications = await getNotificationsByEmail(auth.email);
         this.image = userByEmail.image;
         this.login = true;
+      } else this.login = false;
+    },
+    async mounted() {
+      const firebaseConfig = {
+        apiKey: "AIzaSyDRSHgIyIgCLlgvMPHmoet_DU8UFRVYHeI",
+        authDomain: "gwent-b5e5c.firebaseapp.com",
+        projectId: "gwent-b5e5c",
+        storageBucket: "gwent-b5e5c.appspot.com",
+        messagingSenderId: "340071048057",
+        appId: "1:340071048057:web:7eea38e2bd3955807dc5a8"
+      };
+      const router = useRouter();
+      const auth = await authenticate();
+      if (auth) {
+        const userLogged = await getUserByEmail(auth.email);
+        const firebaseApp = initializeApp(firebaseConfig);
+        const db = getFirestore(firebaseApp);
+        const chatSnapShot = onSnapshot(collection(db, 'notifications'), (querySnapshot) => {
+          const listNotifications = [];
+          querySnapshot.forEach((doc) => {
+            const notification = doc.data();
+            if (notification.email === auth.email) listNotifications.push(notification);
+          });
+          this.listNotifications = listNotifications;
+          if (!querySnapshot.empty) {
+            this.$emitter.on('child2', () => {
+              this.listNotifications = listNotifications;
+              this.showNotification = true;
+            });
+          }
+          this.image = userLogged.image;
+          this.login = true;
+        });
+        onUnmounted(chatSnapShot);
+      } else {
+        router.push("/login");
+        this.login = false;
       }
-      else this.login = false;
     },
     methods: {
       async updateNotification() {
