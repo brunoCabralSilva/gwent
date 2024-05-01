@@ -70,11 +70,12 @@ export async function playInField(card, matchId, idUser, effect) {
           }
           break;
         case 'ress':
+          var findCardByIndex = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
           if (card.cardIndex) {
             const cardToField = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
             findUser.discart = findUser.discart.filter((cardField) => cardField.index !== card.cardIndex);
             if (cardToField.effect === 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.') {
-              findAnotherUser.field.push(findCardIndex);
+              findAnotherUser.field.push(findCardByIndex);
               if (findUser.deck.length >= 2) {
                 findUser.hand.push(findUser.deck[0]);
                 findUser.hand.push(findUser.deck[1]);
@@ -82,7 +83,7 @@ export async function playInField(card, matchId, idUser, effect) {
               } 
               if (findUser.deck.length === 1) {
                 findUser.hand.push(findUser.deck[0]);
-                findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== findUser.deck[0].index);
+                findUser.deck = [];
               }
             } else if (cardToField.effect === 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.') {
               var newMaxPower = 0;
