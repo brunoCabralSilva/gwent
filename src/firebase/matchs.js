@@ -1,4 +1,4 @@
-import { registerNotification } from "./notifications";
+import { deleteNotificationsByMatch, registerNotification } from "./notifications";
 'use client'
 import { initializeApp } from 'firebase/app';
 import { getFirestore, addDoc, doc, getDoc, updateDoc, collection, getDocs, query, where, runTransaction, deleteDoc } from 'firebase/firestore';
@@ -634,7 +634,10 @@ export async function removeUserFromMatch(idUser, matchId) {
       const findAnotherUser = matchData.users.find((match) => match.user !== idUser);
       const findUser = matchData.users.find((match) =>  match.user === idUser);
       findUser.leave = true;
-      if (findAnotherUser.leave) await deleteDoc(userRef);
+      if (findAnotherUser.leave) {
+        await deleteDoc(userRef);
+        await deleteNotificationsByMatch(matchId);
+      }
       else await updateDoc(userRef, { ...matchData, users: [ findAnotherUser, findUser] });
     }
   } catch (error) {

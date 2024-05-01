@@ -99,3 +99,16 @@ export async function deleteNotificationById(id) {
     window.alert('Ocorreu um erro na interação com a Notificação (' + error + ').');
   }
 }
+
+export async function deleteNotificationsByMatch(idMatch) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+    const querySnapshot = await getDocs(query(collection(db, 'notifications'), where('idMatch', '==', idMatch)));
+    querySnapshot.forEach(async (doc) => {
+     await deleteDoc(doc.ref);
+    });
+  } catch (error) {
+    window.alert('Ocorreu um erro ao excluir as notificações desta Partida (' + error + ').');
+  }
+}
