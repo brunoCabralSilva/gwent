@@ -92,9 +92,9 @@ export async function playInField(card, matchId, idUser, effect) {
               }
               findAnotherUser.discart = [...findAnotherUser.discart, ...findAnotherUser.field.filter((item) => !item.hero && item.actualPower === newMaxPower)];
               findAnotherUser.field = findAnotherUser.field.filter((item) => item.hero || item.actualPower !== newMaxPower);
-              if (card.name === "Villentretenmerth") findUser.field.push(card);
-              else findUser.discart.push(card);
               findUser.field.push(card);
+              findUser.field.push(cardToField);
+              findUser.discart = findUser.distart.filter((item) => item.index !== cardToField.index);
             } else {
               findUser.field = [...findUser.field, card, cardToField];
             }
