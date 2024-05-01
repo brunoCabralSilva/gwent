@@ -48,7 +48,7 @@ export async function playInField(card, matchId, idUser, effect) {
           } 
           if (findUser.deck.length === 1) {
             findUser.hand.push(findUser.deck[0]);
-            findUser.deck = findUser.deck.filter((cardDeck) => cardDeck.index !== findUser.deck[0].index);
+            findUser.deck = [];
           }
           break;
         case 'horns':

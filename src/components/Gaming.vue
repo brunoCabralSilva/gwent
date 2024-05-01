@@ -611,36 +611,36 @@
               const siegeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Chuva Torrencial');
               if (meleeClimatics) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.name !== 'Isca')
+                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.actualPower > 1)
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.name !== 'Isca')
+                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.actualPower > 1)
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
               }
               if (rangedClimatics) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.name !== 'Isca')
+                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.actualPower > 1)
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.name !== 'Isca')
+                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.actualPower > 1)
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
               }
               if (siegeClimatics) {
                 dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.name !== 'Isca')
+                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.actualPower > 1)
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.name !== 'Isca')
+                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.actualPower > 1)
                   return { ...cardUser, actualPower: 1 }
                   return cardUser;
                 });
@@ -693,7 +693,7 @@
               });
               cardMoreOne.forEach(cardOne => {
                 dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardField) => {
-                if (cardField.typeCard === cardOne.typeCard && !cardField.hero && cardField.index !== cardOne.index) {
+                if (cardField.typeCard === cardOne.typeCard && !cardField.hero && cardField.index !== cardOne.index && cardOne.name !== 'Isca') {
                   return { ...cardField, actualPower: cardField.actualPower += 1 };
                 } return cardField;
                 });
@@ -1240,7 +1240,7 @@
         this.selectedCard.cardIndex = index;
       },
       filterCardsFromDiscart() {
-        return this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect');
+        return this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect' && card.name !== "Isca");
       },
       filterCardsIntheField() {
         return this.dataMatchUserLogged.field.filter((card) => !card.hero && card.name !== 'Isca');
