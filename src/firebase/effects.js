@@ -70,12 +70,11 @@ export async function playInField(card, matchId, idUser, effect) {
           }
           break;
         case 'ress':
-          var findCardByIndex = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
-          if (card.cardIndex) {
-            const cardToField = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
-            findUser.discart = findUser.discart.filter((cardField) => cardField.index !== card.cardIndex);
+          var cardToField = findUser.discart.find((cardField) => cardField.index === card.cardIndex);
+          if (cardToField) {
+            findUser.discart = findUser.discart.filter((cardField) => cardField.index !== cardToField.index);
             if (cardToField.effect === 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.') {
-              findAnotherUser.field.push(findCardByIndex);
+              findAnotherUser.field.push(cardToField);
               if (findUser.deck.length >= 2) {
                 findUser.hand.push(findUser.deck[0]);
                 findUser.hand.push(findUser.deck[1]);
@@ -85,6 +84,7 @@ export async function playInField(card, matchId, idUser, effect) {
                 findUser.hand.push(findUser.deck[0]);
                 findUser.deck = [];
               }
+              findUser.field.push(card);
             } else if (cardToField.effect === 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.') {
               var newMaxPower = 0;
               for (let i = 0; i < findAnotherUser.field.length; i += 1) {
@@ -94,15 +94,15 @@ export async function playInField(card, matchId, idUser, effect) {
               findAnotherUser.field = findAnotherUser.field.filter((item) => item.hero || item.actualPower !== newMaxPower);
               if (card.name === "Villentretenmerth") findUser.field.push(card);
               else findUser.discart.push(card);
+              findUser.field.push(card);
             } else {
               findUser.field = [...findUser.field, card, cardToField];
             }
             // else if (cardToField.effect === 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.') {
-
             // }
           } else findUser.field.push(card);
           break;
-          case 'both':
+        case 'both':
             findUser.field.push({...card, typeCard: card.typeHorn });
             break;
         default:
