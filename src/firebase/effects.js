@@ -33,7 +33,7 @@ function updateThrownCardValue(card, climatics, dataUser) {
   //Soma mais um para carta encontrada do tipo citado
   card.actualPower = card.actualPower + findMoreOne.length;
   //Verifica se existem cartas de corneta que coincidem com o tipo da carta lançada
-  if ((dataUser.horns.melee.length > 0 || dataUser.field.find((cardItem) => cardItem.name = 'Dandelion')) && card.typeCard === 'melee' && !card.hero)
+  if ((dataUser.horns.melee.length > 0 || dataUser.field.find((cardItem) => cardItem.name === 'Dandelion')) && card.typeCard === 'melee' && !card.hero)
     card.actualPower = card.actualPower * 2;
   if (dataUser.horns.ranged.length > 0 && card.typeCard === 'ranged' && !card.hero)
     card.actualPower = card.actualPower * 2;
