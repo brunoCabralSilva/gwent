@@ -488,7 +488,7 @@ export async function checkWinner(matchData, userRef, findUser, findAnotherUser)
   if (findUser.faction.name === "Reinos do Norte") {
     if (findUser.deck.length >= 1) {
       findUser.hand.push(findUser.deck[0]);
-      findUser.deck.filter((card) => card.index !== findUser.deck[0].index);
+      findUser.deck = findUser.deck.filter((card) => card.index !== findUser.deck[0].index);
     }
   }
   if (findUser.faction.name === "Monstros") {

@@ -606,98 +606,6 @@
               let dataMatchUserLogged = snapshot.data().users.find((user) => user.user === userLogged.id);
               this.climatics = snapshot.data().climatics;
               let dataMatchUserInvited = snapshot.data().users.find((user) => user.user !== userLogged.id);
-              const meleeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Frio Congelante');
-              const rangedClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Névoa Impenetrável');
-              const siegeClimatics = snapshot.data().climatics.find((climCard) => climCard.name === 'Chuva Torrencial');
-              if (meleeClimatics) {
-                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.actualPower > 1)
-                  return { ...cardUser, actualPower: 1 }
-                  return cardUser;
-                });
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.actualPower > 1)
-                  return { ...cardUser, actualPower: 1 }
-                  return cardUser;
-                });
-              }
-              if (rangedClimatics) {
-                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.actualPower > 1)
-                  return { ...cardUser, actualPower: 1 }
-                  return cardUser;
-                });
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero && cardUser.actualPower > 1)
-                  return { ...cardUser, actualPower: 1 }
-                  return cardUser;
-                });
-              }
-              if (siegeClimatics) {
-                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.actualPower > 1)
-                  return { ...cardUser, actualPower: 1 }
-                  return cardUser;
-                });
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero && cardUser.actualPower > 1)
-                  return { ...cardUser, actualPower: 1 }
-                  return cardUser;
-                });
-              }
-              if (dataMatchUserLogged.horns.melee.length > 0 || dataMatchUserLogged.field.find((card) => card.name === 'Dandelion')) {
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'melee' && !cardUser.hero && cardUser.name !== 'Dandelion')
-                  return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                  return cardUser;
-                });
-              }
-              if (dataMatchUserLogged.horns.ranged.length > 0) {
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'ranged' && !cardUser.hero)
-                  return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                  return cardUser;
-                });
-              }
-              if (dataMatchUserLogged.horns.siege.length > 0) {
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardUser) => {
-                  if (cardUser.typeCard === 'siege' && !cardUser.hero)
-                  return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                  return cardUser;
-                });
-              }
-              const groupSameCards = [];
-              dataMatchUserLogged.field.forEach(cart => {
-                if (cart.effect === "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).") {
-                  let existentGroup = groupSameCards.find(grupo => grupo.name === cart.name);
-                  if (!existentGroup) {
-                    existentGroup = { name: cart.name, cartas: [] };
-                    groupSameCards.push(existentGroup);
-                  }
-                  existentGroup.cartas.push(cart);
-                }
-              });
-
-              dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardField) => {
-                const findCard = groupSameCards.find((cardGroup) => cardGroup.name === cardField.name);
-                if (findCard) {
-                  return {
-                    ...cardField,
-                    actualPower: cardField.actualPower * findCard.cartas.length,
-                  }
-                } else return cardField;
-              });
-              
-              const cardMoreOne = dataMatchUserLogged.field.filter(cart => {
-                return cart.effect === "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)." && cart.hero === false;
-              });
-              cardMoreOne.forEach(cardOne => {
-                dataMatchUserLogged.field = dataMatchUserLogged.field.map((cardField) => {
-                if (cardField.typeCard === cardOne.typeCard && !cardField.hero && cardField.index !== cardOne.index && cardOne.name !== 'Isca') {
-                  return { ...cardField, actualPower: cardField.actualPower += 1 };
-                } return cardField;
-                });
-              });
 
               this.dataMatchUserLogged = dataMatchUserLogged;
               
@@ -1150,60 +1058,9 @@
                 break;
               }
 
-              if (dataMatchUserInvited) {
-                if (dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')) {
-                  dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                    if (cardUser.typeCard === 'melee' && !cardUser.hero)
-                    return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                    return cardUser;
-                  });
-                }
-                if (dataMatchUserInvited.horns.ranged.length > 0) {
-                  dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                    if (cardUser.typeCard === 'ranged' && !cardUser.hero)
-                    return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                    return cardUser;
-                  });
-                }
-                if (dataMatchUserInvited.horns.siege.length > 0) {
-                  dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardUser) => {
-                    if (cardUser.typeCard === 'siege' && !cardUser.hero)
-                    return { ...cardUser, actualPower: cardUser.actualPower * 2 }
-                    return cardUser;
-                  });
-                }
-                dataMatchUserInvited.field.forEach(cart => {
-                  if (cart.effect === "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).") {
-                    let existentGroup = groupSameCards.find(grupo => grupo.name === cart.name);
-                    if (!existentGroup) {
-                      existentGroup = { name: cart.name, cartas: [] };
-                      groupSameCards.push(existentGroup);
-                    }
-                    existentGroup.cartas.push(cart);
-                  }
-                });
-                dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardField) => {
-                  const findCard = groupSameCards.find((cardGroup) => cardGroup.name === cardField.name);
-                  if (findCard) {
-                    return {
-                      ...cardField,
-                      actualPower: cardField.actualPower * findCard.cartas.length,
-                    }
-                  } else return cardField;
-                });
-
-                const cardMoreOne = dataMatchUserInvited.field.filter(cart => {
-                  return cart.effect === "Adiciona +1 para todas as unidades na linha (exceto a si mesmo)." && cart.hero === false;
-                });
-                cardMoreOne.forEach(cardOne => {
-                  dataMatchUserInvited.field = dataMatchUserInvited.field.map((cardField) => {
-                  if (cardField.typeCard === cardOne.typeCard && !cardField.hero && cardField.index !== cardOne.index) {
-                    return { ...cardField, actualPower: cardField.actualPower += 1 };
-                  } return cardField;
-                  });
-                });
-                
+              if (dataMatchUserInvited) {                
                 this.dataMatchUserInvited = dataMatchUserInvited;
+                await this.calculatePower(dataMatchUserLogged, dataMatchUserInvited);
                 if (dataMatchUserLogged.deck.length > 0 && dataMatchUserInvited.deck.length > 0)   
                   this.playGameNow = true;
                   if (!dataMatchUserInvited.play && !dataMatchUserLogged.play) {
@@ -1275,60 +1132,59 @@
           });
       },
       async playCard () {
-        await this.calculatePower(this.dataMatchUserLogged, this.dataMatchUserInvited);
-        if (this.selectedCard.effect === 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.') {
-          if ((this.selectedCard.typeHorn === 'melee' || this.selectedCard.typeHorn === 'siege' || this.selectedCard.typeHorn === 'ranged') || this.selectedCard.name === 'Dandelion') {
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'horns');
-          } else {
-            if (this.dataMatchUserLogged.horns.siege.length > 0 && this.dataMatchUserLogged.horns.ranged.length > 0 && this.dataMatchUserLogged.horns.melee.length > 0) {
-              window.alert("Não é possível lançar a Corneta do Comandante, pois todos os espaços reservados estão preenchidos");
-            } else {
-              window.alert("Necessário escolher uma das fileiras que você deseja inserir a Corneta do Comandante.");
-            }
-          }
-        } else if(this.selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.') {
-          if (this.selectedCard.cardIndex || this.dataMatchUserLogged.field.filter((card) => !card.hero && card.name !== 'Isca').length === 0) {
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'isca');
+        const selectedCard = this.selectedCard;
+        if (selectedCard.effect === 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.') {
+          const fullHorns = this.dataMatchUserLogged.horns.siege.length > 0 && this.dataMatchUserLogged.horns.ranged.length > 0 && this.dataMatchUserLogged.horns.melee.length > 0;
+          if (selectedCard.typeHorn || selectedCard.name === 'Dandelion' || fullHorns)
+            await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'horns');
+          else
+            window.alert("Necessário escolher uma das fileiras que você deseja inserir a Corneta do Comandante.");
+        } else if(selectedCard.effect === 'Troque uma carta no campo de batalha para colocá-la em sua mão novamente.') {
+          if (selectedCard.cardIndex || this.dataMatchUserLogged.field.filter((card) => !card.hero && card.name !== 'Isca').length === 0) {
+            await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'isca');
           } else window.alert("Necessário escolher uma das cartas disponíveis em campo.");
-        } else if (JSON.parse(JSON.stringify(this.selectedCard)).effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).') {
-          const selected = JSON.parse(JSON.stringify(this.selectedCard));
+        } else if (JSON.parse(JSON.stringify(selectedCard)).effect === 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).') {
+          const selected = JSON.parse(JSON.stringify(selectedCard));
           if (selected.cardIndex || this.dataMatchUserLogged.discart.filter((card) => !card.hero && card.typeCard !== 'effect').length === 0) {
             await playInField(selected, this.matchId, this.dataMatchUserLogged.user, 'ress');
           } else window.alert("Necessário escolher uma das cartas disponíveis na pilha de descarte.");
         } else {
-          switch(this.selectedCard.effect) {
+          switch(selectedCard.effect) {
             case 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'queimar');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'queimar');
               break;
             case 'Define para 1 a força de todas as cartas de Combate Corporal para ambos os jogadores.':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
               break;
             case 'Define para 1 a força de todas as cartas de Combate à Distância para ambos os jogadores.':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
               break;
             case 'Define para 1 a força de todas as cartas de Cerco para ambos os jogadores.':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'climatics');
               break;
             case 'Remove os efeitos de todas as Cartas de Clima (Frio Congelante, Névoa Impenetrável e Chuva Torrencial).':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'tempo claro');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'tempo claro');
               break;
             case 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'espião');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'espião');
               break;
             case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
-              break;
-            case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
               break;
             case 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).':
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
               break;
             case 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.':
-            await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, 'both');
+            await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'both');
+              break;
+            case 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).':
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'multiply or sum one');
+              break;
+            case "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).":
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'multiply or sum one');
               break;
             default:
-              await playInField(this.selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
+              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
               break;
           }
         }
