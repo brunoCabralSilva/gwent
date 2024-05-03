@@ -29,7 +29,7 @@ function updateThrownCardValue(card, climatics, dataUser) {
   if (fieldSiege && card.typeCard === 'siege' && !card.hero)
     card.actualPower = 1;
   //Procura por cartas do tipo da lançada que ofereçam + 1 para todos
-  const findMoreOne = dataUser.filter((cardItem) => cardItem.effect === effectMoreOne && cardItem.index !== card.index && cardItem.typeCard === card.typeCard && !card.hero);
+  const findMoreOne = dataUser.field.filter((cardItem) => cardItem.effect === effectMoreOne && cardItem.index !== card.index && cardItem.typeCard === card.typeCard && !card.hero);
   //Soma mais um para carta encontrada do tipo citado
   card.actualPower = card.actualPower + findMoreOne.length;
   //Verifica se existem cartas de corneta que coincidem com o tipo da carta lançada
