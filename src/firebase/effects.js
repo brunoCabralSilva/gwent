@@ -18,9 +18,9 @@ const effectSameCards = 'Coloque ao lado de uma carta com o mesmo nome para dobr
 //Necessário testar antes se o tipo da carta é hero
 function updateThrownCardValue(card, climatics, dataUser) {
   card.actualPower = card.power;
-  const fieldMelee = climatics.find(() => climatics.name === 'Frio Congelante');
-  const fieldRanged = climatics.find(() => climatics.name === 'Névoa Impenetrável');
-  const fieldSiege = climatics.find(() => climatics.name === 'Chuva Torrencial');
+  const fieldMelee = climatics.find((item) => item.name === 'Frio Congelante');
+  const fieldRanged = climatics.find((item) => item.name === 'Névoa Impenetrável');
+  const fieldSiege = climatics.find((item) => item.name === 'Chuva Torrencial');
   //Verifica se existe alguma carta de clima no campo e se coincide com o tipo
   if (fieldMelee && card.typeCard === 'melee' && !card.hero)
     card.actualPower = 1;
