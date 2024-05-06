@@ -132,7 +132,7 @@ function throwClearWeather(dataUser, dataOponent) {
 }
 
 function throwSpy(card, dataUser, dataOponent, climatics) {
-  const updatedCard = updateThrownCardValue(card, climatics, dataUser);
+  const updatedCard = updateThrownCardValue(card, climatics, dataOponent);
   dataOponent.field.push(updatedCard);
   if (dataUser.deck.length >= 2) {
     dataUser.hand.push(dataUser.deck[0]);
