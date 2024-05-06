@@ -82,18 +82,18 @@ function throwHorn(card, dataUser) {
 function throwBurn(card, dataUser, dataOponent, climatics) {
   let maxPower = 0;
   for (let i = 0; i < dataOponent.field.length; i += 1) {
-    if (!dataOponent.field[i].hero && dataOponent.name !== "Isca" && dataOponent.field[i].actualPower > maxPower)
-      maxPower = dataOponent.field[i].actualPower;
+    if (!dataOponent.field[i].hero && dataOponent.name !== "Isca" && Number(dataOponent.field[i].actualPower) > Number(maxPower))
+      maxPower = Number(dataOponent.field[i].actualPower);
   }
-  dataOponent.discart = [
-    ...dataOponent.discart,
-    ...dataOponent.field
-      .filter((item) => !item.hero && Number(item.actualPower) === Number(maxPower) && item.name !== "Isca")
-      .map((cardItem) => {
-        cardItem.actualPower = cardItem.power;
-        return cardItem;
-      }),
-  ];
+  // dataOponent.discart = [
+  //   ...dataOponent.discart,
+  //   ...dataOponent.field
+  //     .filter((item) => !item.hero && Number(item.actualPower) === Number(maxPower) && item.name !== "Isca")
+  //     .map((cardItem) => {
+  //       cardItem.actualPower = cardItem.power;
+  //       return cardItem;
+  //     }),
+  // ];
   dataOponent.field = dataOponent.field
     .filter((item) => item.hero || Number(item.actualPower) !== Number(maxPower) || item.name === "Isca")
     .map((cardItem) => {
