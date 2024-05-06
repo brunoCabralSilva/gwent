@@ -87,15 +87,17 @@ function throwBurn(card, dataUser, dataOponent, climatics) {
   }
 
   const listOponentDiscard = dataOponent.field;
+
   dataOponent.discart = [
     ...dataOponent.discart,
-    ...listOponentDiscard.field
+    ...listOponentDiscard
     .filter((item) => !item.hero && Number(item.actualPower) === Number(maxPower) && item.name !== "Isca")
     .map((cardItem) => {
       cardItem.actualPower = cardItem.power;
       return cardItem;
     }),
   ];
+
   dataOponent.field = dataOponent.field
   .filter((item) => item.hero || Number(item.actualPower) !== Number(maxPower) || item.name === "Isca")
   .map((cardItem) => {
