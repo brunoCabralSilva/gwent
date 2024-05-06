@@ -15,29 +15,28 @@ const effectMoreOne = 'Adiciona +1 para todas as unidades na linha (exceto a si 
 const effectSameCards = 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).';
 // const effectHorn = 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.';
 
-//Necessário testar antes se o tipo da carta é hero
 function updateThrownCardValue(card, climatics, dataUser) {
   card.actualPower = card.power;
   const fieldMelee = climatics.find((item) => item.name === 'Frio Congelante');
   const fieldRanged = climatics.find((item) => item.name === 'Névoa Impenetrável');
   const fieldSiege = climatics.find((item) => item.name === 'Chuva Torrencial');
   //Verifica se existe alguma carta de clima no campo e se coincide com o tipo
-  if (fieldMelee && card.typeCard === 'melee' && !card.hero)
+  if (fieldMelee && card.typeCard === 'melee' && !card.hero && card.name !== "Isca")
     card.actualPower = 1;
-  if (fieldRanged && card.typeCard === 'ranged' && !card.hero)
+  if (fieldRanged && card.typeCard === 'ranged' && !card.hero && card.name !== "Isca")
     card.actualPower = 1;
-  if (fieldSiege && card.typeCard === 'siege' && !card.hero)
+  if (fieldSiege && card.typeCard === 'siege' && !card.hero && card.name !== "Isca")
     card.actualPower = 1;
   //Procura por cartas do tipo da lançada que ofereçam + 1 para todos
   const findMoreOne = dataUser.field.filter((cardItem) => cardItem.effect === effectMoreOne && cardItem.index !== card.index && cardItem.typeCard === card.typeCard && !card.hero);
   //Soma mais um para carta encontrada do tipo citado
   card.actualPower = card.actualPower + findMoreOne.length;
   //Verifica se existem cartas de corneta que coincidem com o tipo da carta lançada
-  if ((dataUser.horns.melee.length > 0 || dataUser.field.find((cardItem) => cardItem.name === 'Dandelion')) && card.typeCard === 'melee' && !card.hero)
+  if ((dataUser.horns.melee.length > 0 || dataUser.field.find((cardItem) => cardItem.name === 'Dandelion')) && card.typeCard === 'melee' && !card.hero && card.name !== "Isca")
     card.actualPower = card.actualPower * 2;
-  if (dataUser.horns.ranged.length > 0 && card.typeCard === 'ranged' && !card.hero)
+  if (dataUser.horns.ranged.length > 0 && card.typeCard === 'ranged' && !card.hero && card.name !== "Isca")
     card.actualPower = card.actualPower * 2;
-  if (dataUser.horns.siege.length > 0 && card.typeCard === 'siege' && !card.hero)
+  if (dataUser.horns.siege.length > 0 && card.typeCard === 'siege' && !card.hero && card.name !== "Isca")
     card.actualPower = card.actualPower * 2;
   //Procura por cartas iguais a ela que tem o efeito de duplicar (ou triplicar) valores
   if(card.effect === effectSameCards) {
@@ -54,21 +53,21 @@ function throwHorn(card, dataUser) {
   } else  {
     if (card.typeHorn === 'melee' || card.name === 'Dandelion') {
       dataUser.field = dataUser.field.map((cardItem) => {
-        if (cardItem.typeCard === 'melee' && !cardItem.hero) {
+        if (cardItem.typeCard === 'melee' && !cardItem.hero && card.name !== "Isca") {
           cardItem.actualPower = cardItem.actualPower * 2;
           return cardItem;
         } else return cardItem;
       });
     } else if (card.typeHorn === 'ranged') {
       dataUser.field = dataUser.field.map((cardItem) => {
-        if (cardItem.typeCard === 'ranged' && !cardItem.hero) {
+        if (cardItem.typeCard === 'ranged' && !cardItem.hero && card.name !== "Isca") {
           cardItem.actualPower = cardItem.actualPower * 2;
           return cardItem;
         } else return cardItem;
       });
     } else if (card.typeHorn === 'siege') {
       dataUser.field = dataUser.field.map((cardItem) => {
-        if (cardItem.typeCard === 'siege' && !cardItem.hero) {
+        if (cardItem.typeCard === 'siege' && !cardItem.hero && card.name !== "Isca") {
           cardItem.actualPower = cardItem.actualPower * 2;
           return cardItem;
         } else return cardItem;
@@ -83,19 +82,20 @@ function throwHorn(card, dataUser) {
 function throwBurn(card, dataUser, dataOponent, climatics) {
   var maxPower = 0;
   for (let i = 0; i < dataOponent.field.length; i += 1) {
-    if (!dataOponent.field[i].hero && dataOponent.field[i].actualPower > maxPower) maxPower = dataOponent.field[i].actualPower;
+    if (!dataOponent.field[i].hero && dataOponent.name !== "Isca" && dataOponent.field[i].actualPower > maxPower)
+    maxPower = dataOponent.field[i].actualPower;
   }
   dataOponent.discart = [
     ...dataOponent.discart,
     ...dataOponent.field
-      .filter((item) => !item.hero && item.actualPower === maxPower)
+      .filter((item) => !item.hero && item.actualPower === maxPower && item.name !== "Isca")
       .map((cardItem) => {
         cardItem.actualPower = cardItem.power;
         return cardItem;
       }),
   ];
   dataOponent.field = dataOponent.field
-    .filter((item) => item.hero || item.actualPower !== maxPower)
+    .filter((item) => !item.hero || item.actualPower !== maxPower || item.name !== "Isca")
     .map((cardItem) => {
       return updateThrownCardValue(cardItem, climatics, dataUser);
     })
