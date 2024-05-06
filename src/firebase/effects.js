@@ -237,8 +237,8 @@ function throwRess(card, dataUser, dataOponent, climatics, matchData) {
 }
 
 function throwMultiplyandMoreOne(card, dataUser, climatics) {
-  dataUser.field.push(card);
-  dataUser.field = dataUser.field.map((cartItem) => {
+  const data = [...dataUser.field, card];
+  dataUser.field = data.map((cartItem) => {
     return updateThrownCardValue(cartItem, climatics, dataUser);
   });
   return dataUser;
