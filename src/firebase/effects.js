@@ -80,10 +80,10 @@ function throwHorn(card, dataUser) {
 }
 
 function throwBurn(card, dataUser, dataOponent, climatics) {
-  var maxPower = 0;
+  let maxPower = 0;
   for (let i = 0; i < dataOponent.field.length; i += 1) {
     if (!dataOponent.field[i].hero && dataOponent.name !== "Isca" && dataOponent.field[i].actualPower > maxPower)
-    maxPower = dataOponent.field[i].actualPower;
+      maxPower = dataOponent.field[i].actualPower;
   }
   dataOponent.discart = [
     ...dataOponent.discart,
@@ -95,10 +95,11 @@ function throwBurn(card, dataUser, dataOponent, climatics) {
       }),
   ];
   dataOponent.field = dataOponent.field
-    .filter((item) => !item.hero || item.actualPower !== maxPower || item.name !== "Isca")
+    .filter((item) => item.hero || item.actualPower !== maxPower || item.name === "Isca")
     .map((cardItem) => {
-      return updateThrownCardValue(cardItem, climatics, dataUser);
-    })
+      return updateThrownCardValue(cardItem, climatics, dataOponent);
+    });
+
   if (card.name === "Villentretenmerth") {
     card = updateThrownCardValue(card, climatics, dataUser)
     dataUser.field.push(card);
