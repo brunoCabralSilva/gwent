@@ -85,8 +85,18 @@ function throwBurn(card, dataUser, dataOponent, climatics) {
     if (!dataOponent.field[i].hero && dataOponent.name !== "Isca" && Number(dataOponent.field[i].actualPower) > Number(maxPower))
       maxPower = Number(dataOponent.field[i].actualPower);
   }
-
   const listOponentDiscard = dataOponent.field;
+  
+  dataOponent.field = dataOponent.field
+  .filter((item) => item.hero || Number(item.actualPower) !== Number(maxPower) || item.name === "Isca")
+  .map((cardItem) => {
+    return updateThrownCardValue(cardItem, climatics, dataOponent);
+  });
+  
+  if (card.name === "Villentretenmerth") {
+    card = updateThrownCardValue(card, climatics, dataUser)
+    dataUser.field.push(card);
+  } else dataUser.discart.push(card);
 
   dataOponent.discart = [
     ...dataOponent.discart,
@@ -98,16 +108,6 @@ function throwBurn(card, dataUser, dataOponent, climatics) {
     }),
   ];
 
-  dataOponent.field = dataOponent.field
-  .filter((item) => item.hero || Number(item.actualPower) !== Number(maxPower) || item.name === "Isca")
-  .map((cardItem) => {
-    return updateThrownCardValue(cardItem, climatics, dataOponent);
-  });
-  
-  if (card.name === "Villentretenmerth") {
-    card = updateThrownCardValue(card, climatics, dataUser)
-    dataUser.field.push(card);
-  } else dataUser.discart.push(card);
   return { dataUser, dataOponent };
 }
 
