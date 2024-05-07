@@ -1171,9 +1171,6 @@
             case 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.':
               await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'same cards from deck');
               break;
-            case 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).':
-              await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, '');
-              break;
             case 'Pode ser colocado tanto na fileira de Combate Corpo a Corpo quanto na fileira de Combate à Distância. Não pode ser movido uma vez colocado.':
             await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'both');
               break;
@@ -1181,6 +1178,7 @@
               await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'multiply or sum one');
               break;
             case "Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).":
+              console.log('aqui ele entrou')
               await playInField(selectedCard, this.matchId, this.dataMatchUserLogged.user, 'multiply or sum one');
               break;
             default:

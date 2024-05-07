@@ -41,6 +41,7 @@ function updateThrownCardValue(card, climatics, dataUser) {
   //Procura por cartas iguais a ela que tem o efeito de duplicar (ou triplicar) valores
   if(card.effect === effectSameCards) {
     const listEquals = dataUser.field.filter((cardItem) => cardItem.name === card.name && cardItem.index !== card.index);
+    console.log('Itens iguais: ' + listEquals.length);
     if (listEquals.length > 0) card.actualPower = card.actualPower * (listEquals.length + 1);
   }
   return card;
@@ -233,11 +234,13 @@ function throwRess(card, dataUser, dataOponent, climatics, matchData) {
       break;
   }
   dataUser.field.push(updateThrownCardValue(card, climatics, dataUser));
-  return dataUser;
+  return { dataUser, dataOponent };
 }
 
 function throwMultiplyandMoreOne(card, dataUser, climatics) {
+  console.log('Tamanho antes: ' + dataUser.field.length);
   dataUser.field = [...dataUser.field, card];
+  console.log('Tamanho depois: ' + dataUser.field.length);
   dataUser.field = dataUser.field.map((cartItem) => {
     return updateThrownCardValue(cartItem, climatics, dataUser);
   });
@@ -254,6 +257,7 @@ export async function playInField(card, matchId, idUser, effect) {
       const matchData =  userDocSnapshot.data();
       let findAnotherUser = matchData.users.find((match) => match.user !== idUser);
       let findUser = matchData.users.find((match) =>  match.user === idUser);
+      console.log(effect);
       switch(effect) {
         case 'horns':
           findUser = throwHorn(card, findUser);
