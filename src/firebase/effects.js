@@ -12,8 +12,12 @@ const firebaseConfig = {
 };
 
 const effectMoreOne = 'Adiciona +1 para todas as unidades na linha (exceto a si mesmo).';
-const effectSameCards = 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).';
-// const effectHorn = 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.';
+const effectMultiplyCards = 'Coloque ao lado de uma carta com o mesmo nome para dobrar a força de ambas as cartas (ou triplicar, caso três cartas com o mesmo nome estejam em campo).';
+const effectHorn = 'Duplica a força de todas as cartas de unidades em uma fileira. Limite de 1 por fileira.';
+const effectSameCards = 'Encontra as cartas com o mesmo nome no seu baralho e joga-os no campo instantaneamente.';
+const effectBurn = 'Destrua a carta mais poderosa do oponente. O efeito se aplica a mais cartas se elas tiverem o mesmo valor.';
+const effectSpy = 'Coloque no campo de batalha do seu oponente (conta para o total do seu oponente) e compre duas cartas do seu baralho.';
+// const effectRess = 'Escolha uma carta da sua pilha de descarte e lance-a de volta ao jogo imediatamente (exceto heróis e cartas especiais).';
 
 function updateThrownCardValue(card, climatics, dataUser) {
   card.actualPower = card.power;
@@ -39,7 +43,7 @@ function updateThrownCardValue(card, climatics, dataUser) {
   if (dataUser.horns.siege.length > 0 && card.typeCard === 'siege' && !card.hero && card.name !== "Isca")
     card.actualPower = card.actualPower * 2;
   //Procura por cartas iguais a ela que tem o efeito de duplicar (ou triplicar) valores
-  if(card.effect === effectSameCards) {
+  if(card.effect === effectMultiplyCards) {
     const listEquals = dataUser.field.filter((cardItem) => cardItem.name === card.name && cardItem.index !== card.index);
     console.log('Itens iguais: ' + listEquals.length);
     if (listEquals.length > 0) card.actualPower = card.actualPower * (listEquals.length + 1);
@@ -184,56 +188,41 @@ function throwBothFields(card, dataUser, climatics) {
 
 function throwRess(card, dataUser, dataOponent, climatics, matchData) {
   var cardToField = dataUser.discart.find((cardField) => cardField.index === card.cardIndex);
-  dataUser.discart = dataUser.discart.filter((cardField) => cardField.index !== cardToField.index);
-  dataUser.field = [...dataUser.field, card, cardToField];
+  dataUser.discart = dataUser.discart.filter((cardField) => cardField.index !== card.cardIndex);
+  dataUser.field = [...dataUser.field, card];
   switch(cardToField.effect) {
-    case 'horns':
-      dataUser = throwHorn(card, dataUser);
+    case effectHorn:
+      dataUser = throwHorn(cardToField, dataUser);
       break;
-    case 'queimar':
-      var updatedBurnPlayers = throwBurn(card, dataUser, dataOponent, matchData.climatics);
+    case effectBurn:
+      var updatedBurnPlayers = throwBurn(cardToField, dataUser, dataOponent, matchData.climatics);
       dataUser = updatedBurnPlayers.dataUser;
       dataOponent = updatedBurnPlayers.dataOponent;
       break;
-    case 'climatics':
-      var updateClimaticCards = throwClimatics(card, matchData, dataUser, dataOponent);
-      dataUser = updateClimaticCards.dataUser;
-      dataOponent = updateClimaticCards.dataOponent;
-      break;
-    case 'tempo claro':
-      matchData.climatics = [];
-      var updateClearWeather = throwClearWeather(dataUser, dataOponent);
-      dataUser = updateClearWeather.dataUser;
-      dataOponent = updateClearWeather.dataOponent;
-      break;
-    case 'espião':
-      var updateSpy = throwSpy(card, dataUser, dataOponent, matchData.climatics);
+    case effectSpy:
+      var updateSpy = throwSpy(cardToField, dataUser, dataOponent, matchData.climatics);
       dataUser = updateSpy.dataUser;
       dataOponent = updateSpy.dataOponent;
       break;
-    case 'same cards from deck':
-      dataUser = throwSameCards(card, dataUser, matchData.climatics);
+    case effectSameCards:
+      dataUser = throwSameCards(cardToField, dataUser, matchData.climatics);
       break;
-    case 'isca':
-      dataUser = throwBait(card, dataUser);
+    case effectMoreOne:
+      dataUser = throwMultiplyandMoreOne(cardToField, dataUser, matchData.climatics);
       break;
-    // case 'both':
-    //   dataUser = throwBothFields(card, dataUser, matchData.climatics);
-    //   break;
-    // case 'ress':
-    //   dataUser = throwRess(card, dataUser, matchData.climatics);
-    //   break;
-    case 'more 1':
-      dataUser = throwMultiplyandMoreOne(card, dataUser, matchData.climatics);
-      break;
-    case 'multiply':
-      dataUser = throwMultiplyandMoreOne(card, dataUser, matchData.climatics);
+    case effectMultiplyCards:
+      dataUser = throwMultiplyandMoreOne(cardToField, dataUser, matchData.climatics);
       break;
     default:
-      dataUser.field.push(updateThrownCardValue(card, matchData.climatics, dataUser));
+      dataUser.field.push(updateThrownCardValue(cardToField, matchData.climatics, dataUser));
       break;
+  // case 'both':
+  //   dataUser = throwBothFields(card, dataUser, matchData.climatics);
+  //   break;
+  // case effectRess:
+  //   dataUser = throwRess(card, dataUser, matchData.climatics);
+  //   break;
   }
-  dataUser.field.push(updateThrownCardValue(card, climatics, dataUser));
   return { dataUser, dataOponent };
 }
 
