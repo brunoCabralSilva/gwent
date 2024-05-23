@@ -162,18 +162,18 @@
             >
               <div v-if="!card.hero" class="div-power-card">
                 <p
-                  v-if="dataUserInvited.horns.siege.length > 0"
+                  v-if="dataMatchUserInvited.horns.siege.length > 0"
                   class="class-actual-power-buff"
                 >
                   {{ card.actualPower }}
                 </p>
                 <p
-                  v-if="dataUserInvited.horns.siege.length === 0 && verifyClimatics('Chuva Torrencial')"
+                  v-if="dataMatchUserInvited.horns.siege.length === 0 && verifyClimatics('Chuva Torrencial')"
                   class="class-actual-power-field"
                 >
                   {{ card.actualPower }}
                 </p>
-                <p v-if="dataUserInvited.horns.siege.length === 0 && !verifyClimatics('Chuva Torrencial')">
+                <p v-if="dataMatchUserInvited.horns.siege.length === 0 && !verifyClimatics('Chuva Torrencial')">
                   {{ card.actualPower }}
                 </p>
               </div>
@@ -212,18 +212,18 @@
             >
               <div v-if="!card.hero" class="div-power-card">
                 <p
-                  v-if="dataUserInvited.horns.ranged.length > 0"
+                  v-if="dataMatchUserInvited.horns.ranged.length > 0"
                   class="class-actual-power-buff"
                 >
                   {{ card.actualPower }}
                 </p>
                 <p
-                  v-if="dataUserInvited.horns.ranged.length === 0 && verifyClimatics('Névoa Impenetrável')"
+                  v-if="dataMatchUserInvited.horns.ranged.length === 0 && verifyClimatics('Névoa Impenetrável')"
                   class="class-actual-power-field"
                 >
                   {{ card.actualPower }}
                 </p>
-                <p v-if="dataUserInvited.horns.ranged.length === 0 && !verifyClimatics('Névoa Impenetrável')">
+                <p v-if="dataMatchUserInvited.horns.ranged.length === 0 && !verifyClimatics('Névoa Impenetrável')">
                   {{ card.actualPower }}
                 </p>
               </div>
