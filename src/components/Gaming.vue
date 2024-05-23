@@ -161,7 +161,21 @@
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
-                {{ card.actualPower }}
+                <p
+                  v-if="dataUserInvited.horns.siege.length > 0"
+                  class="class-actual-power-buff"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p
+                  v-if="dataUserInvited.horns.siege.length === 0 && verifyClimatics('Chuva Torrencial')"
+                  class="class-actual-power-field"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p v-if="dataUserInvited.horns.siege.length === 0 && !verifyClimatics('Chuva Torrencial')">
+                  {{ card.actualPower }}
+                </p>
               </div>
               <div v-else class="div-power-card-hero">
                 {{ card.actualPower }}
@@ -197,7 +211,21 @@
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
-                {{ card.actualPower }}
+                <p
+                  v-if="dataUserInvited.horns.ranged.length > 0"
+                  class="class-actual-power-buff"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p
+                  v-if="dataUserInvited.horns.ranged.length === 0 && verifyClimatics('Névoa Impenetrável')"
+                  class="class-actual-power-field"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p v-if="dataUserInvited.horns.ranged.length === 0 && !verifyClimatics('Névoa Impenetrável')">
+                  {{ card.actualPower }}
+                </p>
               </div>
               <div v-else class="div-power-card-hero">
                 {{ card.actualPower }}
@@ -227,7 +255,21 @@
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
-                {{ card.actualPower }}
+                <p
+                  v-if="dataMatchUserInvited.horns.melee.length > 0 || dataMatchUserInvited.field.find((card) => card.name === 'Dandelion')"
+                  class="class-actual-power-buff"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p
+                  v-if="dataMatchUserInvited.horns.melee.length === 0 && !dataMatchUserInvited.field.find((card) => card.name === 'Dandelion') && verifyClimatics('Frio Congelante')"
+                  class="class-actual-power-field"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p v-if="dataMatchUserInvited.horns.melee.length === 0 && !dataMatchUserInvited.field.find((card) => card.name === 'Dandelion') && !verifyClimatics('Frio Congelante')">
+                  {{ card.actualPower }}
+                </p>
               </div>
               <div v-else class="div-power-card-hero">
                 {{ card.actualPower }}
@@ -259,7 +301,21 @@
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
-                {{ card.actualPower }}
+                <p
+                  v-if="dataMatchUserLogged.horns.melee.length > 0 || dataMatchUserLogged.field.find((card) => card.name === 'Dandelion')"
+                  class="class-actual-power-buff"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p
+                  v-if="dataMatchUserLogged.horns.melee.length === 0 && !dataMatchUserLogged.field.find((card) => card.name === 'Dandelion') && verifyClimatics('Frio Congelante')"
+                  class="class-actual-power-field"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p v-if="dataMatchUserLogged.horns.melee.length === 0 && !dataMatchUserLogged.field.find((card) => card.name === 'Dandelion') && !verifyClimatics('Frio Congelante')">
+                  {{ card.actualPower }}
+                </p>
               </div>
               <div v-else class="div-power-card-hero">
                 {{ card.actualPower }}
@@ -295,7 +351,21 @@
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
-                {{ card.actualPower }}
+                <p
+                  v-if="dataMatchUserLogged.horns.ranged.length > 0"
+                  class="class-actual-power-buff"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p
+                  v-if="dataMatchUserLogged.horns.ranged.length === 0 && verifyClimatics('Névoa Impenetrável')"
+                  class="class-actual-power-field"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p v-if="dataMatchUserLogged.horns.ranged.length === 0 && !verifyClimatics('Névoa Impenetrável')">
+                  {{ card.actualPower }}
+                </p>
               </div>
               <div v-else class="div-power-card-hero">
                 {{ card.actualPower }}
@@ -325,7 +395,21 @@
               @click="selectCard({ ...card, card: 'field' })"
             >
               <div v-if="!card.hero" class="div-power-card">
-                {{ card.actualPower }}
+                <p
+                  v-if="dataMatchUserLogged.horns.siege.length > 0"
+                  class="class-actual-power-buff"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p
+                  v-if="dataMatchUserLogged.horns.siege.length === 0 && verifyClimatics('Chuva Torrencial')"
+                  class="class-actual-power-field"
+                >
+                  {{ card.actualPower }}
+                </p>
+                <p v-if="dataMatchUserLogged.horns.siege.length === 0 && !verifyClimatics('Chuva Torrencial')">
+                  {{ card.actualPower }}
+                </p>
               </div>
               <div v-else class="div-power-card-hero">
                 {{ card.actualPower }}
@@ -1894,5 +1978,13 @@
 
   .deck-card img {
     object-fit: contain;
+  }
+
+  .class-actual-power-buff {
+    color: rgb(11, 109, 11);
+  }
+
+  .class-actual-power-field {
+    color: rgb(128, 7, 7);
   }
 </style>

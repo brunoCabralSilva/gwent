@@ -56,13 +56,24 @@ function throwHorn(card, dataUser) {
     delete card.typeHorn;
     dataUser.discart.push(card);
   } else  {
-    if (card.typeHorn === 'melee' || card.name === 'Dandelion') {
-      dataUser.field = dataUser.field.map((cardItem) => {
-        if (cardItem.typeCard === 'melee' && !cardItem.hero && card.name !== "Isca") {
-          cardItem.actualPower = cardItem.actualPower * 2;
-          return cardItem;
-        } else return cardItem;
-      });
+    if (card.typeHorn === 'melee') {
+      if (!dataUser.field.find((cardItem) => cardItem.name === 'Dandelion')) {
+        dataUser.field = dataUser.field.map((cardItem) => {
+          if (cardItem.typeCard === 'melee' && !cardItem.hero && card.name !== "Isca") {
+            cardItem.actualPower = cardItem.actualPower * 2;
+            return cardItem;
+          } else return cardItem;
+        });  
+      }
+    } else if (card.name === 'Dandelion') {
+      if (dataUser.horns.melee.length === 0) {
+        dataUser.field = dataUser.field.map((cardItem) => {
+          if (cardItem.typeCard === 'melee' && !cardItem.hero && card.name !== "Isca") {
+            cardItem.actualPower = cardItem.actualPower * 2;
+            return cardItem;
+          } else return cardItem;
+        });  
+      }
     } else if (card.typeHorn === 'ranged') {
       dataUser.field = dataUser.field.map((cardItem) => {
         if (cardItem.typeCard === 'ranged' && !cardItem.hero && card.name !== "Isca") {
